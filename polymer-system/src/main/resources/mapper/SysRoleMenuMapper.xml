@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.polymer.system.mapper.SysRoleMenuMapper">
+
+    <resultMap type="SysRoleMenuEntity" id="SysRoleMenuResult">
+        <result property="id" column="id"/>
+        <result property="roleId" column="role_id"/>
+        <result property="menuId" column="menu_id"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updater" column="updater"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectSysRoleMenuVo">
+        select id,
+               role_id,
+               menu_id,
+               creator,
+               create_time,
+               updater,
+               update_time
+        from sys_role_menu
+    </sql>
+
+    <!--查询角色菜单关系-->
+    <select id="selectSysRoleMenuById" parameterType="Long" resultMap="SysRoleMenuResult">
+        <include refid="selectSysRoleMenuVo"/>
+        where id = #{id}
+    </select>
+
+    <!--新增角色菜单关系-->
+    <insert id="insertSysRoleMenu" parameterType="SysRoleMenuEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_role_menu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">role_id,</if>
+            <if test="menuId != null">menu_id,</if>
+            <if test="creator != null">creator,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updater != null">updater,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">#{roleId},</if>
+            <if test="menuId != null">#{menuId},</if>
+            <if test="creator != null">#{creator},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updater != null">#{updater},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <!--修改角色菜单关系-->
+    <update id="updateSysRoleMenu" parameterType="SysRoleMenuEntity">
+        update sys_role_menu
+        <set>
+            <if test="id != null">id = #{id},</if>
+            <if test="roleId != null">role_id = #{roleId},</if>
+            <if test="menuId != null">menu_id = #{menuId},</if>
+            <if test="creator != null">creator = #{creator},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updater != null">updater = #{updater},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除角色菜单关系-->
+    <delete id="deleteSysRoleMenuById" parameterType="Long">
+        delete from sys_role_menu where id = #{id}
+    </delete>
+
+    <!--根据角色ID，获取菜单ID列表-->
+    <select id="getMenuIdList" resultType="Long">
+        select menu_id from sys_role_menu where role_id = #{roleId}
+    </select>
+
+    <!--根据角色id集合和菜单id集合删除角色菜单关系信息-->
+    <delete id="deleteByRoleIdAndMenuId" parameterType="Long">
+        delete from sys_role_menu
+        <where>
+            <if test="roleIdList != null and !roleIdList.isEmpty()">
+                and role_id in
+                <foreach collection="roleIdList" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="menuIdList != null and !menuIdList.isEmpty()">
+                and menu_id in
+                <foreach collection="menuIdList" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <!-- 兜底条件：两个列表都为空时阻止全表更新 -->
+            <if test="(roleIdList == null or roleIdList.isEmpty())
+                  and (menuIdList == null or menuIdList.isEmpty())">
+                AND id = -1
+            </if>
+        </where>
+    </delete>
+
+    <!--根据菜单id删除菜单关系信息-->
+    <delete id="deleteSysRoleMenuByMenuId" parameterType="Long">
+        delete from sys_role_menu where menu_id = #{menuId}
+    </delete>
+</mapper>

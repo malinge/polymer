@@ -1,0 +1,31 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 继承父级 POM -->
+    <parent>
+        <groupId>com.polymer</groupId>
+        <artifactId>polymer-module</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <!-- 基本信息 -->
+    <artifactId>polymer-module-quartz</artifactId>
+    <packaging>jar</packaging>
+    <name>polymer-module-quartz</name>
+    <description>系统定时任务公共模块</description>
+
+    <!-- 子模块特有依赖 -->
+    <dependencies>
+        <dependency>
+            <groupId>com.polymer</groupId>
+            <artifactId>polymer-framework</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

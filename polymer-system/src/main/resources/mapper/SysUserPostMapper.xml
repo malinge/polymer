@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.polymer.system.mapper.SysUserPostMapper">
+
+    <resultMap type="SysUserPostEntity" id="SysUserPostResult">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="postId" column="post_id"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updater" column="updater"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectSysUserPostVo">
+        select id,
+               user_id,
+               post_id,
+               creator,
+               create_time,
+               updater,
+               update_time
+        from sys_user_post
+    </sql>
+
+    <!--查询用户岗位关系列表-->
+    <select id="selectSysUserPostList" parameterType="com.polymer.system.query.SysUserPostQuery"
+            resultMap="SysUserPostResult">
+        <include refid="selectSysUserPostVo"/>
+    </select>
+
+    <!--查询用户岗位关系-->
+    <select id="selectSysUserPostById" parameterType="Long" resultMap="SysUserPostResult">
+        <include refid="selectSysUserPostVo"/>
+        where id = #{id}
+    </select>
+
+    <!--新增用户岗位关系-->
+    <insert id="insertSysUserPost" parameterType="SysUserPostEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_user_post
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="postId != null">post_id,</if>
+            <if test="creator != null">creator,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updater != null">updater,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="postId != null">#{postId},</if>
+            <if test="creator != null">#{creator},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updater != null">#{updater},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <!--修改用户岗位关系-->
+    <update id="updateSysUserPost" parameterType="SysUserPostEntity">
+        update sys_user_post
+        <set>
+            <if test="id != null">id = #{id},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="postId != null">post_id = #{postId},</if>
+            <if test="creator != null">creator = #{creator},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updater != null">updater = #{updater},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除用户岗位关系-->
+    <delete id="deleteSysUserPostById" parameterType="Long">
+        delete from sys_user_post where id = #{id}
+    </delete>
+
+    <!--岗位ID列表-->
+    <select id="getPostIdList" resultType="Long">
+        select post_id from sys_user_post where user_id = #{userId}
+    </select>
+
+    <!--根据用户id集合和岗位id集合删除用户岗位关系信息-->
+    <delete id="deleteByUserIdAndPostId">
+        delete from sys_user_post
+        <where>
+            <!-- 用户ID列表条件 -->
+            <if test="userIdList != null and !userIdList.isEmpty()">
+                and user_id in
+                <foreach collection="userIdList" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <!-- 岗位ID列表条件 -->
+            <if test="postIdList != null and !postIdList.isEmpty()">
+                and post_id in
+                <foreach collection="postIdList" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <!-- 兜底条件：两个列表都为空时阻止全表更新 -->
+            <if test="(userIdList == null or userIdList.isEmpty())
+                  and (postIdList == null or postIdList.isEmpty())">
+                AND id = -1
+            </if>
+        </where>
+    </delete>
+
+</mapper>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.polymer.quartz.mapper.ScheduleJobMapper">
+
+    <resultMap type="ScheduleJobEntity" id="ScheduleJobResult">
+        <result property="id" column="id"/>
+        <result property="jobName" column="job_name"/>
+        <result property="jobGroup" column="job_group"/>
+        <result property="beanName" column="bean_name"/>
+        <result property="method" column="method"/>
+        <result property="params" column="params"/>
+        <result property="cronExpression" column="cron_expression"/>
+        <result property="status" column="status"/>
+        <result property="concurrent" column="concurrent"/>
+        <result property="remark" column="remark"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updater" column="updater"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectScheduleJobVo">
+        select id,
+               job_name,
+               job_group,
+               bean_name,
+               method,
+               params,
+               cron_expression,
+               status,
+               concurrent,
+               remark,
+               creator,
+               create_time,
+               updater,
+               update_time
+        from schedule_job
+    </sql>
+
+    <!--查询定时任务列表-->
+    <select id="selectScheduleJobList" parameterType="com.polymer.quartz.query.ScheduleJobQuery"
+            resultMap="ScheduleJobResult">
+        <include refid="selectScheduleJobVo"/>
+        <where>
+            <if test="jobName != null and jobName != ''">
+                AND job_name like concat('%', #{jobName}, '%')
+            </if>
+            <if test="jobGroup != null and jobGroup != ''">
+                AND job_group like concat('%', #{jobGroup}, '%')
+            </if>
+            <if test="status != null">
+                AND status = #{status})
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+    <!--查询定时任务-->
+    <select id="selectScheduleJobById" parameterType="Long" resultMap="ScheduleJobResult">
+        <include refid="selectScheduleJobVo"/>
+        where id = #{id}
+    </select>
+
+    <!--新增定时任务-->
+    <insert id="insertScheduleJob" parameterType="ScheduleJobEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into schedule_job
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="jobName != null and jobName != ''">job_name,</if>
+            <if test="jobGroup != null and jobGroup != ''">job_group,</if>
+            <if test="beanName != null and beanName != ''">bean_name,</if>
+            <if test="method != null and method != ''">method,</if>
+            <if test="params != null and params != ''">params,</if>
+            <if test="cronExpression != null and cronExpression != ''">cron_expression,</if>
+            <if test="status != null">status,</if>
+            <if test="concurrent != null">concurrent,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="creator != null">creator,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updater != null">updater,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="jobName != null and jobName != ''">#{jobName},</if>
+            <if test="jobGroup != null and jobGroup != ''">#{jobGroup},</if>
+            <if test="beanName != null and beanName != ''">#{beanName},</if>
+            <if test="method != null and method != ''">#{method},</if>
+            <if test="params != null and params != ''">#{params},</if>
+            <if test="cronExpression != null and cronExpression != ''">#{cronExpression},</if>
+            <if test="status != null">#{status},</if>
+            <if test="concurrent != null">#{concurrent},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="creator != null">#{creator},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updater != null">#{updater},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <!--修改定时任务-->
+    <update id="updateScheduleJob" parameterType="ScheduleJobEntity">
+        update schedule_job
+        <set>
+            <if test="jobName != null and jobName != ''">job_name = #{jobName},</if>
+            <if test="jobGroup != null and jobGroup != ''">job_group = #{jobGroup},</if>
+            <if test="beanName != null and beanName != ''">bean_name = #{beanName},</if>
+            <if test="method != null and method != ''">method = #{method},</if>
+            <if test="params != null and params != ''">params = #{params},</if>
+            <if test="cronExpression != null and cronExpression != ''">cron_expression = #{cronExpression},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="concurrent != null">concurrent = #{concurrent},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="creator != null">creator = #{creator},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updater != null">updater = #{updater},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除定时任务-->
+    <delete id="deleteScheduleJobById" parameterType="Long">
+        delete from schedule_job where id = #{id}
+    </delete>
+</mapper>

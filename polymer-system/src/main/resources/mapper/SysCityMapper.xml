@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.polymer.system.mapper.SysCityMapper">
+
+    <resultMap type="SysCityEntity" id="SysCityResult">
+        <result property="id" column="id"/>
+        <result property="pid" column="pid"/>
+        <result property="name" column="name"/>
+        <result property="pinyin" column="pinyin"/>
+        <result property="shortName" column="short_name"/>
+        <result property="fullName" column="full_name"/>
+        <result property="areaCode" column="area_code"/>
+        <result property="cityCode" column="city_code"/>
+        <result property="parentCode" column="parent_code"/>
+        <result property="level" column="level"/>
+        <result property="zipCode" column="zip_code"/>
+        <result property="longitude" column="longitude"/>
+        <result property="latitude" column="latitude"/>
+        <result property="haveChild" column="have_child"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updater" column="updater"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectSysCityVo">
+        select id,pid,name,pinyin,short_name,full_name,area_code,city_code,parent_code,level,zip_code,longitude,latitude,have_child,creator,create_time,updater,update_time
+        from sys_city
+    </sql>
+
+    <!--查询城市管理列表-->
+    <select id="selectSysCityList" parameterType="com.polymer.system.query.SysCityQuery" resultMap="SysCityResult">
+        <include refid="selectSysCityVo"/>
+        <where>
+            <if test="level != null">
+                AND level = #{level}
+            </if>
+            <if test="pid != null">
+                AND pid = #{pid}
+            </if>
+            <if test="name != null and name != ''">
+                AND name like concat('%', #{name}, '%')
+            </if>
+        </where>
+    </select>
+
+    <!--查询城市管理-->
+    <select id="selectSysCityById" parameterType="Long" resultMap="SysCityResult">
+        <include refid="selectSysCityVo"/>
+        where id = #{id}
+    </select>
+
+    <!--新增城市管理-->
+    <insert id="insertSysCity" parameterType="SysCityEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_city
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pid != null">pid,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="pinyin != null and pinyin != ''">pinyin,</if>
+            <if test="shortName != null and shortName != ''">short_name,</if>
+            <if test="fullName != null and fullName != ''">full_name,</if>
+            <if test="areaCode != null and areaCode != ''">area_code,</if>
+            <if test="cityCode != null and cityCode != ''">city_code,</if>
+            <if test="parentCode != null and parentCode != ''">parent_code,</if>
+            <if test="level != null">level,</if>
+            <if test="zipCode != null and zipCode != ''">zip_code,</if>
+            <if test="longitude != null and longitude != ''">longitude,</if>
+            <if test="latitude != null and latitude != ''">latitude,</if>
+            <if test="haveChild != null">have_child,</if>
+            <if test="creator != null">creator,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updater != null">updater,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pid != null">#{pid},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="pinyin != null and pinyin != ''">#{pinyin},</if>
+            <if test="shortName != null and shortName != ''">#{shortName},</if>
+            <if test="fullName != null and fullName != ''">#{fullName},</if>
+            <if test="areaCode != null and areaCode != ''">#{areaCode},</if>
+            <if test="cityCode != null and cityCode != ''">#{cityCode},</if>
+            <if test="parentCode != null and parentCode != ''">#{parentCode},</if>
+            <if test="level != null">#{level},</if>
+            <if test="zipCode != null and zipCode != ''">#{zipCode},</if>
+            <if test="longitude != null and longitude != ''">#{longitude},</if>
+            <if test="latitude != null and latitude != ''">#{latitude},</if>
+            <if test="haveChild != null">#{haveChild},</if>
+            <if test="creator != null">#{creator},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updater != null">#{updater},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <!--修改城市管理-->
+    <update id="updateSysCity" parameterType="SysCityEntity">
+        update sys_city
+        <set>
+            <if test="pid != null">pid = #{pid},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="pinyin != null and pinyin != ''">pinyin = #{pinyin},</if>
+            <if test="shortName != null and shortName != ''">short_name = #{shortName},</if>
+            <if test="fullName != null and fullName != ''">full_name = #{fullName},</if>
+            <if test="areaCode != null and areaCode != ''">area_code = #{areaCode},</if>
+            <if test="cityCode != null and cityCode != ''">city_code = #{cityCode},</if>
+            <if test="parentCode != null and parentCode != ''">parent_code = #{parentCode},</if>
+            <if test="level != null">level = #{level},</if>
+            <if test="zipCode != null and zipCode != ''">zip_code = #{zipCode},</if>
+            <if test="longitude != null and longitude != ''">longitude = #{longitude},</if>
+            <if test="latitude != null and latitude != ''">latitude = #{latitude},</if>
+            <if test="haveChild != null">have_child = #{haveChild},</if>
+            <if test="creator != null">creator = #{creator},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updater != null">updater = #{updater},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除城市管理-->
+    <delete id="deleteSysCityById" parameterType="Long">
+        delete from sys_city where id = #{id}
+    </delete>
+
+</mapper>

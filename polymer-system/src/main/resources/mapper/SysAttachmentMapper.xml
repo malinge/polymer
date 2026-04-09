@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.polymer.system.mapper.SysAttachmentMapper">
+
+    <resultMap id="SysAttachmentResult" type="SysAttachmentEntity">
+        <id property="id" column="id"/>
+        <result property="bizMark" column="biz_mark"/>
+        <result property="bizType" column="biz_type"/>
+        <result property="name" column="name"/>
+        <result property="url" column="url"/>
+        <result property="size" column="size"/>
+        <result property="type" column="type"/>
+        <result property="platform" column="platform"/>
+        <result property="creator" column="creator"/>
+        <result property="updater" column="updater"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectAttachmentVo">
+        select id,
+               biz_mark,
+               biz_type,
+               name,
+               url,
+               size,
+               type,
+               platform,
+               creator,
+               updater,
+               create_time,
+               update_time
+        from sys_attachment
+    </sql>
+
+    <!--查询列表-->
+    <select id="selectSysAttachmentList" parameterType="com.polymer.system.query.SysAttachmentQuery"
+            resultMap="SysAttachmentResult">
+        <include refid="selectAttachmentVo"/>
+        <where>
+            <if test="name != null and name != ''">
+                AND name like concat('%', #{name}, '%')
+            </if>
+            <if test="platform != null and platform != ''">
+                AND platform like concat('%', #{platform}, '%')
+            </if>
+        </where>
+
+    </select>
+
+    <!--新增附件表-->
+    <insert id="insertSysAttachment" parameterType="SysAttachmentEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_attachment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bizMark != null and bizMark != ''">biz_mark,</if>
+            <if test="bizType != null and bizType != ''">biz_type,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="url != null and url != ''">url,</if>
+            <if test="size != null">size,</if>
+            <if test="type != null and type != ''">type,</if>
+            <if test="platform != null and platform != ''">platform,</if>
+            <if test="creator != null">creator,</if>
+            <if test="createTime != null">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bizMark != null and bizMark != ''">#{bizMark},</if>
+            <if test="bizType != null and bizType != ''">#{bizType},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="url != null and url != ''">#{url},</if>
+            <if test="size != null">#{size},</if>
+            <if test="type != null and type != ''">#{type},</if>
+            <if test="platform != null and platform != ''">#{platform},</if>
+            <if test="creator != null">#{creator},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <!--修改附件-->
+    <update id="updateSysAttachment" parameterType="SysAttachmentEntity">
+        update sys_attachment
+        <set>
+            <if test="bizMark != null and bizMark != ''">biz_mark = #{bizMark},</if>
+            <if test="bizType != null and bizType != ''">biz_type = #{bizType},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="url != null and url != ''">url = #{url},</if>
+            <if test="size != null and">size = #{size},</if>
+            <if test="type != null and type != ''">type = #{type},</if>
+            <if test="platform != null and platform != ''">platform = #{platform},</if>
+            <if test="updater != null">updater = #{updater},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除附件表-->
+    <delete id="deleteSysAttachmentById" parameterType="Long">
+        delete from sys_attachment where id = #{id}
+    </delete>
+
+    <!--查询附件集合-->
+    <select id="selectSysAttachmentByBizMark" resultMap="SysAttachmentResult">
+        <include refid="selectAttachmentVo"/>
+        <if test="bizMark != null and bizMark != ''">
+            AND biz_mark = #{bizMark}
+        </if>
+        <if test="bizType != null and bizType != ''">
+            AND biz_type = #{bizType}
+        </if>
+    </select>
+
+    <!--批量条件删除附件-->
+    <delete id="delSysAttachmentByBizMark">
+        delete from sys_attachment
+        where biz_mark = #{bizMark} AND biz_type = #{bizType}
+    </delete>
+</mapper>

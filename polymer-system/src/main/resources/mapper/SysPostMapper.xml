@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.polymer.system.mapper.SysPostMapper">
+
+    <resultMap type="SysPostEntity" id="SysPostResult">
+        <result property="id" column="id"/>
+        <result property="postCode" column="post_code"/>
+        <result property="postName" column="post_name"/>
+        <result property="sort" column="sort"/>
+        <result property="status" column="status"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updater" column="updater"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectSysPostVo">
+        select id,
+               post_code,
+               post_name,
+               sort,
+               status,
+               creator,
+               create_time,
+               updater,
+               update_time
+        from sys_post
+    </sql>
+
+    <!--查询岗位管理列表-->
+    <select id="selectSysPostList" parameterType="com.polymer.system.query.SysPostQuery" resultMap="SysPostResult">
+        <include refid="selectSysPostVo"/>
+        <where>
+            <if test="postCode != null and postCode != ''">
+                AND post_code like concat('%', #{postCode}, '%')
+            </if>
+            <if test="postName != null and postName != ''">
+                AND post_name like concat('%', #{postName}, '%')
+            </if>
+            <if test="status != null">
+                AND status = #{status}
+            </if>
+
+            <if test="idList != null">
+                AND id in
+                <foreach collection="idList" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+        order by sort asc
+    </select>
+
+    <!--查询岗位管理-->
+    <select id="selectSysPostById" parameterType="Long" resultMap="SysPostResult">
+        <include refid="selectSysPostVo"/>
+        where id = #{id}
+    </select>
+
+    <!--新增岗位管理-->
+    <insert id="insertSysPost" parameterType="SysPostEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_post
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="postCode != null and postCode != ''">post_code,</if>
+            <if test="postName != null and postName != ''">post_name,</if>
+            <if test="sort != null">sort,</if>
+            <if test="status != null">status,</if>
+            <if test="creator != null">creator,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updater != null">updater,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="postCode != null and postCode != ''">#{postCode},</if>
+            <if test="postName != null and postName != ''">#{postName},</if>
+            <if test="sort != null">#{sort},</if>
+            <if test="status != null">#{status},</if>
+            <if test="creator != null">#{creator},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updater != null">#{updater},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <!--修改岗位管理-->
+    <update id="updateSysPost" parameterType="SysPostEntity">
+        update sys_post
+        <set>
+            <if test="id != null">id = #{id},</if>
+            <if test="postCode != null and postCode != ''">post_code = #{postCode},</if>
+            <if test="postName != null and postName != ''">post_name = #{postName},</if>
+            <if test="sort != null">sort = #{sort},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="creator != null">creator = #{creator},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updater != null">updater = #{updater},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除岗位管理-->
+    <delete id="deleteSysPostById" parameterType="Long">
+        delete from sys_post where id = #{id}
+    </delete>
+
+</mapper>

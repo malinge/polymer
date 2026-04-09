@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.polymer.message.mapper.MessageMailAccountMapper">
+
+    <resultMap type="MessageMailAccountEntity" id="MessageMailAccountResult">
+        <result property="id" column="id"/>
+        <result property="mail" column="mail"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="host" column="host"/>
+        <result property="port" column="port"/>
+        <result property="protocol" column="protocol"/>
+        <result property="sslEnable" column="ssl_enable"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updater" column="updater"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectMessageMailAccountVo">
+        select id,
+               mail,
+               username,
+               password,
+               host,
+               port,
+               protocol,
+               ssl_enable,
+               dept_id,
+               creator,
+               create_time,
+               updater,
+               update_time
+        from message_mail_account
+    </sql>
+
+    <!--查询邮箱账号表列表-->
+    <select id="selectMessageMailAccountList" parameterType="com.polymer.message.query.MessageMailAccountQuery"
+            resultMap="MessageMailAccountResult">
+        <include refid="selectMessageMailAccountVo"/>
+        <where>
+            <if test="mail != null and mail != ''">
+                AND mail like concat('%', #{mail}, '%')
+            </if>
+            <if test="username != null and username != ''">
+                AND username like concat('%', #{username}, '%')
+            </if>
+            <!-- 数据范围过滤 -->
+            <if test="dataScope != null and dataScope != ''">
+                and ${dataScope}
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+    <!--查询邮箱账号表-->
+    <select id="selectMessageMailAccountById" parameterType="Long" resultMap="MessageMailAccountResult">
+        <include refid="selectMessageMailAccountVo"/>
+        where id = #{id}
+    </select>
+
+    <!--新增邮箱账号表-->
+    <insert id="insertMessageMailAccount" parameterType="MessageMailAccountEntity" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into message_mail_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="mail != null and mail != ''">mail,</if>
+            <if test="username != null and username != ''">username,</if>
+            <if test="password != null and password != ''">password,</if>
+            <if test="host != null and host != ''">host,</if>
+            <if test="port != null">port,</if>
+            <if test="protocol != null and protocol != ''">protocol,</if>
+            <if test="sslEnable != null">ssl_enable,</if>
+            <if test="deptId != null">dept_id,</if>
+            <if test="creator != null">creator,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updater != null">updater,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="mail != null and mail != ''">#{mail},</if>
+            <if test="username != null and username != ''">#{username},</if>
+            <if test="password != null and password != ''">#{password},</if>
+            <if test="host != null and host != ''">#{host},</if>
+            <if test="port != null">#{port},</if>
+            <if test="protocol != null and protocol != ''">#{protocol},</if>
+            <if test="sslEnable != null">#{sslEnable},</if>
+            <if test="deptId != null">#{deptId},</if>
+            <if test="creator != null">#{creator},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updater != null">#{updater},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <!--修改邮箱账号表-->
+    <update id="updateMessageMailAccount" parameterType="MessageMailAccountEntity">
+        update message_mail_account
+        <set>
+            <if test="mail != null and mail != ''">mail = #{mail},</if>
+            <if test="username != null and username != ''">username = #{username},</if>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="host != null and host != ''">host = #{host},</if>
+            <if test="port != null">port = #{port},</if>
+            <if test="protocol != null and protocol != ''">protocol = #{protocol},</if>
+            <if test="sslEnable != null">ssl_enable = #{sslEnable},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="creator != null">creator = #{creator},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updater != null">updater = #{updater},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除邮箱账号表-->
+    <delete id="deleteMessageMailAccountById" parameterType="Long">
+        delete from message_mail_account where id = #{id}
+    </delete>
+</mapper>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.polymer.message.mapper.MessageSmsPlatformMapper">
+
+    <resultMap type="MessageSmsPlatformEntity" id="MessageSmsPlatformResult">
+        <result property="id" column="id"/>
+        <result property="platform" column="platform"/>
+        <result property="signName" column="sign_name"/>
+        <result property="templateId" column="template_id"/>
+        <result property="appId" column="app_id"/>
+        <result property="senderId" column="sender_id"/>
+        <result property="url" column="url"/>
+        <result property="accessKey" column="access_key"/>
+        <result property="secretKey" column="secret_key"/>
+        <result property="status" column="status"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updater" column="updater"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectMessageSmsPlatformVo">
+        select id,
+               platform,
+               sign_name,
+               template_id,
+               app_id,
+               sender_id,
+               url,
+               access_key,
+               secret_key,
+               status,
+               creator,
+               create_time,
+               updater,
+               update_time
+        from message_sms_platform
+    </sql>
+
+    <!--查询短信平台列表-->
+    <select id="selectMessageSmsPlatformList" parameterType="com.polymer.message.query.MessageSmsPlatformQuery"
+            resultMap="MessageSmsPlatformResult">
+        <include refid="selectMessageSmsPlatformVo"/>
+        <where>
+            <if test="signName != null and signName != ''">
+                AND sign_name like concat('%', #{signName}, '%')
+            </if>
+            <if test="platform != null">
+                AND platform = #{platform})
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+    <!--查询短信平台-->
+    <select id="selectMessageSmsPlatformById" parameterType="Long" resultMap="MessageSmsPlatformResult">
+        <include refid="selectMessageSmsPlatformVo"/>
+        where id = #{id}
+    </select>
+
+    <!--新增短信平台-->
+    <insert id="insertMessageSmsPlatform" parameterType="MessageSmsPlatformEntity" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into message_sms_platform
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="platform != null">platform,</if>
+            <if test="signName != null and signName != ''">sign_name,</if>
+            <if test="templateId != null and templateId != ''">template_id,</if>
+            <if test="appId != null and appId != ''">app_id,</if>
+            <if test="senderId != null and senderId != ''">sender_id,</if>
+            <if test="url != null and url != ''">url,</if>
+            <if test="accessKey != null and accessKey != ''">access_key,</if>
+            <if test="secretKey != null and secretKey != ''">secret_key,</if>
+            <if test="status != null">status,</if>
+            <if test="creator != null">creator,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updater != null">updater,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="platform != null">#{platform},</if>
+            <if test="signName != null and signName != ''">#{signName},</if>
+            <if test="templateId != null and templateId != ''">#{templateId},</if>
+            <if test="appId != null and appId != ''">#{appId},</if>
+            <if test="senderId != null and senderId != ''">#{senderId},</if>
+            <if test="url != null and url != ''">#{url},</if>
+            <if test="accessKey != null and accessKey != ''">#{accessKey},</if>
+            <if test="secretKey != null and secretKey != ''">#{secretKey},</if>
+            <if test="status != null">#{status},</if>
+            <if test="creator != null">#{creator},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updater != null">#{updater},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <!--修改短信平台-->
+    <update id="updateMessageSmsPlatform" parameterType="MessageSmsPlatformEntity">
+        update message_sms_platform
+        <set>
+            <if test="platform != null">platform = #{platform},</if>
+            <if test="signName != null and signName != ''">sign_name = #{signName},</if>
+            <if test="templateId != null and templateId != ''">template_id = #{templateId},</if>
+            <if test="appId != null and appId != ''">app_id = #{appId},</if>
+            <if test="senderId != null and senderId != ''">sender_id = #{senderId},</if>
+            <if test="url != null and url != ''">url = #{url},</if>
+            <if test="accessKey != null and accessKey != ''">access_key = #{accessKey},</if>
+            <if test="secretKey != null and secretKey != ''">secret_key = #{secretKey},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="creator != null">creator = #{creator},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updater != null">updater = #{updater},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除短信平台-->
+    <delete id="deleteMessageSmsPlatformById" parameterType="Long">
+        delete from message_sms_platform where id = #{id}
+    </delete>
+
+    <!--根据状态查询短信平台集合-->
+    <select id="selectListByStatus" parameterType="Integer" resultMap="MessageSmsPlatformResult">
+        <include refid="selectMessageSmsPlatformVo"/>
+        where status = #{status}
+    </select>
+</mapper>

@@ -1,0 +1,99 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 继承父级 POM -->
+    <parent>
+        <groupId>com.polymer</groupId>
+        <artifactId>polymer</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <!-- 基本信息 -->
+    <artifactId>polymer-application</artifactId>
+    <packaging>jar</packaging>
+    <name>polymer-application</name>
+    <description>启动、测试、依赖配置</description>
+
+    <!-- 子模块特有依赖 -->
+    <dependencies>
+        <dependency>
+            <groupId>com.polymer</groupId>
+            <artifactId>polymer-system</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.polymer</groupId>
+            <artifactId>polymer-module-quartz</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.polymer</groupId>
+            <artifactId>polymer-module-message</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.polymer</groupId>
+            <artifactId>polymer-module-monitor</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.polymer</groupId>
+            <artifactId>polymer-module-generator</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.polymer</groupId>
+            <artifactId>polymer-module-storage</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.polymer</groupId>
+            <artifactId>polymer-module-sequence</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.polymer</groupId>
+            <artifactId>polymer-business-demo</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- 子模块特有构建配置(启动模块才需要配置) -->
+    <build>
+        <plugins>
+            <!-- 显式启用 Maven Compiler 插件（从父级 pluginManagement 继承配置） -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <configuration>
+                    <mainClass>com.polymer.PolymerApplication</mainClass>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>  <!-- 生成可执行 JAR -->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

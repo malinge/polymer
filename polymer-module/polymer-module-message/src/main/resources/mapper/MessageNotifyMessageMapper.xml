@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.polymer.message.mapper.MessageNotifyMessageMapper">
+
+    <resultMap type="MessageNotifyMessageEntity" id="MessageNotifyMessageResult">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userType" column="user_type"/>
+        <result property="title" column="title"/>
+        <result property="templateCode" column="template_code"/>
+        <result property="sender" column="sender"/>
+        <result property="content" column="content"/>
+        <result property="type" column="type"/>
+        <result property="senderAvatar" column="sender_avatar"/>
+        <result property="readStatus" column="read_status"/>
+        <result property="readTime" column="read_time"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updater" column="updater"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectMessageNotifyMessageVo">
+        select id,
+               user_id,
+               user_type,
+               title,
+               template_code,
+               sender,
+               content,
+               type,
+               sender_avatar,
+               read_status,
+               read_time,
+               dept_id,
+               creator,
+               create_time,
+               updater,
+               update_time
+        from message_notify_message
+    </sql>
+
+    <!--查询站内信消息表列表-->
+    <select id="selectMessageNotifyMessageList" parameterType="com.polymer.message.query.MessageNotifyMessageQuery"
+            resultMap="MessageNotifyMessageResult">
+        <include refid="selectMessageNotifyMessageVo"/>
+        <where>
+            <if test="userId != null">
+                AND user_id = #{userId}
+            </if>
+            <if test="templateCode != null and templateCode != ''">
+                AND template_code = #{templateCode}
+            </if>
+            <if test="type != null">
+                AND type = #{type})
+            </if>
+            <if test="createTime != null and createTime.length == 1">
+                AND create_time between #{createTime[0]} and #{createTime[1]}
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+    <!--查询站内信消息表-->
+    <select id="selectMessageNotifyMessageById" parameterType="Long" resultMap="MessageNotifyMessageResult">
+        <include refid="selectMessageNotifyMessageVo"/>
+        where id = #{id}
+    </select>
+
+    <!--新增站内信消息表-->
+    <insert id="insertMessageNotifyMessage" parameterType="MessageNotifyMessageEntity" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into message_notify_message
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="userType != null">user_type,</if>
+            <if test="title != null and title != ''">title,</if>
+            <if test="templateCode != null and templateCode != ''">template_code,</if>
+            <if test="sender != null and sender != ''">sender,</if>
+            <if test="content != null and content != ''">content,</if>
+            <if test="type != null">type,</if>
+            <if test="senderAvatar != null and senderAvatar != ''">sender_avatar,</if>
+            <if test="readStatus != null">read_status,</if>
+            <if test="readTime != null">read_time,</if>
+            <if test="deptId != null">dept_id,</if>
+            <if test="creator != null">creator,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updater != null">updater,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="userType != null">#{userType},</if>
+            <if test="title != null and title != ''">#{title},</if>
+            <if test="templateCode != null and templateCode != ''">#{templateCode},</if>
+            <if test="sender != null and sender != ''">#{sender},</if>
+            <if test="content != null and content != ''">#{content},</if>
+            <if test="type != null">#{type},</if>
+            <if test="senderAvatar != null and senderAvatar != ''"> #{senderAvatar},</if>
+            <if test="readStatus != null">#{readStatus},</if>
+            <if test="readTime != null">#{readTime},</if>
+            <if test="deptId != null">#{deptId},</if>
+            <if test="creator != null">#{creator},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updater != null">#{updater},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <!--修改站内信消息表-->
+    <update id="updateMessageNotifyMessage" parameterType="MessageNotifyMessageEntity">
+        update message_notify_message
+        <set>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="userType != null">user_type = #{userType},</if>
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="templateCode != null and templateCode != ''">template_code = #{templateCode},</if>
+            <if test="sender != null and sender != ''">sender = #{sender},</if>
+            <if test="content != null and content != ''">content = #{content},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="senderAvatar != null and senderAvatar != ''">sender_avatar = #{senderAvatar},</if>
+            <if test="readStatus != null">read_status = #{readStatus},</if>
+            <if test="readTime != null">read_time = #{readTime},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="creator != null">creator = #{creator},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updater != null">updater = #{updater},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除站内信消息表-->
+    <delete id="deleteMessageNotifyMessageById" parameterType="Long">
+        delete from message_notify_message where id = #{id}
+    </delete>
+
+    <!--根据用户id和查询条数获取站内信消息集合-->
+    <select id="getUnreadNotifyMessageList" resultMap="MessageNotifyMessageResult">
+        <include refid="selectMessageNotifyMessageVo"/>
+        where user_id = #{userId}
+        order by id desc
+        limit #{size}
+    </select>
+
+    <!--根据用户id和是否已读获取站内信消息个数-->
+    <select id="getUnreadNotifyMessageCount" resultType="Long">
+        select count(id)
+        from message_notify_message
+        where user_id = #{userId}
+          and read_status = #{readStatus}
+    </select>
+
+    <!--根据id集合和用户id更新站内信消息-->
+    <update id="updateNotifyMessageRead" parameterType="Long">
+        update message_notify_message SET read_status = true, update_time = sysdate()
+        where id in
+        <foreach collection="ids" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and user_id = #{userId}
+    </update>
+
+    <!--根据用户id更新站内信消息-->
+    <update id="updateAllNotifyMessageRead" parameterType="Long">
+        update message_notify_message
+        SET read_status = true,
+            update_time = sysdate()
+        where user_id = #{userId}
+    </update>
+</mapper>

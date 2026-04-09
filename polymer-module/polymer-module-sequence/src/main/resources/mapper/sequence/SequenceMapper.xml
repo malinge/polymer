@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.polymer.sequence.mapper.SequenceMapper">
+
+    <sql id="selectSequenceVo">
+        select id,value,name,gmt_create,gmt_modified
+        from sys_sequence
+    </sql>
+
+    <select id="selectCurrentValue" resultType="java.lang.Long">
+        SELECT value FROM sys_sequence WHERE name = #{name}
+    </select>
+
+    <insert id="insertIfNotExists">
+        INSERT IGNORE INTO sys_sequence (name, value, gmt_create, gmt_modified)
+        VALUES (#{name}, #{currentValue}, NOW(), NOW())
+    </insert>
+
+    <update id="updateCurrentValue">
+        UPDATE sys_sequence
+        SET value = #{newValue}, gmt_modified = NOW()
+        WHERE name = #{name} AND value = #{oldValue}
+    </update>
+</mapper>

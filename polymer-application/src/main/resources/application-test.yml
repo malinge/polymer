@@ -1,0 +1,98 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    druid:
+      # 主库数据源
+      master:
+        url: jdbc:mysql://localhost:3306/polymer?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true&rewriteBatchedStatements=true
+        username: root
+        password: 123456
+      # 从库数据源
+      slave:
+        # 从数据源开关/默认关闭
+        enabled: false
+        url: jdbc:mysql://localhost:3306/polymer?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true&rewriteBatchedStatements=true
+        username: root
+        password: 123456
+      # 初始连接数
+      initial-size: 5
+      # 最小连接池数量
+      min-idle: 10
+      # 最大连接池数量
+      max-active: 20
+      # 配置获取连接等待超时的时间
+      max-wait: 60000
+      # 配置连接超时时间
+      connect-timeout: 30000
+      # 配置网络超时时间
+      socket-timeout: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      min-evictable-idle-time-millis: 300000
+      # 配置一个连接在池中最大生存的时间，单位是毫秒
+      max-evictable-idle-time-millis: 900000
+      # 配置检测连接是否有效
+      validation-query: SELECT 1 FROM DUAL
+      test-whileIdle: true
+      test-on-borrow: false
+      test-on-return: false
+
+  # redis配置项
+  redis:
+    database: 3
+    host: 172.16.6.11
+    port: 26379
+    password: zbtcloud123456
+    #timeout: 6000ms  # 连接超时时长（毫秒）
+
+# open api配置项
+springdoc:
+  swagger-ui:
+    #本地和测试站开启
+    enabled: true
+  api-docs:
+    #本地和测试站开启
+    enabled: true
+  # 扫描哪些包来生成OpenAPI文档, 多个包名用逗号分隔(分组之后可以不用配置)
+  #packages-to-scan: com.polymer
+  #定义分组，可定义多个，也可以不定义
+  group-configs:
+    #分组名
+    - group: system
+      #按路径匹配 或 按包路径匹配（packagesToScan: com.polymer.system）
+      paths-to-match: /sys/**
+      #分组名
+    - group: message
+      #按路径匹配
+      paths-to-match: /message/**
+      #分组名
+    - group: monitor
+      #按路径匹配
+      paths-to-match: /monitor/**
+      #分组名
+    - group: storage
+      #按路径匹配
+      paths-to-match: /storage/**
+
+# polymer配置
+polymer:
+  # 存储配置项
+  storage:
+    enabled: true
+    config:
+      # 存储类型：local、aliyun、tencent、qiniu、huawei、minio、rustfs
+      type: minio
+      domain: http://127.0.0.1:9000/polymer
+    minio:
+      end-point: http://127.0.0.1:9000
+      access-key: minioadmin
+      secret-key: minioadmin
+      bucket-name: polymer
+
+  # 代码生成配置
+  generator:
+    enabled: true
+    path: /generator/**
+    template: /template/polymer

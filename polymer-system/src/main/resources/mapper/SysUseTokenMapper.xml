@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.polymer.system.mapper.SysUserTokenMapper">
+
+    <resultMap id="SysUserTokenResult" type="SysUserTokenEntity">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="accessToken" column="access_token"/>
+        <result property="accessTokenExpire" column="access_token_expire"/>
+        <result property="refreshToken" column="refresh_Token"/>
+        <result property="refreshTokenExpire" column="refresh_token_expire"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <sql id="selectUserTokenVo">
+        select id,
+               user_id,
+               access_token,
+               access_token_expire,
+               refresh_Token,
+               refresh_token_expire,
+               create_time
+        from sys_user_token
+    </sql>
+
+    <!--根据用户id查询一条用户token信息-->
+    <select id="selectUserTokenOne" resultMap="SysUserTokenResult">
+        <include refid="selectUserTokenVo"/>
+        <where>
+            <if test="userId != null">
+                AND user_id = #{userId}
+            </if>
+        </where>
+
+    </select>
+
+    <!--保存用户token信息-->
+    <insert id="insertUserToken" parameterType="SysUserTokenEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_user_token(
+        <if test="userId != null">user_id,</if>
+        <if test="accessToken != null and accessToken != ''">access_token,</if>
+        <if test="accessTokenExpire != null">access_token_expire,</if>
+        <if test="refreshToken != null and refreshToken != ''">refresh_Token,</if>
+        <if test="refreshTokenExpire != null">refresh_token_expire,</if>
+        create_time)
+        values(
+        <if test="userId != null">#{userId},</if>
+        <if test="accessToken != null and accessToken != ''">#{accessToken},</if>
+        <if test="accessTokenExpire != null">#{accessTokenExpire},</if>
+        <if test="refreshToken != null and refreshToken != ''">#{refreshToken},</if>
+        <if test="refreshTokenExpire != null">#{refreshTokenExpire},</if>
+        sysdate())
+    </insert>
+
+    <!--根据刷新token查询一条用户token信息-->
+    <select id="selectOneByRefreshToken" resultMap="SysUserTokenResult">
+        <include refid="selectUserTokenVo"/>
+        where refresh_Token = #{refreshToken}
+        AND refresh_token_expire &gt;= sysdate()
+    </select>
+
+    <!--修改用户Token-->
+    <update id="updateSysUserToken" parameterType="SysUserTokenEntity">
+        update sys_user_token
+        <set>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="accessToken != null and accessToken != ''">access_token = #{accessToken},</if>
+            <if test="accessTokenExpire != null">access_token_expire = #{accessTokenExpire},</if>
+            <if test="refreshToken != null and refreshToken != ''">refresh_token = #{refreshToken},</if>
+            <if test="refreshTokenExpire != null">refresh_token_expire = #{refreshTokenExpire},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--根据角色ID，查询在线用户 access_token 列表-->
+    <select id="getOnlineAccessTokenListByRoleId" resultType="String">
+        select t3.access_token
+        from sys_role t1,
+             sys_user_role t2,
+             sys_user_token t3
+        where t1.id = t2.role_id
+          and t2.user_id = t3.user_id
+          and t1.id = #{roleId}
+          and t3.access_token_expire &gt;= #{time}
+    </select>
+
+    <!--根据用户ID，查询在线用户 access_token 列表-->
+    <select id="getOnlineAccessTokenListByUserId" resultType="String">
+        select access_token
+        from sys_user_token
+        where user_id = #{userId}
+          and access_token_expire &gt;= #{time}
+    </select>
+
+    <!--修改用户Token-->
+    <update id="updateByUserId" parameterType="SysUserTokenEntity">
+        update sys_user_token
+        <set>
+            <if test="accessToken != null and accessToken != ''">access_token = #{accessToken},</if>
+            <if test="accessTokenExpire != null">access_token_expire = #{accessTokenExpire},</if>
+            <if test="refreshToken != null and refreshToken != ''">refresh_token = #{refreshToken},</if>
+            <if test="refreshTokenExpire != null">refresh_token_expire = #{refreshTokenExpire},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </set>
+        where user_id = #{userId}
+    </update>
+</mapper>

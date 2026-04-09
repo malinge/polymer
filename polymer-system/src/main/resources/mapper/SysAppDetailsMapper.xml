@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.polymer.system.mapper.SysAppDetailsMapper">
+
+    <resultMap type="SysAppDetailsEntity" id="SysAppDetailsResult">
+        <result property="id" column="id"/>
+        <result property="appName" column="app_name"/>
+        <result property="appId" column="app_id"/>
+        <result property="appSecret" column="app_secret"/>
+    </resultMap>
+
+    <sql id="selectSysAppDetailsVo">
+        select id, app_name, app_id, app_secret
+        from sys_app_details
+    </sql>
+
+    <!--查询app信息表列表-->
+    <select id="selectSysAppDetailsList" parameterType="com.polymer.system.query.SysAppDetailsQuery"
+            resultMap="SysAppDetailsResult">
+        <include refid="selectSysAppDetailsVo"/>
+    </select>
+
+    <!--查询app信息表-->
+    <select id="selectSysAppDetailsById" parameterType="Integer" resultMap="SysAppDetailsResult">
+        <include refid="selectSysAppDetailsVo"/>
+        where id = #{id}
+    </select>
+
+    <!--新增app信息表-->
+    <insert id="insertSysAppDetails" parameterType="SysAppDetailsEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_app_details
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="appName != null and appName != ''">app_name,</if>
+            <if test="appId != null and appId != ''">app_id,</if>
+            <if test="appSecret != null and appSecret != ''">app_secret,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="appName != null and appName != ''">#{appName},</if>
+            <if test="appId != null and appId != ''">#{appId},</if>
+            <if test="appSecret != null and appSecret != ''">#{appSecret},</if>
+        </trim>
+    </insert>
+
+    <!--修改app信息表-->
+    <update id="updateSysAppDetails" parameterType="SysAppDetailsEntity">
+        update sys_app_details
+        <set>
+            <if test="appName != null and appName != ''">app_name = #{appName},</if>
+            <if test="appId != null and appId != ''">app_id = #{appId},</if>
+            <if test="appSecret != null and appSecret != ''">app_secret = #{appSecret},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>

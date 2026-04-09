@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.polymer.message.mapper.MessageMailLogMapper">
+
+    <resultMap type="MessageMailLogEntity" id="MessageMailLogResult">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userType" column="user_type"/>
+        <result property="toMail" column="to_mail"/>
+        <result property="accountId" column="account_id"/>
+        <result property="fromMail" column="from_mail"/>
+        <result property="templateId" column="template_id"/>
+        <result property="templateCode" column="template_code"/>
+        <result property="templateNickname" column="template_nickname"/>
+        <result property="templateTitle" column="template_title"/>
+        <result property="templateContent" column="template_content"/>
+        <result property="templateParams" column="template_params"
+                typeHandler="com.polymer.framework.mybatis.core.handler.JsonTypeHandler"/>
+        <result property="sendStatus" column="send_status"/>
+        <result property="sendTime" column="send_time"/>
+        <result property="sendMessageId" column="send_message_id"/>
+        <result property="sendException" column="send_exception"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updater" column="updater"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectMessageMailLogVo">
+        select id,
+               user_id,
+               user_type,
+               to_mail,
+               account_id,
+               from_mail,
+               template_id,
+               template_code,
+               template_nickname,
+               template_title,
+               template_content,
+               template_params,
+               send_status,
+               send_time,
+               send_message_id,
+               send_exception,
+               dept_id,
+               creator,
+               create_time,
+               updater,
+               update_time
+        from message_mail_log
+    </sql>
+
+    <!--查询邮件日志表列表-->
+    <select id="selectMessageMailLogList" parameterType="com.polymer.message.query.MessageMailLogQuery"
+            resultMap="MessageMailLogResult">
+        <include refid="selectMessageMailLogVo"/>
+        <where>
+            <if test="templateTitle != null and templateTitle != ''">
+                AND template_title like concat('%', #{templateTitle}, '%')
+            </if>
+            <!-- 数据范围过滤 -->
+            <if test="dataScope != null and dataScope != ''">
+                and ${dataScope}
+            </if>
+        </where>
+
+        order by id desc
+    </select>
+
+    <!--查询邮件日志表-->
+    <select id="selectMessageMailLogById" parameterType="Long" resultMap="MessageMailLogResult">
+        <include refid="selectMessageMailLogVo"/>
+        where id = #{id}
+    </select>
+
+    <!--新增邮件日志表-->
+    <insert id="insertMessageMailLog" parameterType="MessageMailLogEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into message_mail_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="userType != null">user_type,</if>
+            <if test="toMail != null and toMail != ''">to_mail,</if>
+            <if test="accountId != null">account_id,</if>
+            <if test="fromMail != null and fromMail != ''">from_mail,</if>
+            <if test="templateId != null">template_id,</if>
+            <if test="templateCode != null and templateCode != ''">template_code,</if>
+            <if test="templateNickname != null and templateNickname != ''">template_nickname,</if>
+            <if test="templateTitle != null and templateTitle != ''">template_title,</if>
+            <if test="templateContent != null and templateContent != ''">template_content,</if>
+            <if test="templateParams != null and templateParams != ''">template_params,</if>
+            <if test="sendStatus != null">send_status,</if>
+            <if test="sendTime != null">send_time,</if>
+            <if test="sendMessageId != null and sendMessageId != ''">send_message_id,</if>
+            <if test="sendException != null and sendException != ''">send_exception,</if>
+            <if test="deptId != null">dept_id,</if>
+            <if test="creator != null">creator,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updater != null">updater,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="userType != null">#{userType},</if>
+            <if test="toMail != null and toMail != ''">#{toMail},</if>
+            <if test="accountId != null">#{accountId},</if>
+            <if test="fromMail != null and fromMail != ''">#{fromMail},</if>
+            <if test="templateId != null">#{templateId},</if>
+            <if test="templateCode != null and templateCode != ''">#{templateCode},</if>
+            <if test="templateNickname != null and templateNickname != ''">#{templateNickname},</if>
+            <if test="templateTitle != null and templateTitle != ''">#{templateTitle},</if>
+            <if test="templateContent != null and templateContent != ''">#{templateContent},</if>
+            <if test="templateParams != null and templateParams != ''">
+                #{templateParams, typeHandler=com.polymer.framework.mybatis.core.handler.JsonTypeHandler},
+            </if>
+            <if test="sendStatus != null">#{sendStatus},</if>
+            <if test="sendTime != null">#{sendTime},</if>
+            <if test="sendMessageId != null and sendMessageId != ''">#{sendMessageId},</if>
+            <if test="sendException != null and sendException != ''">#{sendException},</if>
+            <if test="deptId != null">#{deptId},</if>
+            <if test="creator != null">#{creator},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updater != null">#{updater},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <!--修改邮件日志表-->
+    <update id="updateMessageMailLog" parameterType="MessageMailLogEntity">
+        update message_mail_log
+        <set>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="userType != null">user_type = #{userType},</if>
+            <if test="toMail != null and toMail != ''">to_mail = #{toMail},</if>
+            <if test="accountId != null">account_id = #{accountId},</if>
+            <if test="fromMail != null and fromMail != ''">from_mail = #{fromMail},</if>
+            <if test="templateId != null">template_id = #{templateId},</if>
+            <if test="templateCode != null and templateCode != ''">template_code = #{templateCode},</if>
+            <if test="templateNickname != null and templateNickname != ''">template_nickname = #{templateNickname},</if>
+            <if test="templateTitle != null and templateTitle != ''">template_title = #{templateTitle},</if>
+            <if test="templateContent != null and templateContent != ''">template_content = #{templateContent},</if>
+            <if test="templateParams != null and templateParams != ''">template_params =
+                #{templateParams, typeHandler=com.polymer.framework.mybatis.core.handler.JsonTypeHandler},
+            </if>
+            <if test="sendStatus != null">send_status = #{sendStatus},</if>
+            <if test="sendTime != null">send_time = #{sendTime},</if>
+            <if test="sendMessageId != null and sendMessageId != ''">send_message_id = #{sendMessageId},</if>
+            <if test="sendException != null and sendException != ''">send_exception = #{sendException},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="creator != null">creator = #{creator},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updater != null">updater = #{updater},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除邮件日志表-->
+    <delete id="deleteMessageMailLogById" parameterType="Long">
+        delete from message_mail_log where id = #{id}
+    </delete>
+</mapper>

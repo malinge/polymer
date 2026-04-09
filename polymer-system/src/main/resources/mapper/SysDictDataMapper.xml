@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.polymer.system.mapper.SysDictDataMapper">
+
+    <resultMap type="SysDictDataEntity" id="SysDictDataResult">
+        <result property="id" column="id"/>
+        <result property="dictTypeId" column="dict_type_id"/>
+        <result property="dictLabel" column="dict_label"/>
+        <result property="dictValue" column="dict_value"/>
+        <result property="labelClass" column="label_class"/>
+        <result property="remark" column="remark"/>
+        <result property="sort" column="sort"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updater" column="updater"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectSysDictDataVo">
+        select id,
+               dict_type_id,
+               dict_label,
+               dict_value,
+               label_class,
+               remark,
+               sort,
+               creator,
+               create_time,
+               updater,
+               update_time
+        from sys_dict_data
+    </sql>
+
+    <!--查询字典数据列表-->
+    <select id="selectSysDictDataList" parameterType="com.polymer.system.query.SysDictDataQuery"
+            resultMap="SysDictDataResult">
+        <include refid="selectSysDictDataVo"/>
+        <where>
+            <if test="dictTypeId != null">
+                AND dict_type_id = #{dictTypeId}
+            </if>
+        </where>
+    </select>
+
+    <!--查询字典数据-->
+    <select id="selectSysDictDataById" parameterType="Long" resultMap="SysDictDataResult">
+        <include refid="selectSysDictDataVo"/>
+        where id = #{id}
+    </select>
+
+    <!--新增字典数据-->
+    <insert id="insertSysDictData" parameterType="SysDictDataEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_dict_data
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="dictTypeId != null">dict_type_id,</if>
+            <if test="dictLabel != null and dictLabel != ''">dict_label,</if>
+            <if test="dictValue != null and dictValue != ''">dict_value,</if>
+            <if test="labelClass != null and labelClass != ''">label_class,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="sort != null">sort,</if>
+            <if test="creator != null">creator,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updater != null">updater,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="dictTypeId != null">#{dictTypeId},</if>
+            <if test="dictLabel != null and dictLabel != ''">#{dictLabel},</if>
+            <if test="dictValue != null and dictValue != ''">#{dictValue},</if>
+            <if test="labelClass != null and labelClass != ''">#{labelClass},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="sort != null">#{sort},</if>
+            <if test="creator != null">#{creator},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updater != null">#{updater},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <!--修改字典数据-->
+    <update id="updateSysDictData" parameterType="SysDictDataEntity">
+        update sys_dict_data
+        <set>
+            <if test="id != null">id = #{id},</if>
+            <if test="dictTypeId != null">dict_type_id = #{dictTypeId},</if>
+            <if test="dictLabel != null and dictLabel != ''">dict_label = #{dictLabel},</if>
+            <if test="dictValue != null and dictValue != ''">dict_value = #{dictValue},</if>
+            <if test="labelClass != null and labelClass != ''">label_class = #{labelClass},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="sort != null">sort = #{sort},</if>
+            <if test="creator != null">creator = #{creator},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updater != null">updater = #{updater},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除字典数据-->
+    <delete id="deleteSysDictDataById" parameterType="Long">
+        delete from sys_dict_data where id = #{id}
+    </delete>
+
+</mapper>

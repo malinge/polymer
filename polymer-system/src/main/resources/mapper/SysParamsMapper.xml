@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.polymer.system.mapper.SysParamsMapper">
+
+    <resultMap type="SysParamsEntity" id="SysParamsResult">
+        <result property="id" column="id"/>
+        <result property="paramName" column="param_name"/>
+        <result property="paramType" column="param_type"/>
+        <result property="paramKey" column="param_key"/>
+        <result property="paramValue" column="param_value"/>
+        <result property="remark" column="remark"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updater" column="updater"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectSysParamsVo">
+        select id,
+               param_name,
+               param_type,
+               param_key,
+               param_value,
+               remark,
+               creator,
+               create_time,
+               updater,
+               update_time
+        from sys_params
+    </sql>
+
+    <!--查询参数管理列表-->
+    <select id="selectSysParamsList" parameterType="com.polymer.system.query.SysParamsQuery"
+            resultMap="SysParamsResult">
+        <include refid="selectSysParamsVo"/>
+        <where>
+            <if test="paramKey != null and paramKey != ''">
+                AND param_key like concat('%', #{paramKey}, '%')
+            </if>
+            <if test="paramType != null">
+                AND param_type = #{paramType}
+            </if>
+            <if test="paramValue != null and paramValue != ''">
+                AND param_value = #{paramValue}
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+    <!--查询参数管理-->
+    <select id="selectSysParamsById" parameterType="Long" resultMap="SysParamsResult">
+        <include refid="selectSysParamsVo"/>
+        where id = #{id}
+    </select>
+
+    <!--新增参数管理-->
+    <insert id="insertSysParams" parameterType="SysParamsEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_params
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="paramName != null and paramName != ''">param_name,</if>
+            <if test="paramType != null">param_type,</if>
+            <if test="paramKey != null and paramKey != ''">param_key,</if>
+            <if test="paramValue != null and paramValue != ''">param_value,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="creator != null">creator,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updater != null">updater,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="paramName != null and paramName != ''">#{paramName},</if>
+            <if test="paramType != null">#{paramType},</if>
+            <if test="paramKey != null and paramKey != ''">#{paramKey},</if>
+            <if test="paramValue != null and paramValue != ''">#{paramValue},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="creator != null">#{creator},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updater != null">#{updater},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <!--修改参数管理-->
+    <update id="updateSysParams" parameterType="SysParamsEntity">
+        update sys_params
+        <set>
+            <if test="id != null">id = #{id},</if>
+            <if test="paramName != null and paramName != ''">param_name = #{paramName},</if>
+            <if test="paramType != null">param_type = #{paramType},</if>
+            <if test="paramKey != null and paramKey != ''">param_key = #{paramKey},</if>
+            <if test="paramValue != null and paramValue != ''">param_value = #{paramValue},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="creator != null">creator = #{creator},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updater != null">updater = #{updater},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除参数管理-->
+    <delete id="deleteSysParamsById" parameterType="Long">
+        delete from sys_params where id = #{id}
+    </delete>
+
+    <!--根据参数判断是否存在-->
+    <select id="isExist" resultType="Boolean">
+        select count(id) from sys_params where param_key = #{paramKey}
+    </select>
+
+    <!--根据参数key获取参数信息-->
+    <select id="get" resultMap="SysParamsResult">
+        <include refid="selectSysParamsVo"/>
+        where param_key = #{paramKey}
+    </select>
+
+    <!--查询参数管理列表-->
+    <select id="batchSelectParamsByIds" resultMap="SysParamsResult">
+        <include refid="selectSysParamsVo"/>
+        where id in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>

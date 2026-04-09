@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.polymer.message.mapper.MessageNotifyTemplateMapper">
+
+    <resultMap type="MessageNotifyTemplateEntity" id="MessageNotifyTemplateResult">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="code" column="code"/>
+        <result property="nickname" column="nickname"/>
+        <result property="content" column="content"/>
+        <result property="type" column="type"/>
+        <result property="params" column="params"
+                typeHandler="com.polymer.framework.mybatis.core.handler.JsonTypeHandler"/>
+        <result property="status" column="status"/>
+        <result property="remark" column="remark"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updater" column="updater"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectMessageNotifyTemplateVo">
+        select id,
+               name,
+               code,
+               nickname,
+               content,
+               type,
+               params,
+               status,
+               remark,
+               dept_id,
+               creator,
+               create_time,
+               updater,
+               update_time
+        from message_notify_template
+    </sql>
+
+    <!--查询站内信模板表列表-->
+    <select id="selectMessageNotifyTemplateList" parameterType="com.polymer.message.query.MessageNotifyTemplateQuery"
+            resultMap="MessageNotifyTemplateResult">
+        <include refid="selectMessageNotifyTemplateVo"/>
+        <where>
+            <if test="name != null and name != ''">
+                AND name like concat('%', #{name}, '%')
+            </if>
+            <if test="code != null and code != ''">
+                AND code = #{code})
+            </if>
+            <if test="createTime != null and createTime.length == 1">and create_time between #{createTime[0]} and
+                #{createTime[1]}
+            </if>
+            <!-- 数据范围过滤 -->
+            <if test="dataScope != null and dataScope != ''">
+                and ${dataScope}
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+    <!--查询站内信模板表-->
+    <select id="selectMessageNotifyTemplateById" parameterType="Long" resultMap="MessageNotifyTemplateResult">
+        <include refid="selectMessageNotifyTemplateVo"/>
+        where id = #{id}
+    </select>
+
+    <!--新增站内信模板表-->
+    <insert id="insertMessageNotifyTemplate" parameterType="MessageNotifyTemplateEntity" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into message_notify_template
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="code != null and code != ''">code,</if>
+            <if test="nickname != null and nickname != ''">nickname,</if>
+            <if test="content != null and content != ''">content,</if>
+            <if test="type != null">type,</if>
+            <if test="params != null and params != ''">params,</if>
+            <if test="status != null">status,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="deptId != null">dept_id,</if>
+            <if test="creator != null">creator,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updater != null">updater,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="code != null and code != ''">#{code},</if>
+            <if test="nickname != null and nickname != ''">#{nickname},</if>
+            <if test="content != null and content != ''">#{content},</if>
+            <if test="type != null">#{type},</if>
+            <if test="params != null and params != ''">
+                #{params, typeHandler=com.polymer.framework.mybatis.core.handler.JsonTypeHandler},
+            </if>
+            <if test="status != null">#{status},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="deptId != null">#{deptId},</if>
+            <if test="creator != null">#{creator},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updater != null">#{updater},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <!--修改站内信模板表-->
+    <update id="updateMessageNotifyTemplate" parameterType="MessageNotifyTemplateEntity">
+        update message_notify_template
+        <set>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="code != null and code != ''">code = #{code},</if>
+            <if test="nickname != null and nickname != ''">nickname = #{nickname},</if>
+            <if test="content != null and content != ''">content = #{content},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="params != null and params != ''">params =
+                #{params, typeHandler=com.polymer.framework.mybatis.core.handler.JsonTypeHandler},
+            </if>
+            <if test="status != null">status = #{status},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="creator != null">creator = #{creator},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updater != null">updater = #{updater},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除站内信模板表-->
+    <delete id="deleteMessageNotifyTemplateById" parameterType="Long">
+        delete from message_notify_template where id = #{id}
+    </delete>
+
+    <!--根据模版编码获取站内信模板信息-->
+    <select id="validateNotifyTemplate" parameterType="String" resultMap="MessageNotifyTemplateResult">
+        <include refid="selectMessageNotifyTemplateVo"/>
+        where code = #{code}
+    </select>
+</mapper>

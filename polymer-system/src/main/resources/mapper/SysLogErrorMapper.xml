@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.polymer.system.mapper.SysLogErrorMapper">
+
+    <resultMap type="SysLogErrorEntity" id="SysLogErrorResult">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userType" column="user_type"/>
+        <result property="requestMethod" column="request_method"/>
+        <result property="requestUrl" column="request_url"/>
+        <result property="requestParams" column="request_params"/>
+        <result property="userIp" column="user_ip"/>
+        <result property="userAgent" column="user_agent"/>
+        <result property="exceptionTime" column="exception_time"/>
+        <result property="exceptionName" column="exception_name"/>
+        <result property="exceptionClassName" column="exception_class_name"/>
+        <result property="exceptionFileName" column="exception_file_name"/>
+        <result property="exceptionMethodName" column="exception_method_name"/>
+        <result property="exceptionLineNumber" column="exception_line_number"/>
+        <result property="exceptionStackTrace" column="exception_stack_trace"/>
+        <result property="exceptionRootCauseMessage" column="exception_root_cause_message"/>
+        <result property="exceptionMessage" column="exception_message"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <sql id="selectSysLogErrorVo">
+        select id,
+               user_id,
+               user_type,
+               request_method,
+               request_url,
+               request_params,
+               user_ip,
+               user_agent,
+               exception_time,
+               exception_name,
+               exception_class_name,
+               exception_file_name,
+               exception_method_name,
+               exception_line_number,
+               exception_stack_trace,
+               exception_root_cause_message,
+               exception_message,
+               create_time
+        from sys_log_error
+    </sql>
+
+    <!--查询错误日志列表-->
+    <select id="selectSysLogErrorList" parameterType="com.polymer.system.query.SysLogErrorQuery"
+            resultMap="SysLogErrorResult">
+        <include refid="selectSysLogErrorVo"/>
+    </select>
+
+    <!--查询错误日志-->
+    <select id="selectSysLogErrorById" parameterType="Long" resultMap="SysLogErrorResult">
+        <include refid="selectSysLogErrorVo"/>
+        where id = #{id}
+    </select>
+
+    <!--新增错误日志-->
+    <insert id="insertSysLogError" parameterType="SysLogErrorEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_log_error
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="userType != null">user_type,</if>
+            <if test="requestMethod != null and requestMethod != ''">request_method,</if>
+            <if test="requestUrl != null and requestUrl != ''">request_url,</if>
+            <if test="requestParams != null and requestParams != ''">request_params,</if>
+            <if test="userIp != null and userIp != ''">user_ip,</if>
+            <if test="userAgent != null and userAgent != ''">user_agent,</if>
+            <if test="exceptionTime != null">exception_time,</if>
+            <if test="exceptionName != null and exceptionName != ''">exception_name,</if>
+            <if test="exceptionClassName != null and exceptionClassName != ''">exception_class_name,</if>
+            <if test="exceptionFileName != null and exceptionFileName != ''">exception_file_name,</if>
+            <if test="exceptionMethodName != null and exceptionMethodName != ''">exception_method_name,</if>
+            <if test="exceptionLineNumber != null">exception_line_number,</if>
+            <if test="exceptionStackTrace != null and exceptionStackTrace != ''">exception_stack_trace,</if>
+            <if test="exceptionRootCauseMessage != null and exceptionRootCauseMessage != ''">
+                exception_root_cause_message,
+            </if>
+            <if test="exceptionMessage != null and exceptionMessage != ''">exception_message,</if>
+            <if test="createTime != null">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="userType != null">#{userType},</if>
+            <if test="requestMethod != null and requestMethod != ''">#{requestMethod},</if>
+            <if test="requestUrl != null and requestUrl != ''">#{requestUrl},</if>
+            <if test="requestParams != null and requestParams != ''">#{requestParams},</if>
+            <if test="userIp != null and userIp != ''">#{userIp},</if>
+            <if test="userAgent != null and userAgent != ''">#{userAgent},</if>
+            <if test="exceptionTime != null">#{exceptionTime},</if>
+            <if test="exceptionName != null and exceptionName != ''">#{exceptionName},</if>
+            <if test="exceptionClassName != null and exceptionClassName != ''">#{exceptionClassName},</if>
+            <if test="exceptionFileName != null and exceptionFileName != ''">#{exceptionFileName},</if>
+            <if test="exceptionMethodName != null and exceptionMethodName != ''">#{exceptionMethodName},</if>
+            <if test="exceptionLineNumber != null">#{exceptionLineNumber},</if>
+            <if test="exceptionStackTrace != null and exceptionStackTrace != ''">#{exceptionStackTrace},</if>
+            <if test="exceptionRootCauseMessage != null and exceptionRootCauseMessage != ''">
+                #{exceptionRootCauseMessage},
+            </if>
+            <if test="exceptionMessage != null and exceptionMessage != ''">#{exceptionMessage},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <!--修改错误日志-->
+    <update id="updateSysLogError" parameterType="SysLogErrorEntity">
+        update sys_log_error
+        <set>
+            <if test="id != null">id = #{id},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="userType != null">user_type = #{userType},</if>
+            <if test="requestMethod != null and requestMethod != ''">request_method = #{requestMethod},</if>
+            <if test="requestUrl != null and requestUrl != ''">request_url = #{requestUrl},</if>
+            <if test="requestParams != null and requestParams != ''">request_params = #{requestParams},</if>
+            <if test="userIp != null and userIp != ''">user_ip = #{userIp},</if>
+            <if test="userAgent != null and userAgent != ''">user_agent = #{userAgent},</if>
+            <if test="exceptionTime != null">exception_time = #{exceptionTime},</if>
+            <if test="exceptionName != null and exceptionName != ''">exception_name = #{exceptionName},</if>
+            <if test="exceptionClassName != null and exceptionClassName != ''">exception_class_name =
+                #{exceptionClassName},
+            </if>
+            <if test="exceptionFileName != null and exceptionFileName != ''">exception_file_name = #{exceptionFileName},
+            </if>
+            <if test="exceptionMethodName != null and exceptionMethodName != ''">exception_method_name =
+                #{exceptionMethodName},
+            </if>
+            <if test="exceptionLineNumber != null">exceptionLine_number = #{exceptionLineNumber},</if>
+            <if test="exceptionStackTrace != null and exceptionStackTrace != ''">exception_stack_trace =
+                #{exceptionStackTrace},
+            </if>
+            <if test="exceptionRootCauseMessage != null and exceptionRootCauseMessage != ''">exception_root_cause_message =
+                #{exceptionRootCauseMessage},
+            </if>
+            <if test="exceptionMessage != null and exceptionMessage != ''">exception_message = #{exceptionMessage},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除错误日志-->
+    <delete id="deleteSysLogErrorById" parameterType="Long">
+        delete from sys_log_error where id = #{id}
+    </delete>
+
+</mapper>

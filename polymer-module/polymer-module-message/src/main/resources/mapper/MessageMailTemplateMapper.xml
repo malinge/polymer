@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.polymer.message.mapper.MessageMailTemplateMapper">
+
+    <resultMap type="MessageMailTemplateEntity" id="MessageMailTemplateResult">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="code" column="code"/>
+        <result property="accountId" column="account_id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="subject" column="subject"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="params" column="params"
+                typeHandler="com.polymer.framework.mybatis.core.handler.JsonTypeHandler"/>
+        <result property="status" column="status"/>
+        <result property="remark" column="remark"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updater" column="updater"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectMessageMailTemplateVo">
+        select id,
+               name,
+               code,
+               account_id,
+               nickname,
+               subject,
+               title,
+               content,
+               params,
+               status,
+               remark,
+               dept_id,
+               creator,
+               create_time,
+               updater,
+               update_time
+        from message_mail_template
+    </sql>
+
+    <!--查询邮件模版表列表-->
+    <select id="selectMessageMailTemplateList" parameterType="com.polymer.message.query.MessageMailTemplateQuery"
+            resultMap="MessageMailTemplateResult">
+        <include refid="selectMessageMailTemplateVo"/>
+        <where>
+            <if test="name != null and name != ''">
+                AND name like concat('%', #{name}, '%')
+            </if>
+            <if test="code != null and code != ''">
+                AND code = #{code})
+            </if>
+            <!-- 数据范围过滤 -->
+            <if test="dataScope != null and dataScope != ''">
+                and ${dataScope}
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+    <!--查询邮件模版表-->
+    <select id="selectMessageMailTemplateById" parameterType="Long" resultMap="MessageMailTemplateResult">
+        <include refid="selectMessageMailTemplateVo"/>
+        where id = #{id}
+    </select>
+
+    <!--新增邮件模版表-->
+    <insert id="insertMessageMailTemplate" parameterType="MessageMailTemplateEntity" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into message_mail_template
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="code != null and code != ''">code,</if>
+            <if test="accountId != null">account_id,</if>
+            <if test="nickname != null and nickname != ''">nickname,</if>
+            <if test="subject != null and subject != ''">subject,</if>
+            <if test="title != null and title != ''">title,</if>
+            <if test="content != null and content != ''">content,</if>
+            <if test="params != null and params != ''">params,</if>
+            <if test="status != null">status,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="deptId != null">dept_id,</if>
+            <if test="creator != null">creator,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updater != null">updater,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="code != null and code != ''">#{code},</if>
+            <if test="accountId != null">#{accountId},</if>
+            <if test="nickname != null and nickname != ''">#{nickname},</if>
+            <if test="subject != null and subject != ''">#{subject},</if>
+            <if test="title != null and title != ''">#{title},</if>
+            <if test="content != null and content != ''">#{content},</if>
+            <if test="params != null and params != ''">
+                #{params, typeHandler=com.polymer.framework.mybatis.core.handler.JsonTypeHandler},
+            </if>
+            <if test="status != null">#{status},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="deptId != null">#{deptId},</if>
+            <if test="creator != null">#{creator},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updater != null">#{updater},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <!--修改邮件模版表-->
+    <update id="updateMessageMailTemplate" parameterType="MessageMailTemplateEntity">
+        update message_mail_template
+        <set>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="code != null and code != ''">code = #{code},</if>
+            <if test="accountId != null">account_id = #{accountId},</if>
+            <if test="nickname != null and nickname != ''">nickname = #{nickname},</if>
+            <if test="subject != null and subject != ''">subject = #{subject},</if>
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="content != null and content != ''">content = #{content},</if>
+            <if test="params != null and params != ''">params =
+                #{params, typeHandler=com.polymer.framework.mybatis.core.handler.JsonTypeHandler},
+            </if>
+            <if test="status != null">status = #{status},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="creator != null">creator = #{creator},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updater != null">updater = #{updater},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除邮件模版表-->
+    <delete id="deleteMessageMailTemplateById" parameterType="Long">
+        delete from message_mail_template where id = #{id}
+    </delete>
+
+    <!--根据模板编码和开启状态查询邮件模版信息-->
+    <select id="fildMailTemplateByCode" resultMap="MessageMailTemplateResult">
+        <include refid="selectMessageMailTemplateVo"/>
+        where status = #{status} and code = #{code}
+    </select>
+
+    <!--根据发送的邮箱账号编号查询邮件模版集合-->
+    <select id="findMailTemplateCountByAccountId" parameterType="Long" resultMap="MessageMailTemplateResult">
+        <include refid="selectMessageMailTemplateVo"/>
+        where account_id = #{accountId}
+    </select>
+</mapper>

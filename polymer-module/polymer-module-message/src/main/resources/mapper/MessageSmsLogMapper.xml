@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.polymer.message.mapper.MessageSmsLogMapper">
+
+    <resultMap type="MessageSmsLogEntity" id="MessageSmsLogResult">
+        <result property="id" column="id"/>
+        <result property="platformId" column="platform_id"/>
+        <result property="platform" column="platform"/>
+        <result property="mobile" column="mobile"/>
+        <result property="params" column="params"/>
+        <result property="status" column="status"/>
+        <result property="error" column="error"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <sql id="selectMessageSmsLogVo">
+        select id,
+               platform_id,
+               platform,
+               mobile,
+               params,
+               status,
+               error,
+               create_time
+        from message_sms_log
+    </sql>
+
+    <!--查询短信日志列表-->
+    <select id="selectMessageSmsLogList" parameterType="com.polymer.message.query.MessageSmsLogQuery"
+            resultMap="MessageSmsLogResult">
+        <include refid="selectMessageSmsLogVo"/>
+        <where>
+            <if test="platformId != null">
+                AND platform_id = #{platformId})
+            </if>
+            <if test="platform != null">
+                AND platform = #{platform})
+            </if>
+        </where>
+        order by id desc
+    </select>
+
+    <!--查询短信日志-->
+    <select id="selectMessageSmsLogById" parameterType="Long" resultMap="MessageSmsLogResult">
+        <include refid="selectMessageSmsLogVo"/>
+        where id = #{id}
+    </select>
+
+    <!--新增短信日志-->
+    <insert id="insertMessageSmsLog" parameterType="MessageSmsLogEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into message_sms_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="platformId != null">platform_id,</if>
+            <if test="platform != null">platform,</if>
+            <if test="mobile != null and mobile != ''">mobile,</if>
+            <if test="params != null and params != ''">params,</if>
+            <if test="status != null">status,</if>
+            <if test="error != null and error != ''">error,</if>
+            <if test="createTime != null">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="platformId != null">#{platformId},</if>
+            <if test="platform != null">#{platform},</if>
+            <if test="mobile != null and mobile != ''">#{mobile},</if>
+            <if test="params != null and params != ''">#{params},</if>
+            <if test="status != null">#{status},</if>
+            <if test="error != null and error != ''">#{error},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <!--修改短信日志-->
+    <update id="updateMessageSmsLog" parameterType="MessageSmsLogEntity">
+        update message_sms_log
+        <set>
+            <if test="platformId != null">platform_id = #{platformId},</if>
+            <if test="platform != null">platform = #{platform},</if>
+            <if test="mobile != null and mobile != ''">mobile = #{mobile},</if>
+            <if test="params != null and params != ''">params = #{params},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="error != null and error != ''">error = #{error},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除短信日志-->
+    <delete id="deleteMessageSmsLogById" parameterType="Long">
+        delete from message_sms_log where id = #{id}
+    </delete>
+</mapper>

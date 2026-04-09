@@ -1,0 +1,89 @@
+# Tomcat配置项
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    threads:
+      max: 200
+      min-spare: 30
+  port: 8081
+  servlet:
+    context-path: /polymer
+    session:
+      cookie:
+        http-only: true
+
+# spring配置项
+spring:
+  application:
+    name: polymer
+  profiles:
+    active: dev
+  jackson:
+    time-zone: GMT+8
+  servlet:
+    multipart:
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+  freemarker:
+    check-template-location: false
+  mvc:
+    path-match:
+      matching-strategy: ant_path_matcher
+
+
+# MyBatis
+mybatis:
+  # 搜索指定包别名
+  type-aliases-package: com.polymer.**.entity
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapper-locations: classpath*:mapper/**/*.xml
+  configuration:
+    #使全局的映射器启用或禁用缓存
+    cache-enabled: true
+    #允许JDBC 支持自动生成主键
+    use-generated-keys: true
+    #配置默认的执行器.SIMPLE就是普通执行器;REUSE执行器会重用预处理语句(prepared statements);BATCH执行器将重用语句并执行批量更新
+    default-executor-type: SIMPLE
+    #开启驼峰映射
+    map-underscore-to-camel-case: true
+
+# PageHelper分页插件
+pagehelper:
+  #指定数据库方言，例如mysql
+  helper-dialect: mysql
+  #是否支持通过Mapper接口方法的参数来传递分页参数
+  support-methods-arguments: true
+  #设置为count=countSql可以防止SQL注入
+  params: count=countSql
+  #允许pageSize为0，即查询出全部结果
+  page-size-zero: true
+
+# polymer配置项
+polymer:
+  # xss配置
+  xss:
+    enabled: false
+    exclude-urls:
+      - /generator/**
+
+  # token配置
+  security:
+    # 2小时过期
+    access-token-expire: 7200
+    # 14天过期
+    refresh-token-expire: 1209600
+    #开启同一用户异地登录踢人功能，true开启，false关闭。
+    kick-out: false
+
+  # api接口加密配置项AES+RSA
+  api-decrypt:
+    # 是否开启全局接口加密
+    enabled: true
+    # AES 加密头标识
+    header-flag: encrypt-key
+    # 响应加密公钥 非对称算法的公私钥 RSA 使用者请自行更换
+    # 对应前端解密私钥
+    public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlIZRZSNM4ijjxT4rHcMTe8GL7p4c6EOyKxsh51a33W7QUXS6kYnzgmBKHAXknaNzh/Zdxuoqx83H4EWgXxfV5FKJZx/vts2siM/CWC9LnR2YYP6PLhr/MLdlKX1E2c0zJL+mmHNy3J1aPQAVu523s7Qrb9u0cWMXOmcU8tDGDG6JW8+Zo4asta+WsQdXJpo8kUiPtlsJA18nWM1KVCIEsY8m4+chE1ONm4OqIS5fb5dxI1O/0Yw6gcKE+38DijzkutPafFjgiv8bz8PXsYkLT+RGeO4ibBV+0vDQ6Ihw5T3dvR6+6nzw7Oi4w4WIhBjmeFlAsEUE4j+8JcBCDdeuFQIDAQAB
+    # 请求解密私钥 非对称算法的公私钥 RSA 使用者请自行更换
+    # 对应前端加密公钥
+    private-key: MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCEZ+EB95opKACO0xU1CuDTddZSAE919h35Pi38QKZFiXKbgj0rP/gx+l6l9M27JJqqRlaEr5npthUVBNjjJsIthmM9aksj9PXOprUaeY1dMAxXj/mt5uwJBg2ALub5XFTzATer1cC1qEK5dx2GCU7My+XjTvpHfBPWuhv9fDb7l/vH8XesS4vvjItHEPiv60IYNq7uWYf7/e9MPjdWQKFPsviZDENExlY4GdyiVYAnuSWgWtpB1Pf8Vp1SgwcNS9F9YgMiUFWHFaNsswpSWqH63OQqDCo6UgiI4n40L5n1n5Dv9fbc4IQ/OKaWUy2P8LkD/A2ZFb8YEvsId2CW9SXBAgMBAAECggEAFRqxpKygp9q2bA19Hd1EBLCNnrhp8fVuxaGBlul/FypXWC4kLdaeaujrWSxx9lhZRra7Z57Nu5DIP3dsUpiE7tiyzME6hNqwq2WrDDM/sxDLhtFuDKf4C2ApmrrfGfP7nlgdVYhWlR3itMklrY2iP8ZoOBkIj4hZaSp096xq3yMZyz9wgRiv86yp81Z1dv7Ux7wxtH2Ox27f41xNtC69HhlOklIy4/a0Av3p8fG58/L8om70NdZMOHZrWTYCASGDlY+H3yIS7YMJZwVI5QYRJsLc+RlPHau9WIIvll363hmmtjHAYo7Xr8qVOcZkXcJfLZtbUujc9LcmB9glE0eroQKBgQC8r5cV6p7agZx0fWwcDyTOv5pivZJVZI5GbY97ipGVOr/E9VOCLIQXkHVlpZwAMAWspZgZOBC9MGuPmauMzazkWg51urX6Kpoy5xUBtqH/ypRGVEHDBM32xDek2Y0NeCa7zpKFz9pbieOIy7oGJLa/mueHQdJ+W2NHyzz0LimgVQKBgQCzpE6GzEgKrM7EyYkywksjDB/2f1EK9sbfRQTfwo5ryR1vchnFsrY2YQPfPlA4akXQYrq/vpEOw2xO3uRvu0t8rHCuOlC8hGFkBZ//CwImdQA6utN3KeDtDPl3EUWJ/QrsXejLYETK+mL2YBmqSE936oNSk1lpFfy7WeWn4J2rvQKBgHd3merXhcMF46DiNMxDTmPVbxPrwbZtl6PCBOIM54acDwXO6xP1yaD950b3p6F6xmz84CO/muGewcvHWZYqN7jRyGwETupZhQ6Lv4I5N7M0edNZz9WBukLvE+g9kpCfra6l6aHt6+yfjsBzdZIkNs10b/n01CkLBf5UEYDtpY+NAoGAPXdCxyyumbh3Jy4uG4gPXXaQmS8G89FsSoi7GjTftlGiGLfZyaNUZVbclE4l9KeoK50ceO8jgwGq1XG+h9x1/7qg83xQk7BYAnlKPWHu4mm2ImI6aNOTeoit8ued+5DxY97eAHh4EVuK8PIA1hrX1hgPxvlT5nj3eMNRqRdZ26ECgYBOwASG72TJ5OwXMsBdKTeb8ENnkGvRcRKoSb38WhyXAxWSuCjVkbbX1Q/9ghu3CzgLo57IbMFD48b0S9IhakmI7xlpUy9/+cNXkXJfT9lcdMdfSWPtcmfrtJlmjBMhUYUYDAz7TxHVo2KNNY7IBjr4af+1MZFw8wWjEu+032EHPA==

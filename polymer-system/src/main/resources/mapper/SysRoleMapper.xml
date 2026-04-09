@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.polymer.system.mapper.SysRoleMapper">
+
+    <resultMap type="SysRoleEntity" id="SysRoleResult">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="roleCode" column="role_code"/>
+        <result property="remark" column="remark"/>
+        <result property="dataScope" column="data_scope"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updater" column="updater"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectSysRoleVo">
+        select id,
+               name,
+               role_code,
+               remark,
+               data_scope,
+               dept_id,
+               creator,
+               create_time,
+               updater,
+               update_time
+        from sys_role
+    </sql>
+
+    <!--查询角色管理列表-->
+    <select id="selectSysRoleList" parameterType="com.polymer.system.query.SysRoleQuery" resultMap="SysRoleResult">
+        <include refid="selectSysRoleVo"/>
+        <where>
+            <if test="name != null and name != ''">
+                AND name like concat('%', #{name}, '%')
+            </if>
+            <!-- 数据范围过滤 -->
+            <if test="dataScope != null and dataScope != ''">
+                and ${dataScope}
+            </if>
+        </where>
+    </select>
+
+    <!--查询角色管理-->
+    <select id="selectSysRoleById" parameterType="Long" resultMap="SysRoleResult">
+        <include refid="selectSysRoleVo"/>
+        where id = #{id}
+    </select>
+
+    <!--新增角色管理-->
+    <insert id="insertSysRole" parameterType="SysRoleEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="roleCode != null and roleCode != ''">role_code,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="dataScope != null">data_scope,</if>
+            <if test="deptId != null">dept_id,</if>
+            <if test="creator != null">creator,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updater != null">updater,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="roleCode != null and roleCode != ''">#{roleCode},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="dataScope != null">#{dataScope},</if>
+            <if test="deptId != null">#{deptId},</if>
+            <if test="creator != null">#{creator},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updater != null">#{updater},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <!--修改角色管理-->
+    <update id="updateSysRole" parameterType="SysRoleEntity">
+        update sys_role
+        <set>
+            <if test="id != null">id = #{id},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="roleCode != null and roleCode != ''">role_code = #{roleCode},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="dataScope != null">data_scope = #{dataScope},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="creator != null">creator = #{creator},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updater != null">updater = #{updater},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除角色管理-->
+    <delete id="deleteSysRoleById" parameterType="Long">
+        delete from sys_role where id = #{id}
+    </delete>
+
+    <!--获取用户所有角色-->
+    <select id="selectSysRolesByUserId" resultMap="SysRoleResult">
+        select t1.*
+        from sys_role t1,
+             sys_user_role t2
+        where t1.id = t2.role_id
+          and t2.user_id = #{userId}
+    </select>
+
+    <!--根据用户ID，获取用户角色编码-->
+    <select id="geRoleCodeByUserId" resultType="String">
+        select t1.role_code
+        from sys_role t1,
+             sys_user_role t2
+        where t1.id = t2.role_id
+          and t2.user_id = #{userId}
+    </select>
+
+    <!--根据主键id集合获取角色名称集合-->
+    <select id="selectSysRoleNameByidList" resultType="String">
+        select name from sys_role where id in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+</mapper>

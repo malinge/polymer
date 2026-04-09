@@ -1,0 +1,214 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 基本信息 -->
+    <groupId>com.polymer</groupId>
+    <artifactId>polymer</artifactId>
+    <version>${revision}</version>
+    <packaging>pom</packaging> <!-- 父项目必须是 pom 类型 -->
+    <name>polymer</name>
+    <description>polymer</description>
+
+    <!-- 指定 Spring Boot 父级 -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.18</version> <!-- Spring Boot 2.7.x 最新版本 -->
+        <relativePath/> <!-- 禁止从上级目录查找 -->
+    </parent>
+
+    <!-- 子模块列表 -->
+    <modules>
+        <module>polymer-application</module>
+        <module>polymer-api</module>
+        <module>polymer-framework</module>
+        <module>polymer-system</module>
+        <module>polymer-module</module>
+        <module>polymer-business</module>
+    </modules>
+
+    <!-- 统一属性管理 -->
+    <properties>
+        <revision>2.0.0</revision>
+        <skipTests>true</skipTests>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <spring-boot.version>2.7.18</spring-boot.version>
+        <knife4j.version>4.5.0</knife4j.version>
+        <captcha.version>1.6.2</captcha.version>
+        <druid.version>1.2.23</druid.version>
+        <caffeine.version>2.9.3</caffeine.version>
+        <aliyun.oss.version>3.8.0</aliyun.oss.version>
+        <aliyun.dysmsapi.version>2.0.18</aliyun.dysmsapi.version>
+        <tencentcloud.sdk.version>3.1.637</tencentcloud.sdk.version>
+        <qiniu.version>7.11.0</qiniu.version>
+        <minio.version>8.4.3</minio.version>
+        <qcloud.cos.version>5.6.89</qcloud.cos.version>
+        <huaweicloud.obs.version>3.22.3</huaweicloud.obs.version>
+        <rustfs.version>2.25.27</rustfs.version>
+        <jsoup.version>1.18.1</jsoup.version>
+        <justauth.version>1.16.6</justauth.version>
+        <mybatis.boot.version>2.3.2</mybatis.boot.version>
+        <pagehelper.boot.version>2.0.0</pagehelper.boot.version>
+        <commons.io.version>2.16.1</commons.io.version>
+        <poi.version>5.3.0</poi.version>
+        <compress.version>1.26.2</compress.version>
+        <oracle.version>11.2.0.3</oracle.version>
+        <freemarker.version>2.3.33</freemarker.version>
+    </properties>
+
+    <!-- 公共依赖（所有子模块继承） -->
+    <dependencies>
+        <!-- 目前没有，后期需要所有模块继承可以在这里添加 -->
+        <!--<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>-->
+    </dependencies>
+
+    <!-- 依赖管理（非继承，仅声明版本） -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- MyBatis 核心依赖 -->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.boot.version}</version>  <!-- 适配 Spring Boot 2.7.18 -->
+            </dependency>
+            <!-- pagehelper 分页插件 -->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper.boot.version}</version>
+                <exclusions>
+                    <!-- 排除所有内嵌MyBatis依赖 -->
+                    <exclusion>
+                        <groupId>org.mybatis</groupId>
+                        <artifactId>mybatis</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.mybatis.spring.boot</groupId>
+                        <artifactId>mybatis-spring-boot-starter</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!-- Spring Boot2 + knife4j-OpenAPI3 -->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+            </dependency>
+            <!-- 阿里数据库连接池 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <!-- Java图形验证码 -->
+            <dependency>
+                <groupId>com.github.whvcse</groupId>
+                <artifactId>easy-captcha</artifactId>
+                <version>${captcha.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.ben-manes.caffeine</groupId>
+                <artifactId>caffeine</artifactId>
+                <version>${caffeine.version}</version> <!-- 与 Spring Boot 2.7 兼容 -->
+            </dependency>
+
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>${aliyun.oss.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>dysmsapi20170525</artifactId>
+                <version>${aliyun.dysmsapi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.tencentcloudapi</groupId>
+                <artifactId>tencentcloud-sdk-java-sms</artifactId>
+                <version>${tencentcloud.sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qiniu</groupId>
+                <artifactId>qiniu-java-sdk</artifactId>
+                <version>${qiniu.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.minio</groupId>
+                <artifactId>minio</artifactId>
+                <version>${minio.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.commons</groupId>
+                        <artifactId>commons-compress</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.qcloud</groupId>
+                <artifactId>cos_api</artifactId>
+                <version>${qcloud.cos.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.huaweicloud</groupId>
+                <artifactId>esdk-obs-java-bundle</artifactId>
+                <version>${huaweicloud.obs.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>software.amazon.awssdk</groupId>
+                <artifactId>s3</artifactId>
+                <version>${rustfs.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>${jsoup.version}</version>
+            </dependency>
+            <!-- io常用工具类 -->
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons.io.version}</version>
+            </dependency>
+            <!-- excel工具 -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+            <!-- oracle数据库 -->
+            <dependency>
+                <groupId>com.oracle</groupId>
+                <artifactId>ojdbc6</artifactId>
+                <version>${oracle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <parameters>true</parameters>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

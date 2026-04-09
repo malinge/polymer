@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.polymer.system.mapper.SysUserRoleMapper">
+
+    <resultMap type="SysUserRoleEntity" id="SysUserRoleResult">
+        <result property="id" column="id"/>
+        <result property="roleId" column="role_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updater" column="updater"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectSysUserRoleVo">
+        select id,
+               role_id,
+               user_id,
+               creator,
+               create_time,
+               updater,
+               update_time
+        from sys_user_role
+    </sql>
+
+    <!--查询用户角色关系列表-->
+    <select id="selectSysUserRoleList" parameterType="com.polymer.system.query.SysUserRoleQuery"
+            resultMap="SysUserRoleResult">
+        <include refid="selectSysUserRoleVo"/>
+    </select>
+
+    <!--查询用户角色关系-->
+    <select id="selectSysUserRoleById" parameterType="Long" resultMap="SysUserRoleResult">
+        <include refid="selectSysUserRoleVo"/>
+        where id = #{id}
+    </select>
+
+    <!--新增用户角色关系-->
+    <insert id="insertSysUserRole" parameterType="SysUserRoleEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_user_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">role_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="creator != null">creator,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updater != null">updater,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="roleId != null">#{roleId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="creator != null">#{creator},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updater != null">#{updater},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <!--修改用户角色关系-->
+    <update id="updateSysUserRole" parameterType="SysUserRoleEntity">
+        update sys_user_role
+        <set>
+            <if test="id != null">id = #{id},</if>
+            <if test="roleId != null">role_id = #{roleId},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="creator != null">creator = #{creator},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updater != null">updater = #{updater},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除用户角色关系-->
+    <delete id="deleteSysUserRoleById" parameterType="Long">
+        delete from sys_user_role where id = #{id}
+    </delete>
+
+    <!--角色ID列表-->
+    <select id="getRoleIdList" resultType="Long">
+        select role_id from sys_user_role where user_id = #{userId}
+    </select>
+
+    <!--根据角色id查询用户角色关系集合-->
+    <select id="getUserIdList" parameterType="Long" resultMap="SysUserRoleResult">
+        <include refid="selectSysUserRoleVo"/>
+        where role_id = #{roleId}
+    </select>
+
+    <!--根据用户id集合和角色id集合删除用户角色关系信息-->
+    <delete id="deleteByUserIdAndRoleId">
+        delete from sys_user_role
+        <where>
+            <if test="userIdList != null and !userIdList.isEmpty()">
+                and user_id in
+                <foreach collection="userIdList" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <if test="roleIdList != null and !roleIdList.isEmpty()">
+                and role_id in
+                <foreach collection="roleIdList" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+            <!-- 兜底条件：两个列表都为空时阻止全表更新 -->
+            <if test="(userIdList == null or userIdList.isEmpty())
+                  and (roleIdList == null or roleIdList.isEmpty())">
+                AND id = -1
+            </if>
+        </where>
+    </delete>
+</mapper>

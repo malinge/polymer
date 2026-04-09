@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.polymer.system.mapper.SysMenuMapper">
+
+    <resultMap type="SysMenuEntity" id="SysMenuResult">
+        <result property="id" column="id"/>
+        <result property="pid" column="pid"/>
+        <result property="name" column="name"/>
+        <result property="url" column="url"/>
+        <result property="authority" column="authority"/>
+        <result property="type" column="type"/>
+        <result property="openStyle" column="open_style"/>
+        <result property="icon" column="icon"/>
+        <result property="sort" column="sort"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updater" column="updater"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectSysMenuVo">
+        select id,
+               pid,
+               name,
+               url,
+               authority,
+               type,
+               open_style,
+               icon,
+               sort,
+               creator,
+               create_time,
+               updater,
+               update_time
+        from sys_menu
+    </sql>
+
+    <!--查询所有菜单列表-->
+    <select id="getMenuList" resultType="SysMenuEntity">
+        <include refid="selectSysMenuVo"/>
+        <where>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+        </where>
+        order by sort asc
+    </select>
+
+    <!--新增菜单管理-->
+    <insert id="insertSysMenu" parameterType="SysMenuEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_menu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pid != null">pid,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="url != null and url != ''">url,</if>
+            <if test="authority != null and authority != ''">authority,</if>
+            <if test="type != null">type,</if>
+            <if test="openStyle != null">open_style,</if>
+            <if test="icon != null and icon != ''">icon,</if>
+            <if test="sort != null">sort,</if>
+            <if test="creator != null">creator,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updater != null">updater,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pid != null">#{pid},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="url != null and url != ''">#{url},</if>
+            <if test="authority != null and authority != ''">#{authority},</if>
+            <if test="type != null">#{type},</if>
+            <if test="openStyle != null">#{openStyle},</if>
+            <if test="icon != null and icon != ''">#{icon},</if>
+            <if test="sort != null">#{sort},</if>
+            <if test="creator != null">#{creator},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updater != null">#{updater},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <!--修改菜单管理-->
+    <update id="updateSysMenu" parameterType="SysMenuEntity">
+        update sys_menu
+        <set>
+            <if test="id != null">id = #{id},</if>
+            <if test="pid != null">pid = #{pid},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="url != null and url != ''">url = #{url},</if>
+            <if test="authority != null and authority != ''">authority = #{authority},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="openStyle != null">open_style = #{openStyle},</if>
+            <if test="icon != null and icon != ''">icon = #{icon},</if>
+            <if test="sort != null">sort = #{sort},</if>
+            <if test="creator != null">creator = #{creator},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updater != null">updater = #{updater},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除菜单管理-->
+    <delete id="deleteSysMenuById" parameterType="Long">
+        delete from sys_menu where id = #{id}
+    </delete>
+
+    <!--查询用户菜单列表-->
+    <select id="getUserMenuList" resultType="SysMenuEntity">
+        select t3.* from sys_user_role t1
+        left join sys_role_menu t2 on t1.role_id = t2.role_id
+        left join sys_menu t3 on t2.menu_id = t3.id
+        where t1.user_id = #{userId}
+        <if test="type != null">
+            and t3.type = #{type}
+        </if>
+        order by t3.sort
+    </select>
+
+    <!--查询用户权限列表-->
+    <select id="getUserAuthorityList" resultType="string">
+        select t3.authority
+        from sys_user_role t1
+                 left join sys_role_menu t2 on t1.role_id = t2.role_id
+                 left join sys_menu t3 on t2.menu_id = t3.id
+        where t1.user_id = #{userId}
+        order by t3.sort
+    </select>
+
+    <!--查询所有权限列表-->
+    <select id="getAuthorityList" resultType="string">
+        select authority from sys_menu
+    </select>
+
+    <!--获取所有菜单的id、pid列表-->
+    <select id="getIdAndPidList" resultType="SysMenuEntity">
+        select t1.id, t1.pid from sys_menu t1
+    </select>
+
+    <!--获取下级菜单数量-->
+    <select id="getSubMenuCount" resultType="Integer">
+        select count(1) from sys_menu where pid = #{pid}
+    </select>
+
+</mapper>
