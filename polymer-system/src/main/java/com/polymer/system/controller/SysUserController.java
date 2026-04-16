@@ -104,7 +104,7 @@ public class SysUserController {
         // 修改密码
         sysUserService.updatePassword(user.getId(), passwordEncoder.encode(vo.getNewPassword()));
 
-        return Result.ok();
+        return Result.ok("修改密码成功，请重新登录！");
     }
 
     @PostMapping
