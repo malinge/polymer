@@ -1,0 +1,4 @@
+# 将所有 .js, .css, .html 文件统计为 Java 语言
+*.js linguist-language=Java
+*.css linguist-language=Java
+*.html linguist-language=Java
