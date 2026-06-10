@@ -72,7 +72,7 @@
     </delete>
 
     <!--根据角色ID，获取部门ID列表-->
-    <select id="selectdeptIdsByRoleId" resultType="Long">
+    <select id="selectDeptIdsByRoleId" resultType="Long">
         select dept_id from sys_role_data_scope where role_id = #{roleId}
     </select>
 
