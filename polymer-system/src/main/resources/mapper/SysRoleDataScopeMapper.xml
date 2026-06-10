@@ -72,12 +72,12 @@
     </delete>
 
     <!--根据角色ID，获取部门ID列表-->
-    <select id="selectdeptIdsByRoleId" resultType="Long">
+    <select id="selectDeptIdsByRoleId" resultType="Long">
         select dept_id from sys_role_data_scope where role_id = #{roleId}
     </select>
 
     <!--根据角色id集合和部门id集合删除角色数据权限-->
-    <delete id="deleteByRoleIdAnddeptId" parameterType="Long">
+    <delete id="deleteByRoleIdAndDeptId" parameterType="Long">
         delete from sys_role_data_scope
         <where>
             <if test="roleIdList != null and !roleIdList.isEmpty()">
