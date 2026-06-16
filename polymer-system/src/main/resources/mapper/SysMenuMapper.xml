@@ -47,6 +47,12 @@
         order by sort asc
     </select>
 
+    <!--查询参数管理-->
+    <select id="selectSysMenuById" parameterType="Long" resultMap="SysMenuResult">
+        <include refid="selectSysMenuVo"/>
+        where id = #{id}
+    </select>
+
     <!--新增菜单管理-->
     <insert id="insertSysMenu" parameterType="SysMenuEntity" useGeneratedKeys="true" keyProperty="id">
         insert into sys_menu
