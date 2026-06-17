@@ -24,7 +24,7 @@ import java.util.Set;
  *
  */
 @RestController
-@RequestMapping("generator/gen/fieldtype")
+@RequestMapping("gen/fieldtype")
 public class FieldTypeController {
     @Resource
     private FieldTypeService fieldTypeService;

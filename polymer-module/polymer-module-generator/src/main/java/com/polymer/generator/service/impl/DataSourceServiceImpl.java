@@ -35,7 +35,7 @@ public class DataSourceServiceImpl implements DataSourceService {
 
     @Override
     public PageResult<DatasourceEntity> page(Query query) {
-        PageHelper.startPage(query.getPage(), query.getLimit());
+        PageHelper.startPage(query.getPageNo(), query.getPageSize());
         List<DatasourceEntity> entityList = datasourceMapper.selectDatasourceList(query);
         PageInfo<DatasourceEntity> pageInfo = new PageInfo<>(entityList);
         return new PageResult<>(entityList, pageInfo.getTotal());
@@ -51,7 +51,13 @@ public class DataSourceServiceImpl implements DataSourceService {
         if (dataSourceId.intValue() == 0) {
             return DbType.MySQL.name();
         } else {
-            return datasourceMapper.selectDatasourceById(dataSourceId).getDbType();
+            DatasourceEntity datasourceEntity = datasourceMapper.selectDatasourceById(dataSourceId);
+            if(datasourceEntity != null){
+                return datasourceMapper.selectDatasourceById(dataSourceId).getDbType();
+            }else {
+                throw new ServiceException("数据源不存在！");
+            }
+
         }
     }
 

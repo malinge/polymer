@@ -11,7 +11,7 @@
  Target Server Version : 50728 (5.7.28)
  File Encoding         : 65001
 
- Date: 08/04/2026 09:25:06
+ Date: 17/06/2026 17:20:04
 */
 
 SET NAMES utf8mb4;
@@ -34,7 +34,7 @@ CREATE TABLE `gen_base_class`  (
 -- ----------------------------
 -- Records of gen_base_class
 -- ----------------------------
-INSERT INTO `gen_base_class` VALUES (1, 'com.polymer.framework.mybatis.core.entity', 'BaseEntity', 'id,creator,create_time,updater,update_time', '使用该基类，则需要表里有这些字段', '2023-07-11 14:33:08');
+INSERT INTO `gen_base_class` VALUES (1, 'com.polymer.framework.mybatis.core.entity', 'BaseEntity', 'id,creator,create_time,updater,update_time', '使用该基类，则需要表里有这些字段。', '2023-07-11 14:33:08');
 
 -- ----------------------------
 -- Table structure for gen_datasource
@@ -161,27 +161,6 @@ CREATE TABLE `gen_table`  (
 -- ----------------------------
 -- Records of gen_table
 -- ----------------------------
-INSERT INTO `gen_table` VALUES (220, 'chat_group', 'ChatGroup', '聊天群组表', 'admin', 'admin@126.com', 'com.polymer', '1.0.1', 1, 'D:\\generator\\polymer-boot\\polymer-boot-system', 'D:\\generator\\polymer-ui', 'system', 'group', 1, 1, 1, '2025-04-08 10:54:08');
-INSERT INTO `gen_table` VALUES (221, 'sys_area', 'SysArea', '区域表', 'admin', 'admin@126.com', 'com.polymer', '1.0.0', 0, 'D:\\generator\\polymer-boot\\polymer-application', 'D:\\generator\\polymer-ui', 'system', 'area', 1, 1, NULL, '2025-05-07 15:57:26');
-INSERT INTO `gen_table` VALUES (222, 'sys_app_details', 'SysAppDetails', 'app信息表', 'admin', 'admin@126.com', 'com.polymer', '1.0.0', 0, 'D:\\generator\\polymer-boot\\polymer-application', 'D:\\generator\\polymer-ui', 'system', 'appDetails', 1, 1, NULL, '2025-05-09 10:59:31');
-INSERT INTO `gen_table` VALUES (223, 'sys_city', 'SysCity', '城市管理', 'zhangxf', 'zhangxf@126.com', 'com.polymer', '1.0.0', 1, 'D:\\generator\\polymer-boot\\polymer-system', 'D:\\generator\\polymer-ui', 'system', 'city', 1, 1, 1, '2025-07-18 14:43:56');
-INSERT INTO `gen_table` VALUES (224, 'crm_product_order', 'CrmProductOrder', '商品订单表', 'admin', 'admin@126.com', 'com.crm', '1.0.0', 1, 'D:\\generator\\polymer-boot\\crm-boot-customer', 'D:\\generator\\polymer-ui', 'customer', 'order', 1, 3, 1, '2025-07-28 09:27:08');
-INSERT INTO `gen_table` VALUES (225, 'bpm_category', 'BpmCategory', 'BPM 流程分类', 'polymer', 'polymer@126.com', 'com.polymer', '1.0.0', 1, 'D:\\generator\\polymer-boot\\polymer-module\\polymer-module-bpm', 'D:\\generator\\polymer-ui', 'bpm', 'category', 1, 1, 1, '2025-08-14 09:59:41');
-INSERT INTO `gen_table` VALUES (226, 'bpm_user_group', 'BpmUserGroup', 'BPM 用户组表', 'polymer', 'polymer@126.com', 'com.polymer', '1.0.0', 1, 'D:\\generator\\polymer-boot\\polymer-module\\polymer-module-bpm', 'D:\\generator\\polymer-ui', 'bpm', 'userGroup', 1, 1, 1, '2025-08-22 10:58:07');
-INSERT INTO `gen_table` VALUES (227, 'bpm_process_listener', 'BpmProcessListener', 'BPM 流程监听器表', 'polymer', 'polymer@126.com', 'com.polymer', '1.0.0', 1, 'D:\\generator\\polymer-boot\\polymer-module\\polymer-module-bpm', 'D:\\generator\\polymer-ui', 'bpm', 'processListener', 1, 1, 1, '2025-08-27 09:43:42');
-INSERT INTO `gen_table` VALUES (228, 'bpm_process_expression', 'BpmProcessExpression', 'BPM 流程表达式表', 'polymer', 'polymer@126.com', 'com.polymer', '1.0.0', 1, 'D:\\generator\\polymer-boot\\polymer-module\\polymer-module-bpm', 'D:\\generator\\polymer-ui', 'bpm', 'processExpression', 1, 1, 1, '2025-08-27 10:12:02');
-INSERT INTO `gen_table` VALUES (229, 'bpm_form', 'BpmForm', 'BPM 表单定义表', 'polymer', 'polymer@126.com', 'com.polymer', '1.0.0', 1, 'D:\\generator\\polymer-boot\\polymer-module\\polymer-module-bpm', 'D:\\generator\\polymer-ui', 'bpm', 'form', 1, 1, 1, '2025-08-27 10:38:50');
-INSERT INTO `gen_table` VALUES (230, 'bpm_oa_leave', 'BpmOaLeave', 'OA 请假申请表', 'polymer', 'polymer@126.com', 'com.polymer', '1.0.0', 1, 'D:\\generator\\polymer-boot\\polymer-module\\polymer-module-bpm', 'D:\\generator\\polymer-ui', 'bpm', 'oaLeave', 1, 1, 1, '2025-09-29 14:41:18');
-INSERT INTO `gen_table` VALUES (231, 'bpm_process_definition_info', 'BpmProcessDefinitionInfo', 'BPM 流程定义的信息表', 'polymer', 'polymer@126.com', 'com.polymer', '1.0.0', 1, 'D:\\generator\\polymer-boot\\polymer-module\\polymer-module-bpm', 'D:\\generator\\polymer-ui', 'bpm', 'processDefinitionInfo', 1, 1, 1, '2025-09-29 14:41:18');
-INSERT INTO `gen_table` VALUES (232, 'bpm_process_instance_copy', 'BpmProcessInstanceCopy', 'BPM 流程实例抄送表', 'polymer', 'polymer@126.com', 'com.polymer', '1.0.0', 1, 'D:\\generator\\polymer-boot\\polymer-module\\polymer-module-bpm', 'D:\\generator\\polymer-ui', 'bpm', 'processInstanceCopy', 1, 1, 1, '2025-09-29 14:41:18');
-INSERT INTO `gen_table` VALUES (233, 'gen_base_class', 'BaseClass', '基类管理', 'polymer', 'polymer@126.com', 'com.polymer', '1.0.0', 0, 'D:\\generator\\polymer-boot\\polymer-application', 'D:\\generator\\polymer-ui', 'polymer', 'baseClass', 1, 4, NULL, '2025-10-21 15:31:47');
-INSERT INTO `gen_table` VALUES (234, 'gen_datasource', 'Datasource', '数据源管理', 'polymer', 'polymer@126.com', 'com.polymer', '1.0.0', 0, 'D:\\generator\\polymer-boot\\polymer-application', 'D:\\generator\\polymer-ui', 'polymer', 'datasource', 1, 4, NULL, '2025-10-21 15:31:47');
-INSERT INTO `gen_table` VALUES (235, 'gen_field_type', 'FieldType', '字段类型管理', 'polymer', 'polymer@126.com', 'com.polymer', '1.0.0', 0, 'D:\\generator\\polymer-boot\\polymer-application', 'D:\\generator\\polymer-ui', 'polymer', 'fieldType', 1, 4, NULL, '2025-10-21 15:31:47');
-INSERT INTO `gen_table` VALUES (236, 'gen_project_modify', 'ProjectModify', '项目名变更', 'polymer', 'polymer@126.com', 'com.polymer', '1.0.0', 0, 'D:\\generator\\polymer-boot\\polymer-application', 'D:\\generator\\polymer-ui', 'polymer', 'projectModify', 1, 4, NULL, '2025-10-21 15:31:47');
-INSERT INTO `gen_table` VALUES (237, 'gen_table', 'Table', '代码生成表', 'polymer', 'polymer@126.com', 'com.polymer', '1.0.0', 0, 'D:\\generator\\polymer-boot\\polymer-application', 'D:\\generator\\polymer-ui', 'polymer', 'table', 1, 4, NULL, '2025-10-21 15:31:47');
-INSERT INTO `gen_table` VALUES (238, 'gen_table_field', 'TableField', '代码生成表字段', 'polymer', 'polymer@126.com', 'com.polymer', '1.0.0', 0, 'D:\\generator\\polymer-boot\\polymer-application', 'D:\\generator\\polymer-ui', 'polymer', 'tableField', 1, 4, NULL, '2025-10-21 15:31:47');
-INSERT INTO `gen_table` VALUES (239, 'sequence', 'Sequence', '发号器表', 'polymer', 'polymer@126.com', 'com.polymer', '1.0.0', 1, 'D:\\ideaprojects\\polymer\\polymer-business\\polymer-business-demo', 'D:\\generator\\polymer-ui', 'demo', 'sequence', 1, 1, NULL, '2026-03-27 11:01:29');
-INSERT INTO `gen_table` VALUES (240, 'sys_sequence', 'SysSequence', '发号器表', 'polymer', 'polymer@126.com', 'com.polymer', '1.0.0', 0, 'D:\\generator\\polymer\\polymer-application', 'D:\\generator\\polymer-ui', 'sequence', 'sequence', 1, 1, 1, '2026-04-08 09:18:46');
 
 -- ----------------------------
 -- Table structure for gen_table_field
@@ -217,281 +196,6 @@ CREATE TABLE `gen_table_field`  (
 -- ----------------------------
 -- Records of gen_table_field
 -- ----------------------------
-INSERT INTO `gen_table_field` VALUES (2713, 220, 'group_id', 'varchar', '主键', 'groupId', 'String', NULL, 0, 'DEFAULT', 1, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2714, 220, 'group_name', 'varchar', '群名称', 'groupName', 'String', NULL, 1, 'DEFAULT', 0, 0, 1, 1, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2715, 220, 'group_introduce', 'varchar', '群介绍', 'groupIntroduce', 'String', NULL, 2, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2716, 220, 'group_avatar', 'varchar', '群头像', 'groupAvatar', 'String', NULL, 3, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2717, 220, 'max_people_number', 'int', '最大人数限制', 'maxPeopleNumber', 'Integer', NULL, 4, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2718, 220, 'is_overt', 'int', '是否公开可见[0:否;1:是;]', 'isOvert', 'Integer', NULL, 5, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2719, 220, 'is_mute', 'int', '是否全员禁言 [0:否;1:是;]，提示:不包含群主或管理员', 'isMute', 'Integer', NULL, 6, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2720, 220, 'is_dismiss', 'int', '是否已解散[0:否;1:是;]', 'isDismiss', 'Integer', NULL, 7, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2721, 220, 'create_time', 'datetime', '创建时间', 'createTime', 'LocalDateTime', 'java.time.LocalDateTime', 8, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2722, 220, 'update_time', 'datetime', '更新时间', 'updateTime', 'LocalDateTime', 'java.time.LocalDateTime', 9, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2723, 220, 'create_dept_id', 'varchar', '创建部门id', 'createDeptId', 'String', NULL, 10, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2724, 220, 'dismissed_time', 'datetime', '解散时间', 'dismissedTime', 'LocalDateTime', 'java.time.LocalDateTime', 11, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2725, 220, 'create_user_id', 'varchar', '创建人id', 'createUserId', 'String', NULL, 12, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2726, 220, 'update_user_id', 'varchar', '更新人id', 'updateUserId', 'String', NULL, 13, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2727, 220, 'tenant_id', 'varchar', '租户ID', 'tenantId', 'String', NULL, 14, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2728, 221, 'id', 'bigint', 'id', 'id', 'Long', NULL, 0, 'DEFAULT', 1, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2729, 221, 'parent_id', 'bigint', '父级id', 'parentId', 'Long', NULL, 1, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2730, 221, 'name', 'varchar', '名称', 'name', 'String', NULL, 2, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2731, 221, 'level', 'int', '等级', 'level', 'Integer', NULL, 3, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2732, 222, 'id', 'int', 'ID', 'id', 'Integer', NULL, 0, 'DEFAULT', 1, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', 'auto_increment');
-INSERT INTO `gen_table_field` VALUES (2733, 222, 'app_name', 'varchar', '', 'appName', 'String', NULL, 1, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2734, 222, 'app_id', 'varchar', '', 'appId', 'String', NULL, 2, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2735, 222, 'app_secret', 'varchar', '', 'appSecret', 'String', NULL, 3, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2736, 223, 'id', 'bigint', '', 'id', 'Long', NULL, 0, 'DEFAULT', 1, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', 'auto_increment');
-INSERT INTO `gen_table_field` VALUES (2737, 223, 'pid', 'bigint', '父级id', 'pid', 'Long', NULL, 1, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2738, 223, 'name', 'varchar', '城市名称', 'name', 'String', NULL, 2, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2739, 223, 'pinyin', 'varchar', '城市拼音', 'pinyin', 'String', NULL, 3, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2740, 223, 'short_name', 'varchar', '城市简称', 'shortName', 'String', NULL, 4, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2741, 223, 'full_name', 'varchar', '城市全称', 'fullName', 'String', NULL, 5, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2742, 223, 'area_code', 'varchar', '行政编码', 'areaCode', 'String', NULL, 6, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2743, 223, 'city_code', 'varchar', '城市区号', 'cityCode', 'String', NULL, 7, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2744, 223, 'parent_code', 'varchar', '父级编码', 'parentCode', 'String', NULL, 8, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2745, 223, 'level', 'tinyint', '父级等级（1：省级；城市；3：区县）', 'level', 'Integer', NULL, 9, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2746, 223, 'zip_code', 'varchar', '邮政编码', 'zipCode', 'String', NULL, 10, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2747, 223, 'longitude', 'varchar', '城市经度', 'longitude', 'String', NULL, 11, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2748, 223, 'latitude', 'varchar', '城市纬度', 'latitude', 'String', NULL, 12, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2749, 223, 'have_child', 'tinyint', '是否存在下级', 'haveChild', 'Integer', NULL, 13, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2750, 223, 'creator', 'bigint', '创建者', 'creator', 'Long', NULL, 14, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2751, 223, 'create_time', 'datetime', '创建时间', 'createTime', 'LocalDateTime', 'java.time.LocalDateTime', 15, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2752, 223, 'updater', 'bigint', '更新者', 'updater', 'Long', NULL, 16, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2753, 223, 'update_time', 'datetime', '更新时间', 'updateTime', 'LocalDateTime', 'java.time.LocalDateTime', 17, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2754, 224, 'ID', 'bigint', 'ID', 'id', 'Long', NULL, 0, 'DEFAULT', 1, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2755, 224, 'EXTEND1', 'varchar', '销售负责人', 'extend1', 'String', NULL, 1, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2756, 224, 'EXTEND2', 'varchar', '邮寄方式其他：备注说明', 'extend2', 'String', NULL, 2, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2757, 224, 'EXTEND3', 'varchar', '扩展字段3', 'extend3', 'String', NULL, 3, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2758, 224, 'DESCRIPTION', 'varchar', '描述', 'description', 'String', NULL, 4, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2759, 224, 'AGENCY_CODE', 'varchar', '租户CODE', 'agencyCode', 'String', NULL, 5, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2760, 224, 'PRODUCT_CODE', 'varchar', '', 'productCode', 'String', NULL, 6, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2761, 224, 'ORDER_SN', 'varchar', '订单号', 'orderSn', 'String', NULL, 7, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 1, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2762, 224, 'GOODS_NAME', 'varchar', '商品名称', 'goodsName', 'String', NULL, 8, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2763, 224, 'ORDER_TYPE', 'char', '订单类型（0：新购；1：续费）', 'orderType', 'String', NULL, 9, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2764, 224, 'USER_CODE', 'varchar', '用户CODE', 'userCode', 'String', NULL, 10, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2765, 224, 'USER_ACCOUNT', 'varchar', '用户账号', 'userAccount', 'String', NULL, 11, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2766, 224, 'USER_PHONE', 'varchar', '用户电话', 'userPhone', 'String', NULL, 12, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2767, 224, 'BUY_AGENCY_CODE', 'varchar', '购买租户code', 'buyAgencyCode', 'String', NULL, 13, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2768, 224, 'AGENCY_NAME', 'varchar', '租户名称', 'agencyName', 'String', NULL, 14, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 1, 'like', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2769, 224, 'AGENCY_TYPE', 'varchar', '租户类型', 'agencyType', 'String', NULL, 15, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2770, 224, 'ORDER_TIME', 'bigint', '下单时间', 'orderTime', 'Long', NULL, 16, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 1, '=', 'datetime', NULL);
-INSERT INTO `gen_table_field` VALUES (2771, 224, 'ORDER_PRICE', 'decimal', '订单金额', 'orderPrice', 'BigDecimal', 'java.math.BigDecimal', 17, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2772, 224, 'ORDER_DISCOUNT', 'int', '订单折扣', 'orderDiscount', 'Integer', NULL, 18, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2773, 224, 'DISCOUNT', 'decimal', '折扣优惠', 'discount', 'BigDecimal', 'java.math.BigDecimal', 19, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2774, 224, 'PAY_PRICE', 'decimal', '实际支付金额', 'payPrice', 'BigDecimal', 'java.math.BigDecimal', 20, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2775, 224, 'COUPON_ID', 'varchar', '优惠券ID', 'couponId', 'String', NULL, 21, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2776, 224, 'COUPON_PRICE', 'decimal', '优惠券金额', 'couponPrice', 'BigDecimal', 'java.math.BigDecimal', 22, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2777, 224, 'PAY_STATUS', 'char', '支付状态（0：待支付；1：已支付）', 'payStatus', 'String', NULL, 23, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 1, '=', 'select', NULL);
-INSERT INTO `gen_table_field` VALUES (2778, 224, 'PAY_TIME', 'bigint', '支付时间', 'payTime', 'Long', NULL, 24, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2779, 224, 'PAY_TYPE', 'char', '支付方式 (0:微信;1:支付宝;2:对公转账)', 'payType', 'String', NULL, 25, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2780, 224, 'ORDER_STATUS', 'char', '订单状态（0：待支付；1：待发货；2：待收货；3：已完成；4：已取消）', 'orderStatus', 'String', NULL, 26, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2781, 224, 'REMARK', 'varchar', '备注', 'remark', 'String', NULL, 27, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2782, 224, 'NAME', 'varchar', '收件人', 'name', 'String', NULL, 28, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2783, 224, 'MOBILE', 'varchar', '联系电话', 'mobile', 'String', NULL, 29, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2784, 224, 'ADDRESS', 'varchar', '详细地址', 'address', 'String', NULL, 30, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2785, 224, 'DELIVERY_TYPE', 'char', '发货类型（0：邮政；1：其他）', 'deliveryType', 'String', NULL, 31, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2786, 224, 'LOGISTICS', 'varchar', '物流公司', 'logistics', 'String', NULL, 32, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2787, 224, 'LOGISTICS_NUMBER', 'varchar', '物流单号', 'logisticsNumber', 'String', NULL, 33, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2788, 224, 'DELIVERY_TIME', 'bigint', '发货时间', 'deliveryTime', 'Long', NULL, 34, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2789, 224, 'ORDER_SOURCE', 'varchar', '订单来源', 'orderSource', 'String', NULL, 35, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2790, 224, 'ORG_ID', 'bigint', '机构ID', 'orgId', 'Long', NULL, 36, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2791, 224, 'STATUS', 'tinyint', '状态  0：停用   1：正常', 'status', 'Integer', NULL, 37, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2792, 224, 'VERSION', 'int', '版本号', 'version', 'Integer', NULL, 38, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2793, 224, 'DELETED', 'tinyint', '删除标识  0：正常   1：已删除', 'deleted', 'Integer', NULL, 39, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2794, 224, 'CREATOR', 'bigint', '创建者', 'creator', 'Long', NULL, 40, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2795, 224, 'CREATE_TIME', 'datetime', '创建时间', 'createTime', 'LocalDateTime', 'java.time.LocalDateTime', 41, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2796, 224, 'UPDATER', 'bigint', '更新者', 'updater', 'Long', NULL, 42, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2797, 224, 'UPDATE_TIME', 'datetime', '更新时间', 'updateTime', 'LocalDateTime', 'java.time.LocalDateTime', 43, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2798, 225, 'id', 'bigint', '分类编号', 'id', 'Long', NULL, 0, 'DEFAULT', 1, 0, 0, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', 'auto_increment');
-INSERT INTO `gen_table_field` VALUES (2799, 225, 'name', 'varchar', '分类名', 'name', 'String', NULL, 1, 'DEFAULT', 0, 0, 1, 1, 'text', NULL, '分类名不能为空', 1, 0, 1, 'like', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2800, 225, 'code', 'varchar', '分类标志', 'code', 'String', NULL, 2, 'DEFAULT', 0, 0, 1, 1, 'text', NULL, '分类标志不能为空', 1, 0, 1, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2801, 225, 'description', 'varchar', '分类描述', 'description', 'String', NULL, 3, 'DEFAULT', 0, 0, 1, 0, 'textarea', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2802, 225, 'status', 'tinyint', '分类状态', 'status', 'Integer', NULL, 4, 'DEFAULT', 0, 0, 1, 1, 'radio', 'bpm_category_status', '分类状态不能为空', 1, 0, 1, '=', 'select', '');
-INSERT INTO `gen_table_field` VALUES (2803, 225, 'sort', 'int', '分类排序', 'sort', 'Integer', NULL, 5, 'DEFAULT', 0, 0, 1, 1, 'inputNumber', NULL, '分类排序不能为空', 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2804, 225, 'dept_id', 'bigint', '部门ID', 'deptId', 'Long', NULL, 6, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 0, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2805, 225, 'creator', 'varchar', '创建者', 'creator', 'String', NULL, 7, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 0, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2806, 225, 'create_time', 'datetime', '创建时间', 'createTime', 'LocalDateTime', 'java.time.LocalDateTime', 8, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 1, 0, 1, 'between', 'datetime', '');
-INSERT INTO `gen_table_field` VALUES (2807, 225, 'updater', 'varchar', '更新者', 'updater', 'String', NULL, 9, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 0, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2808, 225, 'update_time', 'datetime', '更新时间', 'updateTime', 'LocalDateTime', 'java.time.LocalDateTime', 10, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 0, 0, 0, 'between', 'datetime', 'on update CURRENT_TIMESTAMP');
-INSERT INTO `gen_table_field` VALUES (2809, 226, 'id', 'bigint', '编号', 'id', 'Long', NULL, 0, 'DEFAULT', 1, 0, 0, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', 'auto_increment');
-INSERT INTO `gen_table_field` VALUES (2810, 226, 'name', 'varchar', '组名', 'name', 'String', NULL, 1, 'DEFAULT', 0, 0, 1, 1, 'text', NULL, NULL, 1, 0, 1, 'like', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2811, 226, 'description', 'varchar', '描述', 'description', 'String', NULL, 2, 'DEFAULT', 0, 0, 1, 0, 'textarea', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2812, 226, 'user_ids', 'varchar', '成员编号数组', 'userIds', 'String', NULL, 3, 'DEFAULT', 0, 0, 1, 1, 'selectUser', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2813, 226, 'status', 'tinyint', '状态（0正常 1停用）', 'status', 'Integer', NULL, 4, 'DEFAULT', 0, 0, 1, 0, 'radio', 'status', NULL, 1, 0, 1, '=', 'select', '');
-INSERT INTO `gen_table_field` VALUES (2814, 226, 'dept_id', 'bigint', '部门ID', 'deptId', 'Long', NULL, 5, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 0, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2815, 226, 'creator', 'bigint', '创建者', 'creator', 'Long', NULL, 6, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 0, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2816, 226, 'create_time', 'datetime', '创建时间', 'createTime', 'LocalDateTime', 'java.time.LocalDateTime', 7, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 1, 0, 1, 'between', 'datetime', '');
-INSERT INTO `gen_table_field` VALUES (2817, 226, 'updater', 'bigint', '更新者', 'updater', 'Long', NULL, 8, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 0, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2818, 226, 'update_time', 'datetime', '更新时间', 'updateTime', 'LocalDateTime', 'java.time.LocalDateTime', 9, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 0, 0, 0, '=', 'text', 'on update CURRENT_TIMESTAMP');
-INSERT INTO `gen_table_field` VALUES (2819, 227, 'id', 'bigint', '编号', 'id', 'Long', NULL, 0, 'DEFAULT', 1, 0, 0, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', 'auto_increment');
-INSERT INTO `gen_table_field` VALUES (2820, 227, 'name', 'varchar', '监听器名字', 'name', 'String', NULL, 1, 'DEFAULT', 0, 0, 1, 1, 'text', NULL, NULL, 1, 0, 1, 'like', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2821, 227, 'type', 'varchar', '监听器类型', 'type', 'String', NULL, 2, 'DEFAULT', 0, 0, 1, 1, 'select', 'bpm_process_listener_type', NULL, 1, 0, 1, '=', 'select', '');
-INSERT INTO `gen_table_field` VALUES (2822, 227, 'status', 'tinyint', '监听器状态', 'status', 'Integer', NULL, 3, 'DEFAULT', 0, 0, 1, 1, 'radio', 'common_status', NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2823, 227, 'event', 'varchar', '监听事件', 'event', 'String', NULL, 4, 'DEFAULT', 0, 0, 1, 1, 'select', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2824, 227, 'value_type', 'varchar', '监听器值类型', 'valueType', 'String', NULL, 5, 'DEFAULT', 0, 0, 1, 1, 'select', 'bpm_process_listener_value_type', NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2825, 227, 'value', 'varchar', '监听器值', 'value', 'String', NULL, 6, 'DEFAULT', 0, 0, 1, 1, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2826, 227, 'dept_id', 'bigint', '部门ID', 'deptId', 'Long', NULL, 7, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 0, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2827, 227, 'creator', 'bigint', '创建者', 'creator', 'Long', NULL, 8, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 0, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2828, 227, 'create_time', 'datetime', '创建时间', 'createTime', 'LocalDateTime', 'java.time.LocalDateTime', 9, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2829, 227, 'updater', 'bigint', '更新者', 'updater', 'Long', NULL, 10, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 0, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2830, 227, 'update_time', 'datetime', '更新时间', 'updateTime', 'LocalDateTime', 'java.time.LocalDateTime', 11, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 0, 0, 0, '=', 'text', 'on update CURRENT_TIMESTAMP');
-INSERT INTO `gen_table_field` VALUES (2831, 228, 'id', 'bigint', '编号', 'id', 'Long', NULL, 0, 'DEFAULT', 1, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', 'auto_increment');
-INSERT INTO `gen_table_field` VALUES (2832, 228, 'name', 'varchar', '表达式名字', 'name', 'String', NULL, 1, 'DEFAULT', 0, 0, 1, 1, 'text', NULL, NULL, 1, 0, 1, 'like', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2833, 228, 'status', 'tinyint', '表达式状态', 'status', 'Integer', NULL, 2, 'DEFAULT', 0, 0, 1, 1, 'radio', 'common_status', NULL, 1, 0, 1, '=', 'select', '');
-INSERT INTO `gen_table_field` VALUES (2834, 228, 'expression', 'varchar', '表达式', 'expression', 'String', NULL, 3, 'DEFAULT', 0, 0, 1, 1, 'textarea', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2835, 228, 'dept_id', 'bigint', '部门ID', 'deptId', 'Long', NULL, 4, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 0, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2836, 228, 'creator', 'bigint', '创建者', 'creator', 'Long', NULL, 5, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 0, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2837, 228, 'create_time', 'datetime', '创建时间', 'createTime', 'LocalDateTime', 'java.time.LocalDateTime', 6, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 1, 0, 1, 'between', 'datetime', '');
-INSERT INTO `gen_table_field` VALUES (2838, 228, 'updater', 'bigint', '更新者', 'updater', 'Long', NULL, 7, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 0, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2839, 228, 'update_time', 'datetime', '更新时间', 'updateTime', 'LocalDateTime', 'java.time.LocalDateTime', 8, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 0, 0, 0, '=', 'text', 'on update CURRENT_TIMESTAMP');
-INSERT INTO `gen_table_field` VALUES (2840, 229, 'id', 'bigint', '编号', 'id', 'Long', NULL, 0, 'DEFAULT', 1, 0, 0, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', 'auto_increment');
-INSERT INTO `gen_table_field` VALUES (2841, 229, 'name', 'varchar', '表单名', 'name', 'String', NULL, 1, 'DEFAULT', 0, 0, 1, 1, 'text', NULL, NULL, 1, 0, 1, 'like', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2842, 229, 'status', 'tinyint', '开启状态', 'status', 'Integer', NULL, 2, 'DEFAULT', 0, 0, 1, 1, 'radio', 'common_status', NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2843, 229, 'conf', 'varchar', '表单的配置', 'conf', 'String', NULL, 3, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 0, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2844, 229, 'fields', 'varchar', '表单项的数组', 'fields', 'String', NULL, 4, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 0, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2845, 229, 'remark', 'varchar', '备注', 'remark', 'String', NULL, 5, 'DEFAULT', 0, 0, 1, 0, 'textarea', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2846, 229, 'dept_id', 'bigint', '部门ID', 'deptId', 'Long', NULL, 6, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 0, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2847, 229, 'creator', 'bigint', '创建者', 'creator', 'Long', NULL, 7, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 0, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2848, 229, 'create_time', 'datetime', '创建时间', 'createTime', 'LocalDateTime', 'java.time.LocalDateTime', 8, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2849, 229, 'updater', 'bigint', '更新者', 'updater', 'Long', NULL, 9, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 0, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2850, 229, 'update_time', 'datetime', '更新时间', 'updateTime', 'LocalDateTime', 'java.time.LocalDateTime', 10, 'DEFAULT', 0, 0, 0, 0, 'text', NULL, NULL, 0, 0, 0, '=', 'text', 'on update CURRENT_TIMESTAMP');
-INSERT INTO `gen_table_field` VALUES (2851, 230, 'id', 'bigint', '请假表单主键', 'id', 'Long', NULL, 0, 'DEFAULT', 1, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', 'auto_increment');
-INSERT INTO `gen_table_field` VALUES (2852, 230, 'user_id', 'bigint', '申请人的用户编号', 'userId', 'Long', NULL, 1, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2853, 230, 'type', 'tinyint', '请假类型', 'type', 'Integer', NULL, 2, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2854, 230, 'reason', 'varchar', '请假原因', 'reason', 'String', NULL, 3, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2855, 230, 'start_time', 'datetime', '开始时间', 'startTime', 'LocalDateTime', 'java.time.LocalDateTime', 4, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2856, 230, 'end_time', 'datetime', '结束时间', 'endTime', 'LocalDateTime', 'java.time.LocalDateTime', 5, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2857, 230, 'day', 'tinyint', '请假天数', 'day', 'Integer', NULL, 6, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2858, 230, 'status', 'tinyint', '审批结果', 'status', 'Integer', NULL, 7, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2859, 230, 'process_instance_id', 'varchar', '流程实例的编号', 'processInstanceId', 'String', NULL, 8, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2860, 230, 'dept_id', 'bigint', '部门ID', 'deptId', 'Long', NULL, 9, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2861, 230, 'creator', 'bigint', '创建者', 'creator', 'Long', NULL, 10, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2862, 230, 'create_time', 'datetime', '创建时间', 'createTime', 'LocalDateTime', 'java.time.LocalDateTime', 11, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2863, 230, 'updater', 'bigint', '更新者', 'updater', 'Long', NULL, 12, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2864, 230, 'update_time', 'datetime', '更新时间', 'updateTime', 'LocalDateTime', 'java.time.LocalDateTime', 13, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', 'on update CURRENT_TIMESTAMP');
-INSERT INTO `gen_table_field` VALUES (2865, 231, 'id', 'bigint', '编号', 'id', 'Long', NULL, 0, 'DEFAULT', 1, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', 'auto_increment');
-INSERT INTO `gen_table_field` VALUES (2866, 231, 'process_definition_id', 'varchar', '流程定义的编号', 'processDefinitionId', 'String', NULL, 1, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2867, 231, 'model_id', 'varchar', '流程模型的编号', 'modelId', 'String', NULL, 2, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2868, 231, 'model_type', 'tinyint', '流程模型的类型', 'modelType', 'Integer', NULL, 3, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2869, 231, 'icon', 'varchar', '图标', 'icon', 'String', NULL, 4, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2870, 231, 'description', 'varchar', '描述', 'description', 'String', NULL, 5, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2871, 231, 'form_type', 'tinyint', '表单类型', 'formType', 'Integer', NULL, 6, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2872, 231, 'form_id', 'bigint', '表单编号', 'formId', 'Long', NULL, 7, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2873, 231, 'form_conf', 'varchar', '表单的配置', 'formConf', 'String', NULL, 8, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2874, 231, 'form_fields', 'varchar', '表单项的数组', 'formFields', 'String', NULL, 9, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2875, 231, 'form_custom_create_path', 'varchar', '自定义表单的提交路径', 'formCustomCreatePath', 'String', NULL, 10, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2876, 231, 'form_custom_view_path', 'varchar', '自定义表单的查看路径', 'formCustomViewPath', 'String', NULL, 11, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2877, 231, 'simple_model', 'text', 'SIMPLE 设计器模型数据 JSON 格式', 'simpleModel', 'String', NULL, 12, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2878, 231, 'sort', 'bigint', '排序值', 'sort', 'Long', NULL, 13, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2879, 231, 'visible', 'bit', '是否可见', 'visible', 'Boolean', NULL, 14, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2880, 231, 'start_user_ids', 'varchar', '可发起用户编号数组', 'startUserIds', 'String', NULL, 15, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2881, 231, 'manager_user_ids', 'varchar', '可管理用户编号数组', 'managerUserIds', 'String', NULL, 16, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2882, 231, 'allow_cancel_running_process', 'bit', '是否允许撤销审批中的申请', 'allowCancelRunningProcess', 'Boolean', NULL, 17, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2883, 231, 'process_id_rule', 'varchar', '流程 ID 规则', 'processIdRule', 'String', NULL, 18, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2884, 231, 'auto_approval_type', 'tinyint', '自动去重类型', 'autoApprovalType', 'Integer', NULL, 19, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2885, 231, 'title_setting', 'varchar', '标题设置', 'titleSetting', 'String', NULL, 20, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2886, 231, 'summary_setting', 'varchar', '摘要设置', 'summarySetting', 'String', NULL, 21, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2887, 231, 'dept_id', 'bigint', '部门ID', 'deptId', 'Long', NULL, 22, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2888, 231, 'creator', 'bigint', '创建者', 'creator', 'Long', NULL, 23, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2889, 231, 'create_time', 'datetime', '创建时间', 'createTime', 'LocalDateTime', 'java.time.LocalDateTime', 24, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2890, 231, 'updater', 'bigint', '更新者', 'updater', 'Long', NULL, 25, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2891, 231, 'update_time', 'datetime', '更新时间', 'updateTime', 'LocalDateTime', 'java.time.LocalDateTime', 26, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', 'on update CURRENT_TIMESTAMP');
-INSERT INTO `gen_table_field` VALUES (2892, 232, 'id', 'bigint', '编号', 'id', 'Long', NULL, 0, 'DEFAULT', 1, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', 'auto_increment');
-INSERT INTO `gen_table_field` VALUES (2893, 232, 'user_id', 'bigint', '用户编号，被抄送人', 'userId', 'Long', NULL, 1, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2894, 232, 'start_user_id', 'bigint', '发起流程的用户编号', 'startUserId', 'Long', NULL, 2, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2895, 232, 'process_instance_id', 'varchar', '流程实例的编号', 'processInstanceId', 'String', NULL, 3, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2896, 232, 'process_instance_name', 'varchar', '流程实例的名字', 'processInstanceName', 'String', NULL, 4, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2897, 232, 'process_definition_id', 'varchar', '流程定义的编号', 'processDefinitionId', 'String', NULL, 5, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2898, 232, 'category', 'varchar', '流程定义的分类', 'category', 'String', NULL, 6, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2899, 232, 'activity_id', 'varchar', '流程活动的编号', 'activityId', 'String', NULL, 7, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2900, 232, 'activity_name', 'varchar', '流程活动的名字', 'activityName', 'String', NULL, 8, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2901, 232, 'task_id', 'varchar', '流程任务的编号', 'taskId', 'String', NULL, 9, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2902, 232, 'reason', 'varchar', '抄送意见', 'reason', 'String', NULL, 10, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2903, 232, 'dept_id', 'bigint', '部门ID', 'deptId', 'Long', NULL, 11, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2904, 232, 'creator', 'bigint', '创建者', 'creator', 'Long', NULL, 12, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2905, 232, 'create_time', 'datetime', '创建时间', 'createTime', 'LocalDateTime', 'java.time.LocalDateTime', 13, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2906, 232, 'updater', 'bigint', '更新者', 'updater', 'Long', NULL, 14, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2907, 232, 'update_time', 'datetime', '更新时间', 'updateTime', 'LocalDateTime', 'java.time.LocalDateTime', 15, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', 'on update CURRENT_TIMESTAMP');
-INSERT INTO `gen_table_field` VALUES (2908, 233, 'id', 'bigint', 'id', 'id', 'Long', NULL, 0, 'DEFAULT', 1, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', 'auto_increment');
-INSERT INTO `gen_table_field` VALUES (2909, 233, 'package_name', 'varchar', '基类包名', 'packageName', 'String', NULL, 1, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2910, 233, 'code', 'varchar', '基类编码', 'code', 'String', NULL, 2, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2911, 233, 'fields', 'varchar', '基类字段，多个用英文逗号分隔', 'fields', 'String', NULL, 3, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2912, 233, 'remark', 'varchar', '备注', 'remark', 'String', NULL, 4, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2913, 233, 'create_time', 'datetime', '创建时间', 'createTime', 'LocalDateTime', 'java.time.LocalDateTime', 5, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2914, 234, 'id', 'bigint', 'id', 'id', 'Long', NULL, 0, 'DEFAULT', 1, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', 'auto_increment');
-INSERT INTO `gen_table_field` VALUES (2915, 234, 'db_type', 'varchar', '数据库类型', 'dbType', 'String', NULL, 1, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2916, 234, 'conn_name', 'varchar', '连接名', 'connName', 'String', NULL, 2, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2917, 234, 'conn_url', 'varchar', 'URL', 'connUrl', 'String', NULL, 3, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2918, 234, 'username', 'varchar', '用户名', 'username', 'String', NULL, 4, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2919, 234, 'password', 'varchar', '密码', 'password', 'String', NULL, 5, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2920, 234, 'create_time', 'datetime', '创建时间', 'createTime', 'LocalDateTime', 'java.time.LocalDateTime', 6, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2921, 235, 'id', 'bigint', 'id', 'id', 'Long', NULL, 0, 'DEFAULT', 1, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', 'auto_increment');
-INSERT INTO `gen_table_field` VALUES (2922, 235, 'column_type', 'varchar', '字段类型', 'columnType', 'String', NULL, 1, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2923, 235, 'attr_type', 'varchar', '属性类型', 'attrType', 'String', NULL, 2, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2924, 235, 'package_name', 'varchar', '属性包名', 'packageName', 'String', NULL, 3, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2925, 235, 'create_time', 'datetime', '创建时间', 'createTime', 'LocalDateTime', 'java.time.LocalDateTime', 4, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2926, 236, 'id', 'bigint', 'id', 'id', 'Long', NULL, 0, 'DEFAULT', 1, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', 'auto_increment');
-INSERT INTO `gen_table_field` VALUES (2927, 236, 'project_name', 'varchar', '项目名', 'projectName', 'String', NULL, 1, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2928, 236, 'project_code', 'varchar', '项目标识', 'projectCode', 'String', NULL, 2, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2929, 236, 'project_package', 'varchar', '项目包名', 'projectPackage', 'String', NULL, 3, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2930, 236, 'project_path', 'varchar', '项目路径', 'projectPath', 'String', NULL, 4, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2931, 236, 'modify_project_name', 'varchar', '变更项目名', 'modifyProjectName', 'String', NULL, 5, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2932, 236, 'modify_project_code', 'varchar', '变更标识', 'modifyProjectCode', 'String', NULL, 6, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2933, 236, 'modify_project_package', 'varchar', '变更包名', 'modifyProjectPackage', 'String', NULL, 7, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2934, 236, 'exclusions', 'varchar', '排除文件', 'exclusions', 'String', NULL, 8, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2935, 236, 'modify_suffix', 'varchar', '变更文件', 'modifySuffix', 'String', NULL, 9, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2936, 236, 'modify_tmp_path', 'varchar', '变更临时路径', 'modifyTmpPath', 'String', NULL, 10, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2937, 236, 'create_time', 'datetime', '创建时间', 'createTime', 'LocalDateTime', 'java.time.LocalDateTime', 11, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2938, 237, 'id', 'bigint', 'id', 'id', 'Long', NULL, 0, 'DEFAULT', 1, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', 'auto_increment');
-INSERT INTO `gen_table_field` VALUES (2939, 237, 'table_name', 'varchar', '表名', 'tableName', 'String', NULL, 1, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2940, 237, 'class_name', 'varchar', '类名', 'className', 'String', NULL, 2, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2941, 237, 'table_comment', 'varchar', '说明', 'tableComment', 'String', NULL, 3, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2942, 237, 'author', 'varchar', '作者', 'author', 'String', NULL, 4, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2943, 237, 'email', 'varchar', '邮箱', 'email', 'String', NULL, 5, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2944, 237, 'package_name', 'varchar', '项目包名', 'packageName', 'String', NULL, 6, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2945, 237, 'version', 'varchar', '项目版本号', 'version', 'String', NULL, 7, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2946, 237, 'generator_type', 'tinyint', '生成方式  0：zip压缩包   1：自定义目录', 'generatorType', 'Integer', NULL, 8, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2947, 237, 'backend_path', 'varchar', '后端生成路径', 'backendPath', 'String', NULL, 9, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2948, 237, 'frontend_path', 'varchar', '前端生成路径', 'frontendPath', 'String', NULL, 10, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2949, 237, 'module_name', 'varchar', '模块名', 'moduleName', 'String', NULL, 11, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2950, 237, 'function_name', 'varchar', '功能名', 'functionName', 'String', NULL, 12, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2951, 237, 'form_layout', 'tinyint', '表单布局  1：一列   2：两列', 'formLayout', 'Integer', NULL, 13, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2952, 237, 'datasource_id', 'bigint', '数据源ID', 'datasourceId', 'Long', NULL, 14, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2953, 237, 'baseclass_id', 'bigint', '基类ID', 'baseclassId', 'Long', NULL, 15, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2954, 237, 'create_time', 'datetime', '创建时间', 'createTime', 'LocalDateTime', 'java.time.LocalDateTime', 16, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2955, 238, 'id', 'bigint', 'id', 'id', 'Long', NULL, 0, 'DEFAULT', 1, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', 'auto_increment');
-INSERT INTO `gen_table_field` VALUES (2956, 238, 'table_id', 'bigint', '表ID', 'tableId', 'Long', NULL, 1, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2957, 238, 'field_name', 'varchar', '字段名称', 'fieldName', 'String', NULL, 2, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2958, 238, 'field_type', 'varchar', '字段类型', 'fieldType', 'String', NULL, 3, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2959, 238, 'field_comment', 'varchar', '字段说明', 'fieldComment', 'String', NULL, 4, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2960, 238, 'attr_name', 'varchar', '属性名', 'attrName', 'String', NULL, 5, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2961, 238, 'attr_type', 'varchar', '属性类型', 'attrType', 'String', NULL, 6, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2962, 238, 'package_name', 'varchar', '属性包名', 'packageName', 'String', NULL, 7, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2963, 238, 'sort', 'int', '排序', 'sort', 'Integer', NULL, 8, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2964, 238, 'auto_fill', 'varchar', '自动填充  DEFAULT、INSERT、UPDATE、INSERT_UPDATE', 'autoFill', 'String', NULL, 9, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2965, 238, 'primary_pk', 'tinyint', '主键 0：否  1：是', 'primaryPk', 'Integer', NULL, 10, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2966, 238, 'base_field', 'tinyint', '基类字段 0：否  1：是', 'baseField', 'Integer', NULL, 11, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2967, 238, 'form_item', 'tinyint', '表单项 0：否  1：是', 'formItem', 'Integer', NULL, 12, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2968, 238, 'form_required', 'tinyint', '表单必填 0：否  1：是', 'formRequired', 'Integer', NULL, 13, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2969, 238, 'form_type', 'varchar', '表单类型', 'formType', 'String', NULL, 14, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2970, 238, 'form_dict', 'varchar', '表单字典类型', 'formDict', 'String', NULL, 15, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2971, 238, 'form_validator', 'varchar', '表单效验', 'formValidator', 'String', NULL, 16, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2972, 238, 'grid_item', 'tinyint', '列表项 0：否  1：是', 'gridItem', 'Integer', NULL, 17, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2973, 238, 'grid_sort', 'tinyint', '列表排序 0：否  1：是', 'gridSort', 'Integer', NULL, 18, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2974, 238, 'query_item', 'tinyint', '查询项 0：否  1：是', 'queryItem', 'Integer', NULL, 19, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2975, 238, 'query_type', 'varchar', '查询方式', 'queryType', 'String', NULL, 20, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2976, 238, 'query_form_type', 'varchar', '查询表单类型', 'queryFormType', 'String', NULL, 21, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2977, 238, 'extra', 'varchar', '主键策略', 'extra', 'String', NULL, 22, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', '');
-INSERT INTO `gen_table_field` VALUES (2978, 239, 'id', 'bigint', '主键id', 'id', 'Long', NULL, 0, 'DEFAULT', 1, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', 'auto_increment');
-INSERT INTO `gen_table_field` VALUES (2979, 239, 'value', 'bigint', '值', 'value', 'Long', NULL, 1, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2980, 239, 'name', 'varchar', '名称', 'name', 'String', NULL, 2, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2981, 239, 'gmt_create', 'datetime', '创建时间', 'gmtCreate', 'LocalDateTime', 'java.time.LocalDateTime', 3, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2982, 239, 'gmt_modified', 'datetime', '更新时间', 'gmtModified', 'LocalDateTime', 'java.time.LocalDateTime', 4, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2983, 240, 'id', 'bigint', '主键id', 'id', 'Long', NULL, 0, 'DEFAULT', 1, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', 'auto_increment');
-INSERT INTO `gen_table_field` VALUES (2984, 240, 'value', 'bigint', '值', 'value', 'Long', NULL, 1, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2985, 240, 'name', 'varchar', '名称', 'name', 'String', NULL, 2, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2986, 240, 'gmt_create', 'datetime', '创建时间', 'gmtCreate', 'LocalDateTime', 'java.time.LocalDateTime', 3, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
-INSERT INTO `gen_table_field` VALUES (2987, 240, 'gmt_modified', 'datetime', '更新时间', 'gmtModified', 'LocalDateTime', 'java.time.LocalDateTime', 4, 'DEFAULT', 0, 0, 1, 0, 'text', NULL, NULL, 1, 0, 0, '=', 'text', NULL);
 
 -- ----------------------------
 -- Table structure for message_mail_account
@@ -553,19 +257,6 @@ CREATE TABLE `message_mail_log`  (
 -- ----------------------------
 -- Records of message_mail_log
 -- ----------------------------
-INSERT INTO `message_mail_log` VALUES (1, 10003, 1, '1600965800@qq.com', 2, '616026783@qq.com', 2, 'test_02', 'zhangxf', '一个标题', '<p>你是&nbsp;{key01}&nbsp;吗？</p><p><br></p><p>是的话，赶紧&nbsp;{key02}&nbsp;一下！</p>', '{\"key02\":\"test11\",\"key01\":\"test\"}', 30, NULL, NULL, NULL, NULL, NULL, '2025-05-28 16:04:13', NULL, NULL);
-INSERT INTO `message_mail_log` VALUES (2, 10003, 1, '1600965800@qq.com', 1, '616026782@qq.com', 2, 'test_02', 'zhangxf', '一个标题', '<p>你是&nbsp;{key01}&nbsp;吗？</p><p><br></p><p>是的话，赶紧&nbsp;{key02}&nbsp;一下！</p>', '{\"key02\":\"test11\",\"key01\":\"test\"}', 30, NULL, NULL, NULL, NULL, NULL, '2025-05-28 16:17:17', NULL, NULL);
-INSERT INTO `message_mail_log` VALUES (3, 10003, 1, '1600965800@qq.com', 1, '616026782@qq.com', 2, 'test_02', 'zhangxf', '一个标题', '<p>你是&nbsp;{key01}&nbsp;吗？</p><p><br></p><p>是的话，赶紧&nbsp;{key02}&nbsp;一下！</p>', '{\"key02\":\"test11\",\"key01\":\"test\"}', 30, NULL, NULL, NULL, NULL, NULL, '2025-05-28 16:27:15', NULL, NULL);
-INSERT INTO `message_mail_log` VALUES (4, 10003, 1, '1600965800@qq.com', 1, '616026782@qq.com', 2, 'test_02', 'zhangxf', '一个标题', '<p>你是&nbsp;{key01}&nbsp;吗？</p><p><br></p><p>是的话，赶紧&nbsp;{key02}&nbsp;一下！</p>', '{\"key02\":\"test11\",\"key01\":\"test\"}', 30, NULL, NULL, NULL, NULL, NULL, '2025-05-28 16:29:28', NULL, NULL);
-INSERT INTO `message_mail_log` VALUES (5, 10003, 1, '1600965800@qq.com', 1, '616026782@qq.com', 2, 'test_02', 'zhangxf', '一个标题', '<p>你是&nbsp;{key01}&nbsp;吗？</p><p><br></p><p>是的话，赶紧&nbsp;{key02}&nbsp;一下！</p>', '{\"key02\":\"test11\",\"key01\":\"test\"}', 0, NULL, NULL, NULL, NULL, NULL, '2025-05-28 16:42:15', NULL, NULL);
-INSERT INTO `message_mail_log` VALUES (6, 10003, 1, '1600965800@qq.com', 1, '616026782@qq.com', 2, 'test_02', 'zhangxf', '一个标题', '<p>你是&nbsp;{key01}&nbsp;吗？</p><p><br></p><p>是的话，赶紧&nbsp;{key02}&nbsp;一下！</p>', '{\"key02\":\"test11\",\"key01\":\"test\"}', 0, NULL, NULL, NULL, NULL, NULL, '2025-05-28 16:44:38', NULL, NULL);
-INSERT INTO `message_mail_log` VALUES (7, 10003, 1, '1600965800@qq.com', 1, '616026782@qq.com', 2, 'test_02', 'zhangxf', '一个标题', '<p>你是&nbsp;{key01}&nbsp;吗？</p><p><br></p><p>是的话，赶紧&nbsp;{key02}&nbsp;一下！</p>', '{\"key02\":\"test11\",\"key01\":\"test\"}', 0, NULL, NULL, NULL, NULL, NULL, '2025-05-28 16:46:42', NULL, NULL);
-INSERT INTO `message_mail_log` VALUES (8, 10003, 1, '1600965800@qq.com', 1, '616026782@qq.com', 2, 'test_02', 'zhangxf', '一个标题', '<p>你是&nbsp;{key01}&nbsp;吗？</p><p><br></p><p>是的话，赶紧&nbsp;{key02}&nbsp;一下！</p>', '{\"key02\":\"test11\",\"key01\":\"test\"}', 0, NULL, NULL, NULL, NULL, NULL, '2025-05-28 16:50:18', NULL, NULL);
-INSERT INTO `message_mail_log` VALUES (9, 10003, 1, '1600965800@qq.com', 1, '616026782@qq.com', 2, 'test_02', 'zhangxf', '一个标题', '<p>你是&nbsp;{key01}&nbsp;吗？</p><p><br></p><p>是的话，赶紧&nbsp;{key02}&nbsp;一下！</p>', '{\"key02\":\"test11\",\"key01\":\"test\"}', 0, NULL, NULL, NULL, NULL, NULL, '2025-05-28 17:33:44', NULL, NULL);
-INSERT INTO `message_mail_log` VALUES (10, 10003, 1, '1600965800@qq.com', 1, '616026782@qq.com', 2, 'test_02', 'zhangxf', '一个标题', '<p>你是&nbsp;{key01}&nbsp;吗？</p><p><br></p><p>是的话，赶紧&nbsp;{key02}&nbsp;一下！</p>', '{\"key02\":\"test11\",\"key01\":\"test\"}', 10, NULL, '12', NULL, NULL, NULL, '2025-05-28 17:36:28', NULL, '2025-05-28 17:36:30');
-INSERT INTO `message_mail_log` VALUES (11, 10003, 1, '1600965800@qq.com', 1, '616026782@qq.com', 2, 'test_02', 'zhangxf', '一个标题', '<p>你是&nbsp;{key01}&nbsp;吗？</p><p><br></p><p>是的话，赶紧&nbsp;{key02}&nbsp;一下！</p>', '{\"key02\":\"test11\",\"key01\":\"test\"}', 10, NULL, '12', NULL, NULL, NULL, '2025-05-28 17:52:55', NULL, '2025-05-28 17:52:56');
-INSERT INTO `message_mail_log` VALUES (12, 10003, 1, '1600965800@qq.com', 1, '616026782@qq.com', 2, 'test_02', 'zhangxf', '一个标题', '<p>你是&nbsp;test&nbsp;吗？</p><p><br></p><p>是的话，赶紧&nbsp;test11&nbsp;一下！</p>', '{\"key02\":\"test11\",\"key01\":\"test\"}', 10, NULL, '12', NULL, NULL, NULL, '2025-05-28 18:07:04', NULL, '2025-05-28 18:07:06');
-INSERT INTO `message_mail_log` VALUES (13, 10003, 1, '1600965800@qq.com', 1, '616026782@qq.com', 2, 'test_02', 'zhangxf', '一个标题', '<p>你是&nbsp;test&nbsp;吗？</p><p><br></p><p>是的话，赶紧&nbsp;test11&nbsp;一下！</p>', '{\"key02\":\"test11\",\"key01\":\"test\"}', 10, NULL, NULL, NULL, NULL, NULL, '2026-03-16 09:46:34', NULL, '2026-03-16 09:46:35');
 
 -- ----------------------------
 -- Table structure for message_mail_template
@@ -848,7 +539,7 @@ CREATE TABLE `qrtz_scheduler_state`  (
 -- ----------------------------
 -- Records of qrtz_scheduler_state
 -- ----------------------------
-INSERT INTO `qrtz_scheduler_state` VALUES ('PolymerScheduler', 'DESKTOP-F2SPVI51775611009860', 1775611503330, 15000);
+INSERT INTO `qrtz_scheduler_state` VALUES ('PolymerScheduler', 'DESKTOP-F2SPVI51781687735039', 1781687806339, 15000);
 
 -- ----------------------------
 -- Table structure for qrtz_simple_triggers
@@ -925,8 +616,8 @@ CREATE TABLE `qrtz_triggers`  (
 -- ----------------------------
 -- Records of qrtz_triggers
 -- ----------------------------
-INSERT INTO `qrtz_triggers` VALUES ('PolymerScheduler', 'TASK_NAME_6', 'system', 'TASK_NAME_6', 'system', NULL, 1775660400000, -1, 5, 'PAUSED', 'CRON', 1775611010000, 0, NULL, 2, '');
-INSERT INTO `qrtz_triggers` VALUES ('PolymerScheduler', 'TASK_NAME_7', 'system', 'TASK_NAME_7', 'system', NULL, 1775660400000, -1, 5, 'PAUSED', 'CRON', 1775611010000, 0, NULL, 2, '');
+INSERT INTO `qrtz_triggers` VALUES ('PolymerScheduler', 'TASK_NAME_6', 'system', 'TASK_NAME_6', 'system', NULL, 1781708400000, -1, 5, 'PAUSED', 'CRON', 1781687735000, 0, NULL, 2, '');
+INSERT INTO `qrtz_triggers` VALUES ('PolymerScheduler', 'TASK_NAME_7', 'system', 'TASK_NAME_7', 'system', NULL, 1781708400000, -1, 5, 'PAUSED', 'CRON', 1781687735000, 0, NULL, 2, '');
 
 -- ----------------------------
 -- Table structure for schedule_job
@@ -5237,7 +4928,7 @@ CREATE TABLE `sys_dept`  (
 -- ----------------------------
 -- Records of sys_dept
 -- ----------------------------
-INSERT INTO `sys_dept` VALUES (1, NULL, '公司', 1, 10003, 0, '/1/', 10000, '2023-10-09 08:57:09', 10000, '2025-08-12 10:26:53');
+INSERT INTO `sys_dept` VALUES (1, NULL, '公司', 1, 10003, 0, '/1/', 10000, '2023-10-09 08:57:09', 10000, '2026-06-10 10:38:43');
 INSERT INTO `sys_dept` VALUES (2, 1, '研发部门', 3, NULL, 0, '/1/2/', 10000, '2025-07-24 15:28:08', 10000, '2025-08-12 15:58:59');
 INSERT INTO `sys_dept` VALUES (3, 2, '部门小组测试长度12123长长长长长长长长长长长长长长', 4, NULL, 1, '/1/2/3/', 10000, '2025-07-25 08:57:03', 10000, '2025-08-12 15:08:03');
 INSERT INTO `sys_dept` VALUES (4, 2, '部门小组2', 4, NULL, 0, '/1/2/4/', 10000, '2025-08-12 15:07:52', 10000, '2025-08-12 15:59:49');
@@ -5398,7 +5089,7 @@ CREATE TABLE `sys_log_error`  (
   `exception_message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '异常导致的消息',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '错误日志' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '错误日志' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_log_error
@@ -5418,14 +5109,11 @@ CREATE TABLE `sys_log_login`  (
   `operation` tinyint(3) UNSIGNED NULL DEFAULT NULL COMMENT '操作信息   0：登录成功   1：退出成功  2：验证码错误  3：账号密码错误',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '登录日志' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 48 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '登录日志' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_log_login
 -- ----------------------------
-INSERT INTO `sys_log_login` VALUES (1, 'admin', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0', 1, 0, '2026-04-07 14:53:22');
-INSERT INTO `sys_log_login` VALUES (2, 'admin', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0', 1, 1, '2026-04-07 14:55:15');
-INSERT INTO `sys_log_login` VALUES (3, 'admin', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0', 1, 0, '2026-04-07 14:55:20');
 
 -- ----------------------------
 -- Table structure for sys_log_operate
@@ -5449,13 +5137,11 @@ CREATE TABLE `sys_log_operate`  (
   `result_msg` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '返回消息',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '操作日志' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 140 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '操作日志' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_log_operate
 -- ----------------------------
-INSERT INTO `sys_log_operate` VALUES (1, '用户管理', '修改', '/polymer/sys/user', 'PUT', '{\"vo\":{\"id\":10003,\"username\":\"zhangxf001\",\"realName\":\"张西锋\",\"avatar\":\"20250910/avatar_1757473160.png\",\"gender\":0,\"email\":\"1600965800@qq.com\",\"mobile\":\"17778210375\",\"provinceCode\":\"130000000000\",\"cityCode\":\"130100000000\",\"districtCode\":\"130104000000\",\"address\":\"xxx详细地址\",\"city\":[\"130000000000\",\"130100000000\",\"130104000000\"],\"deptId\":2,\"status\":1,\"roleIdList\":[],\"roleNameList\":null,\"postIdList\":[],\"postNameList\":null,\"superAdmin\":0,\"orgName\":\"研发部门\",\"createTime\":\"2025-04-28 09:36:05\"}}', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0', 3, 153, 1, 10000, 'admin', NULL, '2026-04-07 14:26:43');
-INSERT INTO `sys_log_operate` VALUES (2, '菜单管理', '保存', '/polymer/sys/menu', 'POST', '{\"vo\":{\"id\":null,\"pid\":7,\"children\":[{\"id\":8,\"pid\":7,\"children\":[],\"directChildrenCount\":0,\"allChildrenCount\":0,\"name\":\"查询\",\"url\":\"\",\"type\":1,\"openStyle\":0,\"icon\":\"\",\"authority\":\"sys:dict:page\",\"sort\":0,\"createTime\":\"2023-07-11 11:05:38\",\"parentName\":null},{\"id\":10,\"pid\":7,\"children\":[],\"directChildrenCount\":0,\"allChildrenCount\":0,\"name\":\"修改\",\"url\":\"\",\"type\":1,\"openStyle\":0,\"icon\":\"\",\"authority\":\"sys:dict:update,sys:dict:info\",\"sort\":1,\"createTime\":\"2023-07-11 11:05:38\",\"parentName\":null},{\"id\":9,\"pid\":7,\"children\":[],\"directChildrenCount\":0,\"allChildrenCount\":0,\"name\":\"新增\",\"url\":\"\",\"type\":1,\"openStyle\":0,\"icon\":\"\",\"authority\":\"sys:dict:save\",\"sort\":2,\"createTime\":\"2023-07-11 11:05:38\",\"parentName\":null},{\"id\":11,\"pid\":7,\"children\":[],\"directChildrenCount\":0,\"allChildrenCount\":0,\"name\":\"删除\",\"url\":\"\",\"type\":1,\"openStyle\":0,\"icon\":\"\",\"authority\":\"sys:dict:delete\",\"sort\":3,\"createTime\":\"2023-07-11 11:05:38\",\"parentName\":null}],\"directChildrenCount\":0,\"allChildrenCount\":0,\"name\":\"刷新缓存\",\"url\":\"\",\"type\":1,\"openStyle\":0,\"icon\":\"\",\"authority\":\"sys:dict:refreshTransCache\",\"sort\":4,\"createTime\":\"2023-07-11 11:05:38\",\"parentName\":\"\"}}', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36 Edg/147.0.0.0', 2, 51, 1, 10000, 'admin', NULL, '2026-04-07 14:55:10');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -5477,34 +5163,34 @@ CREATE TABLE `sys_menu`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_pid`(`pid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 97 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单管理' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 113 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单管理' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
-INSERT INTO `sys_menu` VALUES (1, NULL, '系统设置', NULL, NULL, 0, 0, 'icon-setting', 1, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
-INSERT INTO `sys_menu` VALUES (2, 1, '菜单管理', 'sys/menu/index', NULL, 0, 0, 'icon-menu', 0, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
+INSERT INTO `sys_menu` VALUES (1, NULL, '系统监控', NULL, NULL, 0, 0, 'icon-Report', 2, 10000, '2023-07-11 11:05:38', 10000, '2026-06-16 14:23:06');
+INSERT INTO `sys_menu` VALUES (2, 12, '菜单管理', 'sys/menu/index', NULL, 0, 0, 'icon-menu', 2, 10000, '2023-07-11 11:05:38', 10000, '2026-06-16 11:05:53');
 INSERT INTO `sys_menu` VALUES (3, 2, '查看', '', 'sys:menu:list', 1, 0, '', 0, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
 INSERT INTO `sys_menu` VALUES (4, 2, '新增', '', 'sys:menu:save', 1, 0, '', 1, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
 INSERT INTO `sys_menu` VALUES (5, 2, '修改', '', 'sys:menu:update,sys:menu:info', 1, 0, '', 2, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
 INSERT INTO `sys_menu` VALUES (6, 2, '删除', '', 'sys:menu:delete', 1, 0, '', 3, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
-INSERT INTO `sys_menu` VALUES (7, 1, '数据字典', 'sys/dict/type', '', 0, 0, 'icon-insertrowabove', 1, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
+INSERT INTO `sys_menu` VALUES (7, 12, '数据字典', 'sys/dict/type', '', 0, 0, 'icon-insertrowabove', 5, 10000, '2023-07-11 11:05:38', 10000, '2026-06-16 11:06:32');
 INSERT INTO `sys_menu` VALUES (8, 7, '查询', '', 'sys:dict:page', 1, 0, '', 0, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
 INSERT INTO `sys_menu` VALUES (9, 7, '新增', '', 'sys:dict:save', 1, 0, '', 2, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
 INSERT INTO `sys_menu` VALUES (10, 7, '修改', '', 'sys:dict:update,sys:dict:info', 1, 0, '', 1, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
 INSERT INTO `sys_menu` VALUES (11, 7, '删除', '', 'sys:dict:delete', 1, 0, '', 3, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
-INSERT INTO `sys_menu` VALUES (12, NULL, '权限管理', '', '', 0, 0, 'icon-safetycertificate', 0, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
-INSERT INTO `sys_menu` VALUES (13, 12, '岗位管理', 'sys/post/index', '', 0, 0, 'icon-solution', 2, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
+INSERT INTO `sys_menu` VALUES (12, NULL, '系统管理', '', '', 0, 0, 'icon-setting', 0, 10000, '2023-07-11 11:05:38', 10000, '2026-06-16 11:20:39');
+INSERT INTO `sys_menu` VALUES (13, 12, '岗位管理', 'sys/post/index', '', 0, 0, 'icon-solution', 4, 10000, '2023-07-11 11:05:38', 10000, '2026-06-16 11:06:17');
 INSERT INTO `sys_menu` VALUES (14, 13, '查询', '', 'sys:post:page', 1, 0, '', 0, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
 INSERT INTO `sys_menu` VALUES (15, 13, '新增', '', 'sys:post:save', 1, 0, '', 1, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
 INSERT INTO `sys_menu` VALUES (16, 13, '修改', '', 'sys:post:update,sys:post:info', 1, 0, '', 2, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
 INSERT INTO `sys_menu` VALUES (17, 13, '删除', '', 'sys:post:delete', 1, 0, '', 3, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
-INSERT INTO `sys_menu` VALUES (18, 12, '部门管理', 'sys/dept/index', '', 0, 0, 'icon-cluster', 1, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
+INSERT INTO `sys_menu` VALUES (18, 12, '部门管理', 'sys/dept/index', '', 0, 0, 'icon-cluster', 3, 10000, '2023-07-11 11:05:38', 10000, '2026-06-16 11:06:06');
 INSERT INTO `sys_menu` VALUES (19, 18, '查询', '', 'sys:dept:list', 1, 0, '', 0, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
 INSERT INTO `sys_menu` VALUES (20, 18, '新增', '', 'sys:dept:save', 1, 0, '', 1, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
 INSERT INTO `sys_menu` VALUES (21, 18, '修改', '', 'sys:dept:update,sys:dept:info', 1, 0, '', 2, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
 INSERT INTO `sys_menu` VALUES (22, 18, '删除', '', 'sys:dept:delete', 1, 0, '', 3, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
-INSERT INTO `sys_menu` VALUES (23, 12, '角色管理', 'sys/role/index', '', 0, 0, 'icon-team', 3, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
+INSERT INTO `sys_menu` VALUES (23, 12, '角色管理', 'sys/role/index', '', 0, 0, 'icon-team', 1, 10000, '2023-07-11 11:05:38', 10000, '2026-06-16 11:05:39');
 INSERT INTO `sys_menu` VALUES (24, 23, '查询', '', 'sys:role:page', 1, 0, '', 0, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
 INSERT INTO `sys_menu` VALUES (25, 23, '新增', '', 'sys:role:save,sys:role:menu,sys:dept:list', 1, 0, '', 1, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
 INSERT INTO `sys_menu` VALUES (26, 23, '修改', '', 'sys:role:update,sys:role:info,sys:role:menu,sys:dept:list,sys:user:page', 1, 0, '', 2, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
@@ -5514,31 +5200,30 @@ INSERT INTO `sys_menu` VALUES (29, 28, '查询', '', 'sys:user:page', 1, 0, '', 
 INSERT INTO `sys_menu` VALUES (30, 28, '新增', '', 'sys:user:save,sys:role:list', 1, 0, '', 1, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
 INSERT INTO `sys_menu` VALUES (31, 28, '修改', '', 'sys:user:update,sys:user:info,sys:role:list', 1, 0, '', 2, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
 INSERT INTO `sys_menu` VALUES (32, 28, '删除', '', 'sys:user:delete', 1, 0, '', 3, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
-INSERT INTO `sys_menu` VALUES (33, NULL, '应用管理', '', '', 0, 0, 'icon-appstore', 2, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
-INSERT INTO `sys_menu` VALUES (34, 1, '附件管理', 'sys/attachment/index', 'third:config:all', 0, 0, 'icon-folder-fill', 4, 10000, '2023-07-11 11:05:38', 10000, '2025-08-21 09:38:27');
+INSERT INTO `sys_menu` VALUES (33, NULL, '系统工具', '', '', 0, 0, 'icon-calendar-fill', 1, 10000, '2023-07-11 11:05:38', 10000, '2026-06-16 14:23:02');
+INSERT INTO `sys_menu` VALUES (34, 12, '附件管理', 'sys/attachment/index', 'third:config:all', 0, 0, 'icon-folder-fill', 8, 10000, '2023-07-11 11:05:38', 10000, '2026-06-16 11:11:18');
 INSERT INTO `sys_menu` VALUES (35, 34, '查看', '', 'sys:attachment:page', 1, 0, '', 0, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
 INSERT INTO `sys_menu` VALUES (36, 34, '上传', '', 'sys:attachment:save', 1, 0, '', 1, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
 INSERT INTO `sys_menu` VALUES (37, 34, '删除', '', 'sys:attachment:delete', 1, 0, '', 1, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
-INSERT INTO `sys_menu` VALUES (38, NULL, '日志管理', '', '', 0, 0, 'icon-filedone', 3, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
+INSERT INTO `sys_menu` VALUES (38, 1, '日志管理', '', '', 0, 0, 'icon-filedone', 1, 10000, '2023-07-11 11:05:38', 10000, '2026-06-16 14:22:17');
 INSERT INTO `sys_menu` VALUES (39, 38, '登录日志', 'sys/log/login', 'sys:log:login', 0, 0, 'icon-solution', 0, 10000, '2023-07-11 11:05:38', 10000, '2025-07-17 14:09:45');
 INSERT INTO `sys_menu` VALUES (40, 28, '导入', '', 'sys:user:import', 1, 0, '', 5, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
 INSERT INTO `sys_menu` VALUES (41, 28, '导出', '', 'sys:user:export', 1, 0, '', 6, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
-INSERT INTO `sys_menu` VALUES (42, 1, '参数管理', 'sys/params/index', 'sys:params:all', 0, 0, 'icon-filedone', 2, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
-INSERT INTO `sys_menu` VALUES (43, 1, '接口文档', '{{apiUrl}}/doc.html', NULL, 0, 1, 'icon-file-text-fill', 10, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
+INSERT INTO `sys_menu` VALUES (42, 12, '参数管理', 'sys/params/index', 'sys:params:all', 0, 0, 'icon-filedone', 6, 10000, '2023-07-11 11:05:38', 10000, '2026-06-16 11:06:41');
+INSERT INTO `sys_menu` VALUES (43, 33, '接口文档', '{{apiUrl}}/doc.html', NULL, 0, 1, 'icon-file-text-fill', 5, 10000, '2023-07-11 11:05:38', 10000, '2026-06-16 14:21:50');
 INSERT INTO `sys_menu` VALUES (46, 38, '操作日志', 'sys/log/operate', 'sys:operate:all', 0, 0, 'icon-file-text', 1, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
-INSERT INTO `sys_menu` VALUES (47, 33, '代码生成器', '{{apiUrl}}/generator/index.html', '', 0, 1, 'icon-rocket', 9, 10000, '2023-07-11 11:06:14', 10000, '2026-03-25 11:14:13');
-INSERT INTO `sys_menu` VALUES (48, 33, '短信管理', '', '', 0, 0, 'icon-message', 0, 10000, '2023-07-11 11:06:31', 10000, '2023-07-11 11:06:31');
+INSERT INTO `sys_menu` VALUES (47, 33, '代码生成器', NULL, '', 0, 0, 'icon-rocket', 6, 10000, '2023-07-11 11:06:14', 10000, '2026-06-16 15:41:56');
+INSERT INTO `sys_menu` VALUES (48, 33, '短信管理', '', '', 0, 0, 'icon-message', 1, 10000, '2023-07-11 11:06:31', 10000, '2026-06-16 14:21:10');
 INSERT INTO `sys_menu` VALUES (49, 48, '短信日志', 'message/sms/log/index', 'message:smsLog:page,message:smsLog:info', 0, 0, 'icon-detail', 1, 10000, '2023-07-11 11:06:31', 10000, '2023-07-11 11:06:31');
 INSERT INTO `sys_menu` VALUES (50, 48, '短信平台', 'message/sms/platform/index', NULL, 0, 0, 'icon-whatsapp', 0, 10000, '2023-07-11 11:06:31', 10000, '2023-07-11 11:06:31');
 INSERT INTO `sys_menu` VALUES (51, 50, '查看', '', 'message:smsPlatform:page', 1, 0, '', 0, 10000, '2023-07-11 11:06:31', 10000, '2023-07-11 11:06:31');
 INSERT INTO `sys_menu` VALUES (52, 50, '新增', '', 'message:smsPlatform:save', 1, 0, '', 1, 10000, '2023-07-11 11:06:31', 10000, '2023-07-11 11:06:31');
 INSERT INTO `sys_menu` VALUES (53, 50, '修改', '', 'message:smsPlatform:update,message:smsPlatform:info', 1, 0, '', 2, 10000, '2023-07-11 11:06:31', 10000, '2023-07-11 11:06:31');
 INSERT INTO `sys_menu` VALUES (54, 50, '删除', '', 'message:smsPlatform:delete', 1, 0, '', 3, 10000, '2023-07-11 11:06:31', 10000, '2023-07-11 11:06:31');
-INSERT INTO `sys_menu` VALUES (55, 33, '系统监控', '', '', 0, 0, 'icon-Report', 3, 10000, '2023-07-11 11:06:56', 10000, '2023-07-11 11:06:56');
-INSERT INTO `sys_menu` VALUES (56, 55, '服务监控', 'monitor/server/index', 'monitor:server:all', 0, 0, 'icon-sever', 0, 10000, '2023-07-11 11:06:56', 10000, '2023-07-11 11:06:56');
-INSERT INTO `sys_menu` VALUES (57, 55, '缓存监控', 'monitor/cache/index', 'monitor:cache:all', 0, 0, 'icon-fund-fill', 2, 10000, '2023-07-11 11:06:56', 10000, '2023-07-11 11:06:56');
-INSERT INTO `sys_menu` VALUES (58, 55, '在线用户', 'monitor/user/index', 'monitor:user:all', 0, 0, 'icon-user', 3, 10000, '2023-07-11 11:06:56', 10000, '2023-07-11 11:06:56');
-INSERT INTO `sys_menu` VALUES (59, 1, '定时任务', 'quartz/schedule/index', 'third:config:all', 0, 0, 'icon-reloadtime', 3, 10000, '2023-07-11 11:07:10', 10000, '2025-08-21 09:38:13');
+INSERT INTO `sys_menu` VALUES (56, 1, '服务监控', 'monitor/server/index', 'monitor:server:all', 0, 0, 'icon-sever', 2, 10000, '2023-07-11 11:06:56', 10000, '2026-06-16 11:14:52');
+INSERT INTO `sys_menu` VALUES (57, 1, '缓存监控', 'monitor/cache/index', 'monitor:cache:all', 0, 0, 'icon-fund-fill', 3, 10000, '2023-07-11 11:06:56', 10000, '2026-06-16 11:15:01');
+INSERT INTO `sys_menu` VALUES (58, 1, '在线用户', 'monitor/user/index', 'monitor:user:all', 0, 0, 'icon-user', 0, 10000, '2023-07-11 11:06:56', 10000, '2026-06-16 11:14:16');
+INSERT INTO `sys_menu` VALUES (59, 33, '定时任务', 'quartz/schedule/index', 'third:config:all', 0, 0, 'icon-reloadtime', 0, 10000, '2023-07-11 11:07:10', 10000, '2026-06-16 14:20:55');
 INSERT INTO `sys_menu` VALUES (60, 59, '查看', '', 'schedule:page', 1, 0, '', 0, 10000, '2023-07-11 11:07:10', 10000, '2023-07-11 11:07:10');
 INSERT INTO `sys_menu` VALUES (61, 59, '新增', '', 'schedule:save', 1, 0, '', 1, 10000, '2023-07-11 11:07:10', 10000, '2023-07-11 11:07:10');
 INSERT INTO `sys_menu` VALUES (62, 59, '修改', '', 'schedule:update,schedule:info', 1, 0, '', 2, 10000, '2023-07-11 11:07:10', 10000, '2023-07-11 11:07:10');
@@ -5560,7 +5245,7 @@ INSERT INTO `sys_menu` VALUES (78, 77, '查看', '', 'message:mailTemplate:page'
 INSERT INTO `sys_menu` VALUES (79, 77, '新增', '', 'message:mailTemplate:save,message:mailAccount:list', 1, 0, '', 1, 10000, '2024-04-01 15:08:21', 10000, '2024-04-01 15:08:21');
 INSERT INTO `sys_menu` VALUES (80, 77, '修改', '', 'message:mailTemplate:update,message:mailTemplate:info,message:mailAccount:list', 1, 0, '', 2, 10000, '2024-04-01 15:08:21', 10000, '2024-04-01 15:08:21');
 INSERT INTO `sys_menu` VALUES (81, 77, '删除', '', 'message:mailTemplate:delete', 1, 0, '', 3, 10000, '2024-04-01 15:08:21', 10000, '2024-04-01 15:08:21');
-INSERT INTO `sys_menu` VALUES (82, 33, '邮箱管理', '', '', 0, 0, 'icon-mail', 1, 10000, '2024-04-02 15:15:03', 10000, '2024-04-02 15:15:03');
+INSERT INTO `sys_menu` VALUES (82, 33, '邮箱管理', '', '', 0, 0, 'icon-mail', 3, 10000, '2024-04-02 15:15:03', 10000, '2026-06-16 14:21:26');
 INSERT INTO `sys_menu` VALUES (83, 90, '站内信消息', 'message/notify/notifyMessage/index', NULL, 0, 0, 'icon-message-fill', 1, 10000, '2024-04-09 14:34:19', 10000, '2024-04-09 14:34:19');
 INSERT INTO `sys_menu` VALUES (84, 83, '查看', '', 'message:notifyMessage:page,message:notifyMessage:info', 1, 0, '', 0, 10000, '2024-04-09 14:36:16', 10000, '2024-04-09 14:36:16');
 INSERT INTO `sys_menu` VALUES (85, 90, '站内信模板', 'message/notify/notifyTemplate/index', NULL, 0, 0, 'icon-menu', 0, 10000, '2024-04-09 14:36:38', 10000, '2024-04-09 14:36:38');
@@ -5568,13 +5253,28 @@ INSERT INTO `sys_menu` VALUES (86, 85, '查看', '', 'message:notifyTemplate:pag
 INSERT INTO `sys_menu` VALUES (87, 85, '新增', '', 'message:notifyTemplate:save', 1, 0, '', 1, 10000, '2024-04-09 14:37:29', 10000, '2024-04-09 14:37:29');
 INSERT INTO `sys_menu` VALUES (88, 85, '修改', '', 'message:notifyTemplate:update,message:notifyTemplate:info', 1, 0, '', 2, 10000, '2024-04-09 14:37:29', 10000, '2024-04-09 14:37:29');
 INSERT INTO `sys_menu` VALUES (89, 85, '删除', '', 'message:notifyTemplate:delete', 1, 0, '', 3, 10000, '2024-04-09 14:37:29', 10000, '2024-04-09 14:37:29');
-INSERT INTO `sys_menu` VALUES (90, 33, '站内信管理', '', '', 0, 0, 'icon-mail-fill', 2, 10000, '2024-04-09 14:46:33', 10000, '2024-04-09 14:46:33');
+INSERT INTO `sys_menu` VALUES (90, 33, '站内信管理', '', '', 0, 0, 'icon-mail-fill', 2, 10000, '2024-04-09 14:46:33', 10000, '2026-06-16 14:21:19');
 INSERT INTO `sys_menu` VALUES (91, 83, '发送', NULL, 'message:notifyTemplate:sendNotify', 1, 0, NULL, 1, 10000, '2025-07-15 14:14:44', NULL, NULL);
-INSERT INTO `sys_menu` VALUES (92, 1, '城市管理', 'sys/city/index', NULL, 0, 0, 'icon-share', 7, 10000, '2025-07-18 16:59:40', 10000, '2025-07-18 17:19:52');
+INSERT INTO `sys_menu` VALUES (92, 12, '城市管理', 'sys/city/index', NULL, 0, 0, 'icon-share', 7, 10000, '2025-07-18 16:59:40', 10000, '2026-06-16 10:59:29');
 INSERT INTO `sys_menu` VALUES (93, 92, '查看', NULL, 'system:city:list,system:city:info', 1, 0, NULL, 0, 10000, '2025-07-18 17:04:23', 10000, '2025-07-18 17:55:52');
 INSERT INTO `sys_menu` VALUES (94, 92, '新增', NULL, 'system:city:save', 1, 0, NULL, 1, 10000, '2025-07-18 17:04:40', NULL, NULL);
 INSERT INTO `sys_menu` VALUES (95, 92, '修改', NULL, 'system:city:update', 1, 0, NULL, 2, 10000, '2025-07-18 17:04:54', NULL, NULL);
 INSERT INTO `sys_menu` VALUES (96, 7, '刷新缓存', NULL, 'sys:dict:refreshTransCache', 1, 0, NULL, 4, 10000, '2026-04-07 14:55:10', NULL, NULL);
+INSERT INTO `sys_menu` VALUES (97, 33, '组件示例', NULL, NULL, 0, 0, 'icon-database', 4, 10000, '2026-06-16 14:29:01', 10000, '2026-06-16 14:40:33');
+INSERT INTO `sys_menu` VALUES (99, 97, 'Icon图标', 'demo/icons/index', NULL, 0, 0, 'icon-read', 0, 10000, '2026-06-16 14:47:32', NULL, NULL);
+INSERT INTO `sys_menu` VALUES (100, 97, '表单设计器', 'demo/formDesign/form', NULL, 0, 0, 'icon-read', 1, 10000, '2026-06-16 14:50:03', NULL, NULL);
+INSERT INTO `sys_menu` VALUES (101, 97, '表单生成器', 'demo/formDesign/generate', NULL, 0, 0, 'icon-read', 2, 10000, '2026-06-16 14:50:20', NULL, NULL);
+INSERT INTO `sys_menu` VALUES (102, 97, '二维码生成', 'demo/qrcode/index', NULL, 0, 0, 'icon-read', 3, 10000, '2026-06-16 14:50:41', NULL, NULL);
+INSERT INTO `sys_menu` VALUES (103, 97, '页面打印', 'demo/printJs/index', NULL, 0, 0, 'icon-read', 4, 10000, '2026-06-16 14:51:00', NULL, NULL);
+INSERT INTO `sys_menu` VALUES (104, 97, '图片裁剪', 'demo/cropper/index', NULL, 0, 0, 'icon-read', 5, 10000, '2026-06-16 14:51:16', NULL, NULL);
+INSERT INTO `sys_menu` VALUES (105, 97, '富文本编辑器', 'demo/wangeditor/index', NULL, 0, 0, 'icon-read', 6, 10000, '2026-06-16 14:51:39', NULL, NULL);
+INSERT INTO `sys_menu` VALUES (106, 97, 'SSE消息推送', 'demo/sse/index', NULL, 0, 0, 'icon-read', 7, 10000, '2026-06-16 14:51:56', NULL, NULL);
+INSERT INTO `sys_menu` VALUES (107, 97, 'ECharts图表', 'demo/echarts/index', NULL, 0, 0, 'icon-read', 8, 10000, '2026-06-16 14:52:14', NULL, NULL);
+INSERT INTO `sys_menu` VALUES (108, 47, '代码生成', 'gen/generator/index', NULL, 0, 0, 'icon-insertrowbelow', 0, 10000, '2026-06-16 15:44:40', NULL, NULL);
+INSERT INTO `sys_menu` VALUES (109, 47, '数据源管理', 'gen/datasource/index', NULL, 0, 0, NULL, 1, 10000, '2026-06-17 15:44:03', 10000, '2026-06-17 15:46:11');
+INSERT INTO `sys_menu` VALUES (110, 47, '字段类型映射', 'gen/field-type/index', NULL, 0, 0, NULL, 2, 10000, '2026-06-17 15:44:40', 10000, '2026-06-17 15:46:33');
+INSERT INTO `sys_menu` VALUES (111, 47, '基类管理', 'gen/base-class/index', NULL, 0, 0, NULL, 3, 10000, '2026-06-17 15:45:17', 10000, '2026-06-17 15:46:46');
+INSERT INTO `sys_menu` VALUES (112, 47, '项目名变更', 'gen/project/index', NULL, 0, 0, NULL, 4, 10000, '2026-06-17 15:45:38', 10000, '2026-06-17 15:46:58');
 
 -- ----------------------------
 -- Table structure for sys_params
@@ -5643,7 +5343,7 @@ CREATE TABLE `sys_role`  (
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO `sys_role` VALUES (1, '管理员', '0001', '', 1, NULL, 10000, '2023-10-09 09:01:38', 10000, '2025-07-15 10:57:50');
+INSERT INTO `sys_role` VALUES (1, '管理员', '0001', '', 0, NULL, 10000, '2023-10-09 09:01:38', 10000, '2026-06-17 16:08:31');
 
 -- ----------------------------
 -- Table structure for sys_role_data_scope
@@ -5680,7 +5380,7 @@ CREATE TABLE `sys_role_menu`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_role_id`(`role_id`) USING BTREE,
   INDEX `idx_menu_id`(`menu_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 69 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色菜单关系' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 92 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色菜单关系' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role_menu
@@ -5731,9 +5431,7 @@ INSERT INTO `sys_role_menu` VALUES (43, 1, 34, 10000, '2023-10-09 09:01:38', 100
 INSERT INTO `sys_role_menu` VALUES (44, 1, 35, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
 INSERT INTO `sys_role_menu` VALUES (45, 1, 36, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
 INSERT INTO `sys_role_menu` VALUES (46, 1, 37, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (47, 1, 43, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
 INSERT INTO `sys_role_menu` VALUES (48, 1, 33, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (49, 1, 47, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
 INSERT INTO `sys_role_menu` VALUES (50, 1, 48, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
 INSERT INTO `sys_role_menu` VALUES (51, 1, 50, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
 INSERT INTO `sys_role_menu` VALUES (52, 1, 51, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
@@ -5741,7 +5439,6 @@ INSERT INTO `sys_role_menu` VALUES (53, 1, 52, 10000, '2023-10-09 09:01:38', 100
 INSERT INTO `sys_role_menu` VALUES (54, 1, 53, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
 INSERT INTO `sys_role_menu` VALUES (55, 1, 54, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
 INSERT INTO `sys_role_menu` VALUES (56, 1, 49, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (57, 1, 55, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
 INSERT INTO `sys_role_menu` VALUES (58, 1, 56, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
 INSERT INTO `sys_role_menu` VALUES (59, 1, 57, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
 INSERT INTO `sys_role_menu` VALUES (60, 1, 58, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
@@ -5751,6 +5448,28 @@ INSERT INTO `sys_role_menu` VALUES (65, 1, 46, 10000, '2023-10-09 09:01:38', 100
 INSERT INTO `sys_role_menu` VALUES (66, 1, 90, 10000, '2025-07-15 10:57:50', NULL, NULL);
 INSERT INTO `sys_role_menu` VALUES (67, 1, 83, 10000, '2025-07-15 10:57:50', NULL, NULL);
 INSERT INTO `sys_role_menu` VALUES (68, 1, 84, 10000, '2025-07-15 10:57:50', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (69, 1, 85, 10000, '2026-06-17 16:05:06', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (70, 1, 86, 10000, '2026-06-17 16:05:06', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (71, 1, 87, 10000, '2026-06-17 16:05:06', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (72, 1, 88, 10000, '2026-06-17 16:05:06', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (73, 1, 89, 10000, '2026-06-17 16:05:06', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (74, 1, 91, 10000, '2026-06-17 16:05:06', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (75, 1, 82, 10000, '2026-06-17 16:05:06', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (76, 1, 67, 10000, '2026-06-17 16:05:06', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (77, 1, 68, 10000, '2026-06-17 16:05:06', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (78, 1, 69, 10000, '2026-06-17 16:05:06', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (79, 1, 70, 10000, '2026-06-17 16:05:06', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (80, 1, 71, 10000, '2026-06-17 16:05:06', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (81, 1, 77, 10000, '2026-06-17 16:05:06', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (82, 1, 78, 10000, '2026-06-17 16:05:06', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (83, 1, 79, 10000, '2026-06-17 16:05:06', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (84, 1, 80, 10000, '2026-06-17 16:05:06', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (85, 1, 81, 10000, '2026-06-17 16:05:06', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (86, 1, 72, 10000, '2026-06-17 16:05:06', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (87, 1, 73, 10000, '2026-06-17 16:05:06', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (88, 1, 74, 10000, '2026-06-17 16:05:06', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (89, 1, 75, 10000, '2026-06-17 16:05:06', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (90, 1, 76, 10000, '2026-06-17 16:05:06', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sys_sequence
@@ -5801,9 +5520,9 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (10000, 'admin', '{bcrypt}$2a$10$LwtMFCYwqQqaeCXejkYOkO4ukhUanzZOU/8/6cojvZdL/lv.67Jie', 'admin', '20251010/avatar_1760085283.png', 1, 'babamu@126.com', '18831139796', '130000000000', '130100000000', '130104000000', 'xx详细地址', NULL, 1, 1, 10000, '2023-07-11 11:05:38', 10000, '2026-03-26 17:03:28');
+INSERT INTO `sys_user` VALUES (10000, 'admin', '{bcrypt}$2a$10$s4xretIdn0Y9BnCvBXyrw.IDn9MA/3INblLj7huQFgGfAAdUiS83S', 'admin', '20251010/avatar_1760085283.png', 1, 'babamu@126.com', '18831139796', '130000000000', '130100000000', '130104000000', 'xx详细地址', NULL, 1, 1, 10000, '2023-07-11 11:05:38', 10000, '2026-04-16 10:13:11');
 INSERT INTO `sys_user` VALUES (10001, 'zhangxf', '{bcrypt}$2a$10$G.A9gcJF1hnqlavtWA2bg.Crr2OmO6kmIPR8W8XkI1iK89ah3EZBS', '张西锋', 'http://localhost:8081/polymer/upload/20250711/1- 1-2_1752225815.jpg', 0, '616026782@qq.com', '18831139797', '130000000000', '130100000000', '130104000000', '喆啡酒店二楼', 1, 0, 1, 10000, '2023-10-09 09:02:30', 10000, '2026-03-16 09:48:52');
-INSERT INTO `sys_user` VALUES (10003, 'zhangxf001', '{bcrypt}$2a$10$/kTQuny6gXG9a8VIrlUgcua03oxyjKc.37JhFKjw0Dph2aPWcxgna', '张西锋', '20250910/avatar_1757473160.png', 0, '1600965800@qq.com', '17778210375', '130000000000', '130100000000', '130104000000', 'xxx详细地址', 2, 0, 1, 10000, '2025-04-28 09:36:05', 10000, '2026-04-07 14:26:43');
+INSERT INTO `sys_user` VALUES (10003, 'zhangxf001', '{bcrypt}$2a$10$0wk5KHfMWpX4FHc/DUcjpOfL4MODOvtFslnKAqZmzasGxlpZ5WHXu', '张西锋', '20250910/avatar_1757473160.png', 2, '1600965800@qq.com', '17778210375', '130000000000', '130100000000', '130104000000', 'xxx详细地址', 2, 0, 1, 10000, '2025-04-28 09:36:05', 10000, '2026-06-17 16:19:01');
 
 -- ----------------------------
 -- Table structure for sys_user_post
@@ -5820,12 +5539,13 @@ CREATE TABLE `sys_user_post`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_user_id`(`user_id`) USING BTREE,
   INDEX `idx_post_id`(`post_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户岗位关系' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户岗位关系' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_user_post
 -- ----------------------------
 INSERT INTO `sys_user_post` VALUES (1, 10001, 1, 10000, '2023-10-09 09:02:30', 10000, '2023-10-09 09:02:30');
+INSERT INTO `sys_user_post` VALUES (2, 10003, 1, 10000, '2026-06-17 16:06:09', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sys_user_role
@@ -5867,7 +5587,5 @@ CREATE TABLE `sys_user_token`  (
 -- ----------------------------
 -- Records of sys_user_token
 -- ----------------------------
-INSERT INTO `sys_user_token` VALUES (9, 10000, '38659b44cde244aa8ca4eea099ef2bec', '2026-04-07 16:55:21', '47ec01e407e441e7ac214e5a42b2035a', '2026-04-21 14:55:21', '2024-11-15 18:18:06');
-INSERT INTO `sys_user_token` VALUES (10, 10001, '44be955ab78f431dbab8073a267dc9c9', '2025-07-23 16:03:07', 'fc4939600ae64bd0817d3d65958fc35a', '2025-07-23 16:03:07', '2024-11-16 10:35:03');
 
 SET FOREIGN_KEY_CHECKS = 1;

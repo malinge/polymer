@@ -52,7 +52,7 @@ public class SysUserEntity extends BaseEntity {
     private Integer status;
 
     //部门名称
-    private String orgName;
+    private String deptName;
 
     public String getUsername() {
         return username;
@@ -166,11 +166,11 @@ public class SysUserEntity extends BaseEntity {
         this.status = status;
     }
 
-    public String getOrgName() {
-        return orgName;
+    public String getDeptName() {
+        return deptName;
     }
 
-    public void setOrgName(String orgName) {
-        this.orgName = orgName;
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
     }
 }

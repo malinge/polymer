@@ -46,7 +46,7 @@ public class SysUserDTO implements Serializable {
     private Integer status;
 
     //部门名称
-    private String orgName;
+    private String deptName;
 
     //创建者
     private Long creator;
@@ -148,12 +148,12 @@ public class SysUserDTO implements Serializable {
         this.status = status;
     }
 
-    public String getOrgName() {
-        return orgName;
+    public String getDeptName() {
+        return deptName;
     }
 
-    public void setOrgName(String orgName) {
-        this.orgName = orgName;
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
     }
 
     public Long getCreator() {

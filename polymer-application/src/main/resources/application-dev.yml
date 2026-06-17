@@ -87,9 +87,3 @@ polymer:
       domain: http://localhost:8081/polymer
     local:
       path: D://upload
-
-  # 代码生成配置
-  generator:
-    enabled: true
-    path: /generator/**
-    template: /template/polymer

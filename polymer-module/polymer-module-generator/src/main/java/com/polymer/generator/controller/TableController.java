@@ -25,7 +25,7 @@ import java.util.List;
  *
  */
 @RestController
-@RequestMapping("generator/gen/table")
+@RequestMapping("gen/table")
 public class TableController {
     @Resource
     private TableService tableService;

@@ -54,7 +54,7 @@ public class SysUserVO implements Serializable {
     @Schema(description = "省份代码")
     private String provinceCode;
 
-    @Schema(description = "程序代码")
+    @Schema(description = "城市代码")
     private String cityCode;
 
     @Schema(description = "地区代码")
@@ -90,7 +90,7 @@ public class SysUserVO implements Serializable {
     private Integer superAdmin;
 
     @Schema(description = "部门名称")
-    private String orgName;
+    private String deptName;
 
     @Schema(description = "创建时间")
     private LocalDateTime createTime;
@@ -255,12 +255,12 @@ public class SysUserVO implements Serializable {
         this.superAdmin = superAdmin;
     }
 
-    public String getOrgName() {
-        return orgName;
+    public String getDeptName() {
+        return deptName;
     }
 
-    public void setOrgName(String orgName) {
-        this.orgName = orgName;
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
     }
 
     public LocalDateTime getCreateTime() {

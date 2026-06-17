@@ -27,7 +27,7 @@ public class BaseClassServiceImpl implements BaseClassService {
 
     @Override
     public PageResult<BaseClassEntity> page(Query query) {
-        PageHelper.startPage(query.getPage(), query.getLimit());
+        PageHelper.startPage(query.getPageNo(), query.getPageSize());
         List<BaseClassEntity> entityList = baseClassMapper.selectBaseClassList(query);
         PageInfo<BaseClassEntity> pageInfo = new PageInfo<>(entityList);
         return new PageResult<>(entityList, pageInfo.getTotal());

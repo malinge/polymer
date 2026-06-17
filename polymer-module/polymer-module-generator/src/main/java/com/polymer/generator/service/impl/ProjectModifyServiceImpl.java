@@ -33,7 +33,7 @@ public class ProjectModifyServiceImpl implements ProjectModifyService {
 
     @Override
     public PageResult<ProjectModifyEntity> page(Query query) {
-        PageHelper.startPage(query.getPage(), query.getLimit());
+        PageHelper.startPage(query.getPageNo(), query.getPageSize());
         List<ProjectModifyEntity> entityList = projectModifyMapper.selectProjectModifyList(query);
         PageInfo<ProjectModifyEntity> pageInfo = new PageInfo<>(entityList);
         return new PageResult<>(entityList, pageInfo.getTotal());

@@ -1,9 +1,6 @@
 package com.polymer.generator.common.query;
 
-import org.hibernate.validator.constraints.Range;
-
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import com.polymer.framework.common.pojo.PageParam;
 
 /**
  * 查询公共参数
@@ -11,7 +8,7 @@ import javax.validation.constraints.NotNull;
  * polymer@126.com
  *
  */
-public class Query {
+public class Query  extends PageParam {
     String code;
     String tableName;
     String attrType;
@@ -20,14 +17,6 @@ public class Query {
     String dbType;
     String projectName;
     Long tableId;
-
-    @NotNull(message = "页码不能为空")
-    @Min(value = 1, message = "页码最小值为 1")
-    Integer page;
-
-    @NotNull(message = "每页条数不能为空")
-    @Range(min = 1, max = 1000, message = "每页条数，取值范围 1-1000")
-    Integer limit;
 
     public String getCode() {
         return code;
@@ -93,19 +82,4 @@ public class Query {
         this.tableId = tableId;
     }
 
-    public Integer getPage() {
-        return page;
-    }
-
-    public void setPage(Integer page) {
-        this.page = page;
-    }
-
-    public Integer getLimit() {
-        return limit;
-    }
-
-    public void setLimit(Integer limit) {
-        this.limit = limit;
-    }
 }

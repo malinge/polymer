@@ -3,17 +3,18 @@ package com.polymer.generator.controller;
 import com.polymer.framework.common.pojo.Result;
 import com.polymer.framework.common.utils.IoUtils;
 import com.polymer.generator.service.GeneratorService;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import com.polymer.generator.vo.PreviewVO;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
+import java.util.List;
 import java.util.zip.ZipOutputStream;
 
 /**
@@ -21,8 +22,8 @@ import java.util.zip.ZipOutputStream;
  * polymer@126.com
  *
  */
-@Controller
-@RequestMapping("generator/gen/generator")
+@RestController
+@RequestMapping("gen/generator")
 public class GeneratorController {
     @Resource
     private GeneratorService generatorService;
@@ -56,7 +57,6 @@ public class GeneratorController {
     /**
      * 生成代码（自定义目录）
      */
-    @ResponseBody
     @PostMapping("code")
     public Result<String> code(@RequestBody Long[] tableIds) throws Exception {
         // 生成代码
@@ -65,6 +65,15 @@ public class GeneratorController {
         }
 
         return Result.ok();
+    }
+
+    /**
+     * 预览代码
+     */
+    @GetMapping("/preview")
+    public Result<List<PreviewVO>> preview(@RequestParam Long tableId) throws Exception {
+        List<PreviewVO> results = generatorService.preview(tableId);
+        return Result.ok(results);
     }
 
 }

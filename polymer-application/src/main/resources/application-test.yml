@@ -90,9 +90,3 @@ polymer:
       access-key: minioadmin
       secret-key: minioadmin
       bucket-name: polymer
-
-  # 代码生成配置
-  generator:
-    enabled: true
-    path: /generator/**
-    template: /template/polymer

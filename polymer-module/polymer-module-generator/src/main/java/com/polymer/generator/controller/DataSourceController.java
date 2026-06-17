@@ -28,7 +28,7 @@ import java.util.List;
  *
  */
 @RestController
-@RequestMapping("generator/gen/datasource")
+@RequestMapping("gen/datasource")
 public class DataSourceController {
     @Resource
     private DataSourceService datasourceService;

@@ -51,7 +51,7 @@ public class TableServiceImpl implements TableService {
 
     @Override
     public PageResult<TableEntity> page(Query query) {
-        PageHelper.startPage(query.getPage(), query.getLimit());
+        PageHelper.startPage(query.getPageNo(), query.getPageSize());
         List<TableEntity> entityList = tableMapper.selectTableList(query);
         PageInfo<TableEntity> pageInfo = new PageInfo<>(entityList);
         return new PageResult<>(entityList, pageInfo.getTotal());

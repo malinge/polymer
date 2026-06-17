@@ -31,7 +31,7 @@ public class FieldTypeServiceImpl implements FieldTypeService {
 
     @Override
     public PageResult<FieldTypeEntity> page(Query query) {
-        PageHelper.startPage(query.getPage(), query.getLimit());
+        PageHelper.startPage(query.getPageNo(), query.getPageSize());
         List<FieldTypeEntity> entityList = fieldTypeMapper.selectFieldTypeList(query);
         PageInfo<FieldTypeEntity> pageInfo = new PageInfo<>(entityList);
         return new PageResult<>(entityList, pageInfo.getTotal());

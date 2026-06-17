@@ -19,6 +19,7 @@ import com.polymer.generator.service.FieldTypeService;
 import com.polymer.generator.service.GeneratorService;
 import com.polymer.generator.service.TableFieldService;
 import com.polymer.generator.service.TableService;
+import com.polymer.generator.vo.PreviewVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +32,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -231,6 +233,29 @@ public class GeneratorServiceImpl implements GeneratorService {
         dataModel.put("gridList", gridList);
         dataModel.put("queryList", queryList);
         dataModel.put("importQueryList", importQueryList);
+    }
+
+    /**
+     * 代码预览
+     *
+     * @param tableId 表ID
+     * @return 预览内容
+     */
+    @Override
+    public List<PreviewVO> preview(Long tableId) {
+        Map<String, Object> dataModel = getDataModel(tableId);
+        // 代码生成器信息
+        GeneratorInfo generator = generatorConfig.getGeneratorConfig();
+        return generator.getTemplates().stream().map(t -> {
+            dataModel.put("templateName", t.getTemplateName());
+            String content = TemplateUtils.getContent(t.getTemplateContent(), dataModel);
+            String fileName = t.getGeneratorPath().substring(t.getGeneratorPath().lastIndexOf("/") + 1);
+            fileName = TemplateUtils.getContent(fileName, dataModel);
+            PreviewVO previewVO = new PreviewVO();
+            previewVO.setFileName(fileName);
+            previewVO.setContent(content);
+            return previewVO;
+        }).collect(Collectors.toList());
     }
 
 }

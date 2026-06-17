@@ -26,7 +26,7 @@ import java.util.List;
  *
  */
 @RestController
-@RequestMapping("generator/gen/project")
+@RequestMapping("gen/project")
 public class ProjectModifyController {
     @Resource
     private ProjectModifyService projectModifyService;

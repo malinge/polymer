@@ -24,7 +24,7 @@ import java.util.List;
  *
  */
 @RestController
-@RequestMapping("generator/gen/baseclass")
+@RequestMapping("gen/baseclass")
 public class BaseClassController {
     @Resource
     private BaseClassService baseClassService;
