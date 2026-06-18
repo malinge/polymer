@@ -104,11 +104,5 @@ polymer
    <tr>
       <td><img src="db/img/6.jpg" alt=""/></td>
    </tr>
-   <tr>
-      <td><img src="db/img/7.jpg" alt=""/></td>
-   </tr>
-   <tr>
-      <td><img src="db/img/8.jpg" alt=""/></td>
-   </tr>
 </table>
 
