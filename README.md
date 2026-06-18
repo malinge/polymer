@@ -73,11 +73,6 @@ polymer
 | 代码单例测试     | 提供单例测试 使用方式编写方法与maven多环境单测插件  <br/>                                                                    |
 | 暴露接口统一签名验证 | 采用注解方式、springmvc 拦截器实现，针对不同app采用不同的密钥，使用添加注解@SignatureCheck                                            |
 | 调用其他服务统一工具 | 采用RestTemplate实现，统一自定义异常捕捉                                                                             |
-      
-## 代码生成器
-
-1. 只启动后端，可以直接访问地址：http://localhost:8081/polymer/generator/index.html
-2. 前后端都启动，菜单：应用管理=》代码生成器，进行访问
 
 ## 接口文档
 
