@@ -2,10 +2,11 @@ package com.polymer.generator.controller;
 
 import com.polymer.framework.common.pojo.PageResult;
 import com.polymer.framework.common.pojo.Result;
-import com.polymer.framework.common.utils.IoUtils;
+import com.polymer.framework.common.utils.FileUtils;
 import com.polymer.generator.common.query.Query;
 import com.polymer.generator.entity.ProjectModifyEntity;
 import com.polymer.generator.service.ProjectModifyService;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
@@ -74,13 +76,11 @@ public class ProjectModifyController {
         // 项目信息
         ProjectModifyEntity project = projectModifyService.getById(id);
 
-        byte[] data = projectModifyService.download(project);
+        byte[] b = projectModifyService.download(project);
 
-        response.reset();
-        response.setHeader("Content-Disposition", "attachment; filename=\"" + project.getModifyProjectName() + ".zip\"");
-        response.addHeader("Content-Length", "" + data.length);
-        response.setContentType("application/octet-stream; charset=UTF-8");
-
-        IoUtils.write(response.getOutputStream(), false, data);
+        response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
+        FileUtils.setAttachmentResponseHeader(response, project.getModifyProjectName()+".zip");
+        ServletOutputStream servletOutputStream = response.getOutputStream();
+        servletOutputStream.write(b);
     }
 }

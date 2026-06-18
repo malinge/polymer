@@ -17,7 +17,7 @@ spring:
   application:
     name: polymer
   profiles:
-    active: dev
+    active: test
   jackson:
     time-zone: GMT+8
   servlet:
@@ -64,7 +64,7 @@ polymer:
   xss:
     enabled: false
     exclude-urls:
-      - /generator/**
+      - /gen/**
 
   # token配置
   security:

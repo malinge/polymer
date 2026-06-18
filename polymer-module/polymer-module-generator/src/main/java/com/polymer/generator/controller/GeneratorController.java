@@ -1,9 +1,11 @@
 package com.polymer.generator.controller;
 
 import com.polymer.framework.common.pojo.Result;
+import com.polymer.framework.common.utils.FileUtils;
 import com.polymer.framework.common.utils.IoUtils;
 import com.polymer.generator.service.GeneratorService;
 import com.polymer.generator.vo.PreviewVO;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
@@ -44,21 +47,19 @@ public class GeneratorController {
         IoUtils.close(zip);
 
         // zip压缩包数据
-        byte[] data = outputStream.toByteArray();
+        byte[] b = outputStream.toByteArray();
 
-        response.reset();
-        response.setHeader("Content-Disposition", "attachment; filename=\"polymer.zip\"");
-        response.addHeader("Content-Length", "" + data.length);
-        response.setContentType("application/octet-stream; charset=UTF-8");
-
-        IoUtils.write(response.getOutputStream(), false, data);
+        response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
+        FileUtils.setAttachmentResponseHeader(response, "polymer.zip");
+        ServletOutputStream servletOutputStream = response.getOutputStream();
+        servletOutputStream.write(b);
     }
 
     /**
      * 生成代码（自定义目录）
      */
     @PostMapping("code")
-    public Result<String> code(@RequestBody Long[] tableIds) throws Exception {
+    public Result<String> code(@RequestBody Long[] tableIds) {
         // 生成代码
         for (Long tableId : tableIds) {
             generatorService.generatorCode(tableId);
@@ -71,7 +72,7 @@ public class GeneratorController {
      * 预览代码
      */
     @GetMapping("/preview")
-    public Result<List<PreviewVO>> preview(@RequestParam Long tableId) throws Exception {
+    public Result<List<PreviewVO>> preview(@RequestParam Long tableId) {
         List<PreviewVO> results = generatorService.preview(tableId);
         return Result.ok(results);
     }
