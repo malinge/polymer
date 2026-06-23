@@ -46,6 +46,7 @@
                 AND platform like concat('%', #{platform}, '%')
             </if>
         </where>
+        order by create_time desc
 
     </select>
 
@@ -101,12 +102,15 @@
     <!--查询附件集合-->
     <select id="selectSysAttachmentByBizMark" resultMap="SysAttachmentResult">
         <include refid="selectAttachmentVo"/>
-        <if test="bizMark != null and bizMark != ''">
-            AND biz_mark = #{bizMark}
-        </if>
-        <if test="bizType != null and bizType != ''">
-            AND biz_type = #{bizType}
-        </if>
+        <where>
+            <if test="bizMark != null and bizMark != ''">
+                AND biz_mark = #{bizMark}
+            </if>
+            <if test="bizType != null and bizType != ''">
+                AND biz_type = #{bizType}
+            </if>
+        </where>
+
     </select>
 
     <!--批量条件删除附件-->

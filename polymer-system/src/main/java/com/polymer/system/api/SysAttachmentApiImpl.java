@@ -30,8 +30,13 @@ public class SysAttachmentApiImpl implements SysAttachmentApi {
      * @param attachmentDTOList 附件集合
      */
     @Override
-    public void saveBatch(List<SysAttachmentDTO> attachmentDTOList) {
-        sysAttachmentService.batchSysAttachment(ConvertUtils.convertListTo(attachmentDTOList, SysAttachmentEntity::new));
+    public void saveBatch(String bizMark, String bizType, List<SysAttachmentDTO> attachmentDTOList) {
+        sysAttachmentService.batchSysAttachment(bizMark, bizType, ConvertUtils.convertListTo(attachmentDTOList, SysAttachmentEntity::new));
+    }
+
+    @Override
+    public void saveBatch(Long bizMark, String bizType, List<SysAttachmentDTO> attachmentDTOList) {
+        sysAttachmentService.batchSysAttachment(String.valueOf(bizMark), bizType, ConvertUtils.convertListTo(attachmentDTOList, SysAttachmentEntity::new));
     }
 
     /**
@@ -47,6 +52,12 @@ public class SysAttachmentApiImpl implements SysAttachmentApi {
         return ConvertUtils.convertListTo(infoListByBizMark, SysAttachmentDTO::new);
     }
 
+    @Override
+    public List<SysAttachmentDTO> findListByBizMark(Long bizMark, String bizType) {
+        List<SysAttachmentEntity> infoListByBizMark = sysAttachmentService.findListByBizMark(String.valueOf(bizMark), bizType);
+        return ConvertUtils.convertListTo(infoListByBizMark, SysAttachmentDTO::new);
+    }
+
     /**
      * 根据业务标识和业务类型删除附件
      *
@@ -56,5 +67,10 @@ public class SysAttachmentApiImpl implements SysAttachmentApi {
     @Override
     public void delByBizMark(String bizMark, String bizType) {
         sysAttachmentService.delByBizMark(bizMark, bizType);
+    }
+
+    @Override
+    public void delByBizMark(Long bizMark, String bizType) {
+        sysAttachmentService.delByBizMark(String.valueOf(bizMark), bizType);
     }
 }

@@ -98,8 +98,8 @@
 </template>
 
 <script setup lang="ts">
-    import {reactive, ref} from 'vue'
-    import {ElMessage} from 'element-plus/es'
+import {reactive, ref} from 'vue'
+import {ElMessage} from 'element-plus/es'
 
     <#list formList as field>
 <#if field.formType == 'selectUser'>

@@ -20,7 +20,14 @@ public interface SysAttachmentApi {
      *
      * @param attachmentDTOList 附件集合
      */
-    void saveBatch(List<SysAttachmentDTO> attachmentDTOList);
+    void saveBatch(String bizMark, String bizType, List<SysAttachmentDTO> attachmentDTOList);
+
+    /**
+     * 批量保存附件集合
+     *
+     * @param attachmentDTOList 附件集合
+     */
+    void saveBatch(Long bizMark, String bizType, List<SysAttachmentDTO> attachmentDTOList);
 
     /**
      * 根据业务标识和业务类型删除附件
@@ -31,6 +38,14 @@ public interface SysAttachmentApi {
     void delByBizMark(String bizMark, String bizType);
 
     /**
+     * 根据业务标识和业务类型删除附件
+     *
+     * @param bizMark 业务标识
+     * @param bizType 业务类型
+     */
+    void delByBizMark(Long bizMark, String bizType);
+
+    /**
      * 根据业务标识和业务类型查询附件集合
      *
      * @param bizMark 业务标识
@@ -38,4 +53,13 @@ public interface SysAttachmentApi {
      * @return 结果
      */
     List<SysAttachmentDTO> findListByBizMark(String bizMark, String bizType);
+
+    /**
+     * 根据业务标识和业务类型查询附件集合
+     *
+     * @param bizMark 业务标识
+     * @param bizType 业务类型
+     * @return 结果
+     */
+    List<SysAttachmentDTO> findListByBizMark(Long bizMark, String bizType);
 }

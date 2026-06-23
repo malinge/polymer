@@ -91,12 +91,13 @@
 </template>
 
 <script setup lang="ts" name="${ModuleName}${FunctionName}Index">
-    // 导入必要的库和组件
-    import {useCrud} from '@/hooks' // 封装的CRUD钩子
-    import {reactive, ref} from 'vue'
-    import {IHooksOptions} from '@/hooks/interface' // 类型定义
+// 导入必要的库和组件
+import {useCrud} from '@/hooks' // 封装的CRUD钩子
+import {reactive, ref} from 'vue'
+import {IHooksOptions} from '@/hooks/interface' // 类型定义
+import AddOrUpdate from "./add-or-update.vue";
 
-    /**
+/**
  * 状态管理
  * 使用封装的useCrud钩子管理列表页的CRUD操作
  */

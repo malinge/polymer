@@ -17,10 +17,6 @@ import java.util.List;
 public class SysUserBaseVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Schema(description = "姓名", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotBlank(message = "姓名不能为空")
-    private String realName;
-
     @Schema(description = "性别 0：男   1：女   2：未知", requiredMode = Schema.RequiredMode.REQUIRED)
     @Range(min = 0, max = 2, message = "性别不正确")
     private Integer gender;
@@ -47,14 +43,6 @@ public class SysUserBaseVO implements Serializable {
 
     @Schema(description = "所属城市")
     private List<String> city;
-
-    public String getRealName() {
-        return realName;
-    }
-
-    public void setRealName(String realName) {
-        this.realName = realName;
-    }
 
     public Integer getGender() {
         return gender;

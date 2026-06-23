@@ -6,12 +6,10 @@ import com.polymer.framework.common.pojo.PageResult;
 import com.polymer.framework.common.utils.ConvertUtils;
 import com.polymer.framework.mybatis.core.utils.MyBatisBatchUtils;
 import com.polymer.system.entity.SysAttachmentEntity;
-import com.polymer.system.entity.SysPostEntity;
 import com.polymer.system.mapper.SysAttachmentMapper;
 import com.polymer.system.query.SysAttachmentQuery;
 import com.polymer.system.service.SysAttachmentService;
 import com.polymer.system.vo.SysAttachmentVO;
-import com.polymer.system.vo.SysPostVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -91,8 +89,16 @@ public class SysAttachmentServiceImpl implements SysAttachmentService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int batchSysAttachment(List<SysAttachmentEntity> list) {
-        return batchUtils.executeBatch(SysAttachmentMapper.class, list, SysAttachmentMapper::insertSysAttachment);
+    public int batchSysAttachment(String bizMark, String bizType, List<SysAttachmentEntity> list) {
+        sysAttachmentMapper.delSysAttachmentByBizMark(bizMark, bizType);
+        if(list != null && list.size() > 0){
+            list.forEach(attachment -> {
+                attachment.setBizMark(bizMark);
+                attachment.setBizType(bizType);
+            });
+            return batchUtils.executeBatch(SysAttachmentMapper.class, list, SysAttachmentMapper::insertSysAttachment);
+        }
+        return 0;
     }
 
     /**

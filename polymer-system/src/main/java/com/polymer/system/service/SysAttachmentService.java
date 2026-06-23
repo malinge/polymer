@@ -52,7 +52,7 @@ public interface SysAttachmentService {
      * @param list 附件集合
      * @return 结果
      */
-    int batchSysAttachment(List<SysAttachmentEntity> list);
+    int batchSysAttachment(String bizMark, String bizType, List<SysAttachmentEntity> list);
 
     /**
      * 根据业务标识和业务类型查询附件集合
