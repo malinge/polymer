@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.polymer.demo.mapper.DemoMultipleFilesMapper">
+
+    <resultMap type="DemoMultipleFilesEntity" id="DemoMultipleFilesResult">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updater" column="updater"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectDemoMultipleFilesVo">
+        select id,name,dept_id,creator,create_time,updater,update_time
+        from demo_multiple_files
+    </sql>
+
+    <!--查询多文件上传样例列表-->
+    <select id="selectDemoMultipleFilesList" parameterType="com.polymer.demo.query.DemoMultipleFilesQuery" resultMap="DemoMultipleFilesResult">
+        <include refid="selectDemoMultipleFilesVo"/>
+        <where>
+        </where>
+    </select>
+
+    <!--查询多文件上传样例-->
+    <select id="selectDemoMultipleFilesById" parameterType="Long" resultMap="DemoMultipleFilesResult">
+        <include refid="selectDemoMultipleFilesVo"/>
+        where id = #{id}
+    </select>
+
+    <!--新增多文件上传样例-->
+    <insert id="insertDemoMultipleFiles" parameterType="DemoMultipleFilesEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into demo_multiple_files
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="deptId != null">dept_id,</if>
+            <if test="creator != null">creator,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updater != null">updater,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="deptId != null">#{deptId},</if>
+            <if test="creator != null">#{creator},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updater != null">#{updater},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <!--修改多文件上传样例-->
+    <update id="updateDemoMultipleFiles" parameterType="DemoMultipleFilesEntity">
+        update demo_multiple_files
+        <set>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="creator != null">creator = #{creator},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updater != null">updater = #{updater},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除多文件上传样例-->
+    <delete id="deleteDemoMultipleFilesById" parameterType="Long">
+        delete from demo_multiple_files where id = #{id}
+    </delete>
+
+</mapper>
