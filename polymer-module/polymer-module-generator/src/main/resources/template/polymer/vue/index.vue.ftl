@@ -21,7 +21,7 @@
 			  <fast-radio-group v-model="state.queryForm.${field.attrName}" dict-type="${field.formDict}"></fast-radio-group>
 			  <#else>
 			  <el-radio-group v-model="state.queryForm.${field.attrName}">
-				<el-radio :label="0">单选</el-radio>
+				  <el-radio :value="0" label="单选" />
 			  </el-radio-group>
 			  </#if>
 			<#elseif field.queryFormType == 'date'>

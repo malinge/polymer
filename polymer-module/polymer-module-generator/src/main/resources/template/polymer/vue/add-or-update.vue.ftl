@@ -34,8 +34,8 @@
 				<#else>
 					<el-form-item label="${field.fieldComment!}" prop="${field.attrName}">
 						<el-radio-group v-model="dataForm.${field.attrName}">
-							<el-radio :label="0">启用</el-radio>
-							<el-radio :label="1">禁用</el-radio>
+							<el-radio :value="0" label="启用" />
+							<el-radio :value="1" label="禁用" />
 						</el-radio-group>
 					</el-form-item>
 				</#if>
@@ -56,7 +56,7 @@
 				</el-form-item>
 			<#elseif field.formType == 'inputNumber'>
 				<el-form-item label="${field.fieldComment!}" prop="${field.attrName}">
-					<el-input-number v-model="dataForm.${field.attrName}" :min="0" :max="1000" placeholder="${field.fieldComment!}"  />
+					<el-input-number v-model="dataForm.${field.attrName}" :min="0" :max="1000" aria-label="${field.fieldComment!}" placeholder="${field.fieldComment!}"  />
 				</el-form-item>
 			<#elseif field.formType == 'selectUser'>
 				<el-form-item label="${field.fieldComment!}" prop="${field.attrName}">
