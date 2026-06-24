@@ -12,7 +12,7 @@
 				</el-form-item>
 			<#elseif field.formType == 'editor'>
 				<el-form-item label="${field.fieldComment!}" prop="${field.attrName}">
-					<el-input type="textarea" v-model="dataForm.${field.attrName}"></el-input>
+					<WangEditor :key="editorKey" v-model="dataForm.${field.attrName}" :style="'height: 300px'" placeholder="请输入..."></WangEditor>
 				</el-form-item>
 			<#elseif field.formType == 'select'>
 				<#if field.formDict??>
@@ -97,123 +97,136 @@
 	</el-dialog>
 </template>
 
-<script setup lang="ts">
-import {reactive, ref} from 'vue'
-import {ElMessage} from 'element-plus/es'
-
-    <#list formList as field>
-<#if field.formType == 'selectUser'>
-    </#if>
-</#list>
-
-const emit = defineEmits(['refreshDataList'])
-
-const visible = ref(false)
-const dataFormRef = ref()
+<#-- 提前计算所有需要的导入 -->
+<#assign hasEditor = false />
+<#assign hasSelectUser = false />
 <#list formList as field>
-<#if field.formType == 'selectUser'>
-const userTransferRef = ref()
-const selectedUser = ref<{ id: number; username: string } | null>(null)
-</#if>
-</#list>
-
-const dataForm = reactive({
-	<#list fieldList as field>
-	${field.attrName}: ''<#sep>,
-	</#list>
-})
-
-const init = (id?: number) => {
-	visible.value = true
-	dataForm.id = ''
-
-	// 重置表单数据
-	if (dataFormRef.value) {
-		dataFormRef.value.resetFields()
-	}
-
-	if (id) {
-		get${FunctionName}(id)
-	}
-
-	<#list formList as field>
+	<#if field.formType == 'editor'>
+		<#assign hasEditor = true />
+	</#if>
 	<#if field.formType == 'selectUser'>
-	// 重置${field.fieldComment}信息
-	selectedUser.value = null
+		<#assign hasSelectUser = true />
 	</#if>
-	</#list>
-}
+</#list>
 
-const get${FunctionName} = (id: number) => {
-	use${FunctionName}Api(id).then(res => {
-		Object.assign(dataForm, res.data)
+<script setup lang="ts">
+	import {reactive, ref} from 'vue'
+	import {ElMessage} from 'element-plus/es'
+	<#if hasSelectUser>
+	import {Close, Plus} from '@element-plus/icons-vue'
+	import UserTransfer from '@/components/user-transfer/index.vue'
+	</#if>
+	<#if hasEditor>
+	import WangEditor from '@/components/wang-editor/index.vue'
+	</#if>
+
+	const emit = defineEmits(['refreshDataList'])
+	const visible = ref(false)
+	const dataFormRef = ref()
+	<#if hasEditor>
+	const editorKey = ref(0)
+	</#if>
+	<#if hasSelectUser>
+	const userTransferRef = ref()
+	const selectedUser = ref<{ id: number; username: string } | null>(null)
+	</#if>
+
+	const dataForm = reactive({
+		<#list fieldList as field>
+		${field.attrName}: ''<#sep>,
+		</#list>
 	})
-}
 
-const dataRules = ref({
-	<#list formList as field>
-	<#if field.formRequired>
-	${field.attrName}: [{ required: true, message: '必填项不能为空', trigger: 'blur' }]<#sep>,
-	</#if>
-	</#list>
-})
+	const init = (id?: number) => {
+		visible.value = true
+		dataForm.id = ''
 
-<#list formList as field>
-<#if field.formType == 'selectUser'>
-// 打开${field.fieldComment}选择对话框
-const openUserDialog = () => {
-	userTransferRef.value.open(dataForm.${field.attrName})
-}
+		<#if hasEditor>
+		editorKey.value += 1
+		</#if>
 
-// 处理${field.fieldComment}选择结果
-const handleUserSelected = (user: any) => {
-	if (user) {
-		selectedUser.value = {
-			id: user.id,
-			username: user.username
+		// 重置表单数据
+		if (dataFormRef.value) {
+			dataFormRef.value.resetFields()
 		}
-		dataForm.${field.attrName} = user.id
-	} else {
+
+		if (id) {
+			get${FunctionName}(id)
+		}
+
+		<#if hasSelectUser>
+		// 重置${field.fieldComment}信息
+		selectedUser.value = null
+		</#if>
+	}
+
+	const get${FunctionName} = (id: number) => {
+		use${FunctionName}Api(id).then(res => {
+			Object.assign(dataForm, res.data)
+		})
+	}
+
+	const dataRules = ref({
+		<#list formList as field>
+		<#if field.formRequired>
+		${field.attrName}: [{ required: true, message: '必填项不能为空', trigger: 'blur' }]<#sep>,
+		</#if>
+		</#list>
+	})
+
+	<#if hasSelectUser>
+	// 打开选择对话框
+	const openUserDialog = () => {
+		userTransferRef.value.open(dataForm.${field.attrName})
+	}
+
+	// 处理选择结果
+	const handleUserSelected = (user: any) => {
+		if (user) {
+			selectedUser.value = {
+				id: user.id,
+				username: user.username
+			}
+			dataForm.${field.attrName} = user.id
+		} else {
+			selectedUser.value = null
+			dataForm.${field.attrName} = null
+		}
+	}
+
+	// 清除已选择的
+	const clearUser = () => {
 		selectedUser.value = null
 		dataForm.${field.attrName} = null
 	}
-}
+	</#if>
 
-// 清除已选择的${field.fieldComment}
-const clearUser = () => {
-	selectedUser.value = null
-	dataForm.${field.attrName} = null
-}
-</#if>
-</#list>
+	// 表单提交
+	const submitHandle = () => {
+		dataFormRef.value.validate((valid: boolean) => {
+			if (!valid) {
+				return false
+			}
 
-// 表单提交
-const submitHandle = () => {
-	dataFormRef.value.validate((valid: boolean) => {
-		if (!valid) {
-			return false
-		}
-
-		use${FunctionName}SubmitApi(dataForm).then(() => {
-			ElMessage.success({
-				message: '操作成功',
-				duration: 500,
-				onClose: () => {
-					visible.value = false
-					emit('refreshDataList')
-				}
+			use${FunctionName}SubmitApi(dataForm).then(() => {
+				ElMessage.success({
+					message: '操作成功',
+					duration: 500,
+					onClose: () => {
+						visible.value = false
+						emit('refreshDataList')
+					}
+				})
 			})
 		})
+	}
+
+	defineExpose({
+		init
 	})
-}
-
-defineExpose({
-	init
-})
-
 </script>
-<#list formList as field>
-<#if field.formType == 'selectUser'>
+
+<#if hasSelectUser>
 <style lang="scss" scoped>
 	.user-selection {
 		display: flex;
@@ -246,4 +259,3 @@ defineExpose({
 	}
 </style>
 </#if>
-</#list>

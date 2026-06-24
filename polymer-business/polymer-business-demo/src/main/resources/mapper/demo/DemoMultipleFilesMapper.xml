@@ -6,6 +6,7 @@
     <resultMap type="DemoMultipleFilesEntity" id="DemoMultipleFilesResult">
         <result property="id" column="id"/>
         <result property="name" column="name"/>
+        <result property="description" column="description"/>
         <result property="deptId" column="dept_id"/>
         <result property="creator" column="creator"/>
         <result property="createTime" column="create_time"/>
@@ -14,7 +15,7 @@
     </resultMap>
 
     <sql id="selectDemoMultipleFilesVo">
-        select id,name,dept_id,creator,create_time,updater,update_time
+        select id,name,description,dept_id,creator,create_time,updater,update_time
         from demo_multiple_files
     </sql>
 
@@ -36,6 +37,7 @@
         insert into demo_multiple_files
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="name != null and name != ''">name,</if>
+            <if test="description != null and description != ''">description,</if>
             <if test="deptId != null">dept_id,</if>
             <if test="creator != null">creator,</if>
             <if test="createTime != null">create_time,</if>
@@ -44,6 +46,7 @@
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="name != null and name != ''">#{name},</if>
+            <if test="description != null and description != ''">#{description},</if>
             <if test="deptId != null">#{deptId},</if>
             <if test="creator != null">#{creator},</if>
             <if test="createTime != null">#{createTime},</if>
@@ -57,6 +60,7 @@
         update demo_multiple_files
         <set>
             <if test="name != null and name != ''">name = #{name},</if>
+            <if test="description != null and description != ''">description = #{description},</if>
             <if test="deptId != null">dept_id = #{deptId},</if>
             <if test="creator != null">creator = #{creator},</if>
             <if test="createTime != null">create_time = #{createTime},</if>

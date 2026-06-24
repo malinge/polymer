@@ -24,6 +24,9 @@ public class DemoMultipleFilesVO implements Serializable {
 	@Schema(description = "名称")
 	private String name;
 
+	@Schema(description = "描述")
+	private String description;
+
 	@Schema(description = "部门ID")
 	private Long deptId;
 
@@ -59,6 +62,15 @@ public class DemoMultipleFilesVO implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public Long getDeptId() {
 		return deptId;
 	}
@@ -111,6 +123,7 @@ public class DemoMultipleFilesVO implements Serializable {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
 			.append("id", getId())
 			.append("name", getName())
+				.append("description", getDescription())
 			.append("deptId", getDeptId())
 			.append("creator", getCreator())
 			.append("createTime", getCreateTime())

@@ -18,6 +18,10 @@ public class DemoMultipleFilesEntity extends BaseEntity  {
     */
 	private String name;
     /**
+     * 描述
+     */
+	private String description;
+    /**
     * 部门ID
     */
 	private Long deptId;
@@ -28,6 +32,15 @@ public class DemoMultipleFilesEntity extends BaseEntity  {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Long getDeptId() {
     return deptId;
     }
@@ -40,6 +53,7 @@ public class DemoMultipleFilesEntity extends BaseEntity  {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("name", getName())
             .append("deptId", getDeptId())
+            .append("description", getDescription())
             .toString();
     }
 }
