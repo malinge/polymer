@@ -49,4 +49,14 @@ public interface StorageApi {
      * @return 返回http地址
      */
     String upload(InputStream inputStream, String path);
+
+    /**
+     * 生成文件预签名下载地址
+     *
+     * @param path 文件相对路径，包括文件名
+     * @return 预签名下载地址
+     */
+    String getFilePresignedDownloadUrl(String path);
+
+    String processImages(String htmlBody);
 }

@@ -1,18 +1,19 @@
 package com.polymer.demo.service.impl;
 
-import com.polymer.api.system.SysAttachmentApi;
-import com.polymer.api.system.dto.SysAttachmentDTO;
-import com.polymer.framework.mybatis.core.utils.MyBatisBatchUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.polymer.api.storage.StorageApi;
+import com.polymer.api.system.SysAttachmentApi;
+import com.polymer.api.system.dto.SysAttachmentDTO;
+import com.polymer.demo.entity.DemoMultipleFilesEntity;
+import com.polymer.demo.mapper.DemoMultipleFilesMapper;
+import com.polymer.demo.query.DemoMultipleFilesQuery;
+import com.polymer.demo.service.DemoMultipleFilesService;
+import com.polymer.demo.vo.DemoMultipleFilesVO;
 import com.polymer.framework.common.exception.ServiceException;
 import com.polymer.framework.common.pojo.PageResult;
 import com.polymer.framework.common.utils.ConvertUtils;
-import com.polymer.demo.entity.DemoMultipleFilesEntity;
-import com.polymer.demo.vo.DemoMultipleFilesVO;
-import com.polymer.demo.query.DemoMultipleFilesQuery;
-import com.polymer.demo.mapper.DemoMultipleFilesMapper;
-import com.polymer.demo.service.DemoMultipleFilesService;
+import com.polymer.framework.mybatis.core.utils.MyBatisBatchUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +34,8 @@ public class DemoMultipleFilesServiceImpl implements DemoMultipleFilesService {
     private MyBatisBatchUtils batchUtils;
     @Resource
     private SysAttachmentApi sysAttachmentApi;
+    @Resource
+    private StorageApi storageApi;
 
     /**
      * 查询多文件上传样例分页列表
@@ -58,6 +61,10 @@ public class DemoMultipleFilesServiceImpl implements DemoMultipleFilesService {
     public DemoMultipleFilesVO selectDemoMultipleFilesById(Long id){
         DemoMultipleFilesEntity entity =  demoMultipleFilesMapper.selectDemoMultipleFilesById(id);
         DemoMultipleFilesVO demoMultipleFilesVO = ConvertUtils.convertTo(entity, DemoMultipleFilesVO::new);
+
+        String newDes = storageApi.processImages(demoMultipleFilesVO.getDescription());
+        demoMultipleFilesVO.setDescription(newDes);
+
         List<SysAttachmentDTO> images = sysAttachmentApi.findListByBizMark(id, "img" + DemoMultipleFilesVO.class.getName());
         List<SysAttachmentDTO> attachments = sysAttachmentApi.findListByBizMark(id, "file" + DemoMultipleFilesVO.class.getName());
         demoMultipleFilesVO.setImages(images);

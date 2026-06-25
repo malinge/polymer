@@ -1,7 +1,12 @@
 package com.polymer.storage.api;
 
 import com.polymer.api.storage.StorageApi;
+import com.polymer.framework.common.utils.StringUtils;
 import com.polymer.storage.service.base.AbstractStorageService;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -71,5 +76,39 @@ public class StorageApiImpl implements StorageApi {
     @Override
     public String upload(InputStream inputStream, String path) {
         return abstractStorageService.upload(inputStream, path);
+    }
+
+    /**
+     * 生成文件预签名下载地址
+     *
+     * @param path 文件相对路径，包括文件名
+     * @return 预签名下载地址
+     */
+    @Override
+    public String getFilePresignedDownloadUrl(String path) {
+        return abstractStorageService.generatePresignedUrl(path, Boolean.TRUE);
+    }
+
+    @Override
+    public String processImages(String htmlBody) {
+        if (StringUtils.isBlank(htmlBody)) {
+            return "";
+        }
+        // 解析HTML
+        Document document = Jsoup.parse(htmlBody);
+        // 获取所有img标签
+        Elements imgElements = document.select("img");
+        // 遍历所有img标签
+        for (Element img : imgElements) {
+            // 获取data-href属性值
+            String dataHref = img.attr("data-href");
+            // 如果data-href不为空，则重新构建src
+            if (StringUtils.isNotBlank(dataHref)) {
+                String newSrc = abstractStorageService.generatePresignedUrl(dataHref, Boolean.TRUE);
+                // 更新src属性
+                img.attr("src", newSrc);
+            }
+        }
+        return document.body().html();
     }
 }
