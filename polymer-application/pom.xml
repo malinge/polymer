@@ -39,7 +39,7 @@
         </dependency>
         <dependency>
             <groupId>com.polymer</groupId>
-            <artifactId>polymer-module-generator</artifactId>
+            <artifactId>polymer-module-gen</artifactId>
             <version>${revision}</version>
         </dependency>
         <dependency>
