@@ -1825,27 +1825,42 @@ public class ExcelUtil<T> {
                 titleCell = titleRow.createCell(0);
             }
 
-            // 3. 获取原标题文本
-            String originalTitle = titleCell.getStringCellValue();
+            // 3. 安全获取原标题文本（兼容空单元格和非字符串类型）
+            String originalTitle = "";
+            if (titleCell.getCellType() == CellType.STRING) {
+                originalTitle = titleCell.getStringCellValue();
+                if (originalTitle == null) {
+                    originalTitle = "";
+                }
+            } else if (titleCell.getCellType() == CellType.BLANK) {
+                originalTitle = "";
+            } else {
+                // 如果是数字、布尔等其他类型，强制转为字符串
+                originalTitle = titleCell.toString();
+            }
 
-            // 4. 清空单元格，使用富文本重新设置
-            titleCell.setCellValue("");
+            // 4. 【核心修复】重置单元格样式，清除原有的背景色干扰
+            CellStyle newStyle = workbook.createCellStyle();
+            // 设置为无填充，彻底清除原有的白色背景
+            newStyle.setFillPattern(FillPatternType.NO_FILL);
 
-            // 5. 创建富文本
-            XSSFRichTextString richText = new XSSFRichTextString(originalTitle + "（请使用最新模板！）");
+            // 5. 创建富文本并设置样式
+            String appendText = "（请使用最新模板！）";
+            XSSFRichTextString richText = new XSSFRichTextString(originalTitle + appendText);
 
-            // 原标题使用默认样式
-            // 追加的文字设置为红色加粗（从原标题长度开始）
-            int appendStart = originalTitle.length();
+            // 设置追加文字的样式：红色、加粗
             Font redFont = workbook.createFont();
             redFont.setColor(IndexedColors.RED.getIndex());
             redFont.setBold(true);
             redFont.setFontHeightInPoints((short) 12);
+
+            int appendStart = originalTitle.length();
             richText.applyFont(appendStart, richText.length(), redFont);
 
+            // 6. 写入富文本到单元格
             titleCell.setCellValue(richText);
 
-            // 6. 设置列宽适应文字
+            // 7. 设置列宽适应文字
             sheet.setColumnWidth(0, 8000);
 
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -1897,7 +1912,7 @@ public class ExcelUtil<T> {
                 byte[] errorBytes = generateTemplateErrorExcelWithDetail(workbook);
                 // 获取数据行数
                 Sheet sheet = workbook.getSheetAt(0);
-                int dataRowCount = Math.max(0, sheet.getLastRowNum() - dataStartRowIndex);
+                int dataRowCount = Math.max(0, sheet.getLastRowNum() - headerRowIndex);
 
                 result.setPassed(false);
                 result.setTotalRowCount(dataRowCount);
