@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.polymer.system.mapper.SysImportExportRecordMapper">
+
+    <resultMap type="SysImportExportRecordEntity" id="SysImportExportRecordResult">
+        <result property="id" column="id"/>
+        <result property="operatorName" column="operator_name"/>
+        <result property="businessType" column="business_type"/>
+        <result property="operationType" column="operation_type"/>
+        <result property="totalCount" column="total_count"/>
+        <result property="successCount" column="success_count"/>
+        <result property="errorCount" column="error_count"/>
+        <result property="conflictHandleCount" column="conflict_handle_count"/>
+        <result property="importStrategy" column="import_strategy"/>
+        <result property="errorFileUrl" column="error_file_url"/>
+        <result property="resultFileUrl" column="result_file_url"/>
+        <result property="remark" column="remark"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="creator" column="creator"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updater" column="updater"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="selectSysImportExportRecordVo">
+        select id,operator_name,business_type,operation_type,total_count,success_count,error_count,conflict_handle_count,import_strategy,error_file_url,result_file_url,remark,dept_id,creator,create_time,updater,update_time
+        from sys_import_export_record
+    </sql>
+
+    <!--查询导入导出记录表列表-->
+    <select id="selectSysImportExportRecordList" parameterType="com.polymer.system.query.SysImportExportRecordQuery" resultMap="SysImportExportRecordResult">
+        <include refid="selectSysImportExportRecordVo"/>
+        <where>
+            <if test="creator != null ">
+                AND creator = #{creator}
+            </if>
+            <if test="operatorName != null  and operatorName != ''"> and operator_name like concat('%', #{operatorName}, '%')</if>
+            <if test="businessType != null  and businessType != ''"> and business_type like concat('%', #{businessType}, '%')</if>
+            <if test="operationType != null  and operationType != ''"> and operation_type = #{operationType}</if>
+            <if test="beginCreateTime != null and endCreateTime != null"> and create_time between #{beginCreateTime} and #{endCreateTime}</if>
+        </where>
+        order by create_time desc
+    </select>
+
+    <!--查询导入导出记录表-->
+    <select id="selectSysImportExportRecordById" parameterType="Long" resultMap="SysImportExportRecordResult">
+        <include refid="selectSysImportExportRecordVo"/>
+        where id = #{id}
+    </select>
+
+    <!--新增导入导出记录表-->
+    <insert id="insertSysImportExportRecord" parameterType="SysImportExportRecordEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_import_export_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="operatorName != null and operatorName != ''">operator_name,</if>
+            <if test="businessType != null and businessType != ''">business_type,</if>
+            <if test="operationType != null and operationType != ''">operation_type,</if>
+            <if test="totalCount != null">total_count,</if>
+            <if test="successCount != null">success_count,</if>
+            <if test="errorCount != null">error_count,</if>
+            <if test="conflictHandleCount != null">conflict_handle_count,</if>
+            <if test="importStrategy != null and importStrategy != ''">import_strategy,</if>
+            <if test="errorFileUrl != null and errorFileUrl != ''">error_file_url,</if>
+            <if test="resultFileUrl != null and resultFileUrl != ''">result_file_url,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+            <if test="deptId != null">dept_id,</if>
+            <if test="creator != null">creator,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updater != null">updater,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="operatorName != null and operatorName != ''">#{operatorName},</if>
+            <if test="businessType != null and businessType != ''">#{businessType},</if>
+            <if test="operationType != null and operationType != ''">#{operationType},</if>
+            <if test="totalCount != null">#{totalCount},</if>
+            <if test="successCount != null">#{successCount},</if>
+            <if test="errorCount != null">#{errorCount},</if>
+            <if test="conflictHandleCount != null">#{conflictHandleCount},</if>
+            <if test="importStrategy != null and importStrategy != ''">#{importStrategy},</if>
+            <if test="errorFileUrl != null and errorFileUrl != ''">#{errorFileUrl},</if>
+            <if test="resultFileUrl != null and resultFileUrl != ''">#{resultFileUrl},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+            <if test="deptId != null">#{deptId},</if>
+            <if test="creator != null">#{creator},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updater != null">#{updater},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <!--修改导入导出记录表-->
+    <update id="updateSysImportExportRecord" parameterType="SysImportExportRecordEntity">
+        update sys_import_export_record
+        <set>
+            <if test="operatorName != null and operatorName != ''">operator_name = #{operatorName},</if>
+            <if test="businessType != null and businessType != ''">business_type = #{businessType},</if>
+            <if test="operationType != null and operationType != ''">operation_type = #{operationType},</if>
+            <if test="totalCount != null">total_count = #{totalCount},</if>
+            <if test="successCount != null">success_count = #{successCount},</if>
+            <if test="errorCount != null">error_count = #{errorCount},</if>
+            <if test="conflictHandleCount != null">conflict_handle_count = #{conflictHandleCount},</if>
+            <if test="importStrategy != null and importStrategy != ''">import_strategy = #{importStrategy},</if>
+            <if test="errorFileUrl != null and errorFileUrl != ''">error_file_url = #{errorFileUrl},</if>
+            <if test="resultFileUrl != null and resultFileUrl != ''">result_file_url = #{resultFileUrl},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="deptId != null">dept_id = #{deptId},</if>
+            <if test="creator != null">creator = #{creator},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updater != null">updater = #{updater},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除导入导出记录表-->
+    <delete id="deleteSysImportExportRecordById" parameterType="Long">
+        delete from sys_import_export_record where id = #{id}
+    </delete>
+
+</mapper>

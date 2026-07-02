@@ -163,6 +163,16 @@ public @interface Excel {
      */
     Type type() default Type.ALL;
 
+    /**
+     * 是否必填（导入时校验）
+     */
+    boolean required() default false;
+
+    /**
+     * 是否唯一（导入时校验）
+     */
+    boolean unique() default false;
+
     enum Type {
         ALL(0), EXPORT(1), IMPORT(2);
         private final int value;

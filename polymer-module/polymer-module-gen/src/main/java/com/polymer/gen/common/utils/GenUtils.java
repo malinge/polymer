@@ -14,6 +14,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -48,7 +49,6 @@ public class GenUtils {
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
-
         return tableList;
     }
 

@@ -175,21 +175,6 @@ public class SysDeptServiceImpl implements SysDeptService {
         return ConvertUtils.convertTo(entity, SysDeptVO::new);
     }
 
-    /**
-     * 校验部门是否有数据权限
-     *
-     * @param deptId 部门id
-     */
-    @Override
-    public void checkDeptDataScope(Long deptId) {
-        if (StringUtils.isNotNull(deptId)) {
-            SysDeptEntity entity = sysDeptMapper.selectSysDeptById(deptId);
-            if (entity == null) {
-                throw new ServiceException("没有权限访问部门数据！");
-            }
-        }
-    }
-
     @Override
     public List<SysDeptVO> simpleList() {
         SysDeptQuery param = new SysDeptQuery();

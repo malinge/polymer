@@ -1,7 +1,10 @@
 package com.polymer.system.controller;
 
+import com.polymer.api.system.vo.ImportResultVO;
+import com.polymer.framework.common.annotation.Excel;
 import com.polymer.framework.common.pojo.PageResult;
 import com.polymer.framework.common.pojo.Result;
+import com.polymer.framework.common.utils.ExcelUtil;
 import com.polymer.framework.common.utils.FileUtils;
 import com.polymer.framework.common.utils.StringUtils;
 import com.polymer.framework.encrypt.core.annotation.ApiEncrypt;
@@ -13,6 +16,7 @@ import com.polymer.framework.security.core.user.UserDetail;
 import com.polymer.system.query.SysUserQuery;
 import com.polymer.system.service.SysUserService;
 import com.polymer.system.vo.SysUserBaseVO;
+import com.polymer.system.vo.SysUserExcelVO;
 import com.polymer.system.vo.SysUserPasswordVO;
 import com.polymer.system.vo.SysUserSelectVO;
 import com.polymer.system.vo.SysUserVO;
@@ -39,6 +43,8 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -158,32 +164,6 @@ public class SysUserController {
         return Result.ok();
     }
 
-    @PostMapping("import")
-    @Operation(summary = "导入用户")
-    @OperateLog(type = OperateTypeEnum.IMPORT)
-    @PreAuthorize("hasAuthority('sys:user:import')")
-    public Result<String> importExcel(@RequestParam("file") MultipartFile file) throws Exception {
-        if (file.isEmpty()) {
-            return Result.error("请选择需要上传的文件");
-        }
-        String res = sysUserService.importByExcel(file, passwordEncoder.encode("123456"));
-        return Result.ok(res);
-    }
-
-    @GetMapping("export")
-    @Operation(summary = "导出用户")
-    @OperateLog(type = OperateTypeEnum.EXPORT)
-    @PreAuthorize("hasAuthority('sys:user:export')")
-    public void export(@ParameterObject SysUserQuery query, HttpServletResponse response) throws IOException {
-        byte[] b = sysUserService.export(query);
-
-        response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
-        FileUtils.setAttachmentResponseHeader(response, "用户数据.xlsx");
-        ServletOutputStream outputStream = response.getOutputStream();
-        outputStream.write(b);
-        //FileUtils.writeBytes(filePath, response.getOutputStream());
-    }
-
     @PostMapping("/updateUserAvatar")
     @Operation(summary = "根据id修改用户头像")
     public Result<String> updateUserAvatar(@RequestBody SysUserVO vo) {
@@ -204,5 +184,74 @@ public class SysUserController {
         List<SysUserVO> list = sysUserService.list();
 
         return Result.ok(list);
+    }
+
+    /**
+     * 导出模板
+     */
+    @GetMapping("exportTemplate")
+    @Operation(summary = "导出模板")
+    @PreAuthorize("hasAuthority('sys:user:import')")
+    public void exportTemplate(HttpServletResponse response) throws IOException {
+        ExcelUtil<SysUserExcelVO> excelUtil = new ExcelUtil<>(SysUserExcelVO.class);
+        byte[] b = excelUtil.createTemplateExcel("用户导入模板", "用户数据导入（注：红色字体为必填项）");
+
+        response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
+        FileUtils.setAttachmentResponseHeader(response, "用户导入模板.xlsx");
+        ServletOutputStream outputStream = response.getOutputStream();
+        outputStream.write(b);
+    }
+
+    /**
+     * 获取Excel导入唯一字段列表
+     * 返回所有@Excel注解中unique = true的字段名称
+     */
+    @GetMapping("/uniqueFields")
+    @Operation(summary = "获取Excel导入唯一字段列表")
+    @PreAuthorize("hasAuthority('sys:user:import')")
+    public Result<List<String>> getUniqueFields() {
+        // 使用反射获取SysUserExcelVO类中所有带有@Excel注解的字段
+        Field[] fields = SysUserExcelVO.class.getDeclaredFields();
+        List<String> uniqueFieldNames = new ArrayList<>();
+        for (Field field : fields) {
+            Excel excelAnnotation = field.getAnnotation(Excel.class);
+            if (excelAnnotation != null && excelAnnotation.unique()) {
+                // 获取Excel注解中的name属性
+                String name = excelAnnotation.name();
+                if (StringUtils.isNotBlank(name)) {
+                    uniqueFieldNames.add(name);
+                }
+            }
+        }
+        // 如果没有任何唯一字段，添加一个"无"的占位值
+        if (uniqueFieldNames.isEmpty()) {
+            uniqueFieldNames.add("无");
+        }
+        return Result.ok(uniqueFieldNames);
+    }
+
+    @PostMapping("import")
+    @Operation(summary = "导入用户")
+    @OperateLog(type = OperateTypeEnum.IMPORT)
+    @PreAuthorize("hasAuthority('sys:user:import')")
+    public Result<ImportResultVO> importExcel(@RequestParam("file") MultipartFile file, @RequestParam(value = "strategy", defaultValue = "skip") String strategy) throws Exception {
+        if (file.isEmpty()) {
+            return Result.error("请选择需要上传的文件");
+        }
+        ImportResultVO res = sysUserService.importByExcel(file, passwordEncoder.encode("123456"), strategy);
+        return Result.ok(res);
+    }
+
+    @GetMapping("export")
+    @Operation(summary = "导出用户")
+    @OperateLog(type = OperateTypeEnum.EXPORT)
+    @PreAuthorize("hasAuthority('sys:user:export')")
+    public void export(@ParameterObject SysUserQuery query, HttpServletResponse response) throws IOException {
+        byte[] b = sysUserService.export(query);
+
+        response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
+        FileUtils.setAttachmentResponseHeader(response, "用户数据.xlsx");
+        ServletOutputStream outputStream = response.getOutputStream();
+        outputStream.write(b);
     }
 }

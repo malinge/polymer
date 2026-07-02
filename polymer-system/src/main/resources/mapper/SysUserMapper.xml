@@ -236,4 +236,38 @@
             #{item}
         </foreach>
     </select>
+
+    <!-- 根据用户名列表查询用户 -->
+    <select id="selectSysUserByUsernames" resultMap="SysUserResult">
+        <include refid="selectSysUserVo"/>
+        where u.username in
+        <foreach collection="usernames" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <!-- 根据手机号列表查询用户 -->
+    <select id="selectSysUserByMobiles" resultMap="SysUserResult">
+        <include refid="selectSysUserVo"/>
+        where u.mobile in
+        <foreach collection="mobiles" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <!-- 全量更新用户（包括null值） -->
+    <update id="updateSysUserFull" parameterType="SysUserEntity">
+        update sys_user
+        <set>
+            real_name = #{realName},
+            avatar = #{avatar},
+            gender = #{gender},
+            email = #{email},
+            mobile = #{mobile},
+            dept_id = #{deptId},
+            updater = #{updater},
+            update_time = sysdate()
+        </set>
+        where id = #{id}
+    </update>
 </mapper>

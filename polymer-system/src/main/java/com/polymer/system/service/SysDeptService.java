@@ -67,13 +67,6 @@ public interface SysDeptService {
     SysDeptVO getById(Long id);
 
     /**
-     * 校验部门是否有数据权限
-     *
-     * @param deptId 部门id
-     */
-    void checkDeptDataScope(Long deptId);
-
-    /**
      * 全部部门数据
      * @return SysDeptVO
      */

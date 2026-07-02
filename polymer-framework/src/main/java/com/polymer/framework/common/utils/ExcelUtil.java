@@ -7,6 +7,7 @@ import com.polymer.framework.common.annotation.Excels;
 import com.polymer.framework.common.core.ExcelHandlerAdapter;
 import com.polymer.framework.common.core.text.Convert;
 import com.polymer.framework.common.exception.UtilException;
+import com.polymer.framework.common.pojo.ImportValidationResult;
 import com.polymer.framework.security.core.utils.TokenUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.RegExUtils;
@@ -48,6 +49,7 @@ import org.apache.poi.xssf.usermodel.XSSFClientAnchor;
 import org.apache.poi.xssf.usermodel.XSSFDataValidation;
 import org.apache.poi.xssf.usermodel.XSSFDrawing;
 import org.apache.poi.xssf.usermodel.XSSFPicture;
+import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 import org.apache.poi.xssf.usermodel.XSSFShape;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -56,6 +58,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -76,6 +79,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -102,6 +106,8 @@ public class ExcelUtil<T> {
      * Excel sheet最大行数，默认65536
      */
     public static final int sheetSize = 65536;
+    public static final int firstRow = 2;
+    public static final int endRow = 1000;
 
     /**
      * 工作表名称
@@ -285,7 +291,7 @@ public class ExcelUtil<T> {
      * @return 转换后集合
      */
     public List<T> importExcel(InputStream is, int titleNum) {
-        List<T> list = null;
+        List<T> list;
         try {
             list = importExcel(StringUtils.EMPTY, is, titleNum);
         } catch (Exception e) {
@@ -308,7 +314,7 @@ public class ExcelUtil<T> {
     public List<T> importExcel(String sheetName, InputStream is, int titleNum) throws Exception {
         this.type = Type.IMPORT;
         this.wb = WorkbookFactory.create(is);
-        List<T> list = new ArrayList<T>();
+        List<T> list = new ArrayList<>();
         // 如果指定sheet名,则取指定sheet中的内容 否则默认指向第1个sheet
         Sheet sheet = StringUtils.isNotEmpty(sheetName) ? wb.getSheet(sheetName) : wb.getSheetAt(0);
         if (sheet == null) {
@@ -1005,10 +1011,10 @@ public class ExcelUtil<T> {
             }
             if (comboArray.length > 15 || StringUtils.join(comboArray).length() > 255) {
                 // 如果下拉数大于15或字符串长度大于255，则使用一个新sheet存储，避免生成的模板下拉值获取不到
-                setXSSFValidationWithHidden(sheet, comboArray, attr.prompt(), 1, 100, column, column);
+                setXSSFValidationWithHidden(sheet, comboArray, attr.prompt(), firstRow, endRow, column, column);
             } else {
                 // 提示信息或只能选择不能输入的列内容.
-                setPromptOrValidation(sheet, comboArray, attr.prompt(), 1, 100, column, column);
+                setPromptOrValidation(sheet, comboArray, attr.prompt(), firstRow, endRow, column, column);
             }
         }
     }
@@ -1631,4 +1637,321 @@ public class ExcelUtil<T> {
         }
         return method;
     }
+
+    /**
+     * 生成导出模板（包含下拉选项）
+     *
+     * @param sheetName 工作表名称
+     * @param title     标题
+     * @return 模板字节数组
+     */
+    public byte[] createTemplateExcel(String sheetName, String title) {
+        this.init(null, sheetName, title, Type.IMPORT);
+
+        // 先创建表头行（调用writeSheet的部分逻辑）
+        writeSheet();
+
+        // 添加下拉选项
+        for (Object[] os : fields) {
+            Excel attr = (Excel) os[1];
+            int column = getColumnIndex(attr.name());
+            if (column >= 0) {
+                // 如果是字典类型，设置下拉选项
+                if (StringUtils.isNotEmpty(attr.dictType()) && attr.comboReadDict()) {
+                    String[] comboArray = getDictComboArray(attr.dictType());
+                    if (comboArray.length > 0) {
+                        setPromptOrValidation(sheet, comboArray, attr.prompt(), firstRow, endRow, column, column);
+                    }
+                }
+                // 如果设置了combo，使用combo的值
+                if (attr.combo().length > 0) {
+                    setPromptOrValidation(sheet, attr.combo(), attr.prompt(), firstRow, endRow, column, column);
+                }
+                // 如果是必填，将表头字体设为红色
+                if (attr.required()) {
+                    markRequiredColumn(column);
+                }
+            }
+        }
+
+        // 导出
+        ByteArrayOutputStream bos = null;
+        try {
+            bos = new ByteArrayOutputStream();
+            wb.write(bos);
+            return bos.toByteArray();
+        } catch (Exception e) {
+            log.error("导出Excel异常{}", e.getMessage());
+            throw new UtilException("导出Excel失败，请联系网站管理员！");
+        } finally {
+            IOUtils.closeQuietly(wb);
+            IOUtils.closeQuietly(bos);
+        }
+    }
+
+    /**
+     * 标记必填列（仅将表头字体设为红色）
+     *
+     * @param column 列索引
+     */
+    private void markRequiredColumn(int column) {
+        // 有标题时：行0=标题，行1=表头
+        int headerRowIndex = StringUtils.isNotEmpty(title) ? 1 : 0;
+
+        Row headerRow = sheet.getRow(headerRowIndex);
+        if (headerRow == null) {
+            log.warn("表头行不存在，行索引: {}", headerRowIndex);
+            return;
+        }
+
+        Cell cell = headerRow.getCell(column);
+        if (cell == null) {
+            log.warn("表头单元格不存在，列索引: {}", column);
+            return;
+        }
+
+        // 创建新字体，设置为红色加粗
+        Font requiredFont = wb.createFont();
+        requiredFont.setFontName("Arial");
+        requiredFont.setFontHeightInPoints((short) 10);
+        requiredFont.setBold(true);
+        requiredFont.setColor(IndexedColors.DARK_RED.getIndex());
+
+        // 创建新样式并设置字体
+        CellStyle requiredStyle = wb.createCellStyle();
+        requiredStyle.cloneStyleFrom(cell.getCellStyle());
+        requiredStyle.setFont(requiredFont);
+
+        cell.setCellStyle(requiredStyle);
+    }
+
+    /**
+     * 获取字典下拉选项数组
+     */
+    private String[] getDictComboArray(String dictType) {
+        if (!sysDictMap.containsKey("combo_" + dictType)) {
+            String labels = DictUtils.getDictLabels(dictType);
+            sysDictMap.put("combo_" + dictType, labels);
+        }
+        String val = sysDictMap.get("combo_" + dictType);
+        return StringUtils.split(val, DictUtils.SEPARATOR);
+    }
+
+    /**
+     * 根据字段名称获取列索引
+     */
+    private int getColumnIndex(String fieldName) {
+        int index = 0;
+        for (Object[] os : fields) {
+            Excel attr = (Excel) os[1];
+            if (attr.name().equals(fieldName)) {
+                return index;
+            }
+            index++;
+        }
+        return -1;
+    }
+
+
+    /**
+     * 检查Excel表头是否与模板一致
+     *
+     * @param workbook 工作簿
+     * @param expectedHeaders 期望的表头列表
+     * @param headerRowIndex 表头行索引
+     * @return 检查结果，包含是否一致和错误信息
+     */
+    public static Boolean checkHeaders(Workbook workbook, List<String> expectedHeaders, int headerRowIndex) {
+        Sheet sheet = workbook.getSheetAt(0);
+        Row headerRow = sheet.getRow(headerRowIndex);
+
+        if (headerRow == null) {
+            return Boolean.FALSE;
+        }
+
+        // 1. 检查导入的表头是否有重复
+        Set<String> actualHeaderSet = new HashSet<>();
+        for (int i = 0; i < headerRow.getPhysicalNumberOfCells(); i++) {
+            Cell cell = headerRow.getCell(i);
+            String actualHeader = "";
+            if (cell != null) {
+                if (cell.getCellType() == CellType.STRING) {
+                    actualHeader = cell.getStringCellValue().trim();
+                } else if (cell.getCellType() == CellType.NUMERIC) {
+                    actualHeader = String.valueOf(cell.getNumericCellValue()).trim();
+                } else {
+                    actualHeader = cell.toString().trim();
+                }
+            }
+            if (StringUtils.isNotEmpty(actualHeader)) {
+                if (!actualHeaderSet.add(actualHeader)) {
+                    // 存在重复表头
+                    return Boolean.FALSE;
+                }
+            }
+        }
+
+        // 2. 检查期望的表头是否都存在
+        Set<String> expectedHeaderSet = new HashSet<>(expectedHeaders);
+        for (String expectedHeader : expectedHeaderSet) {
+            if (!actualHeaderSet.contains(expectedHeader)) {
+                return Boolean.FALSE;
+            }
+        }
+
+        return Boolean.TRUE;
+    }
+
+    /**
+     * 生成模板错误文件
+     * 在标题行文本后追加红色文字："请使用最新模板！"
+     *
+     * @param workbook 原始工作簿
+     * @return 错误文件的字节数组
+     */
+    public static byte[] generateTemplateErrorExcelWithDetail(Workbook workbook) {
+        try {
+            Sheet sheet = workbook.getSheetAt(0);
+
+            // 1. 获取标题行（第1行，索引0）
+            Row titleRow = sheet.getRow(0);
+            if (titleRow == null) {
+                titleRow = sheet.createRow(0);
+            }
+
+            // 2. 获取标题行第一个单元格
+            Cell titleCell = titleRow.getCell(0);
+            if (titleCell == null) {
+                titleCell = titleRow.createCell(0);
+            }
+
+            // 3. 获取原标题文本
+            String originalTitle = titleCell.getStringCellValue();
+
+            // 4. 清空单元格，使用富文本重新设置
+            titleCell.setCellValue("");
+
+            // 5. 创建富文本
+            XSSFRichTextString richText = new XSSFRichTextString(originalTitle + "（请使用最新模板！）");
+
+            // 原标题使用默认样式
+            // 追加的文字设置为红色加粗（从原标题长度开始）
+            int appendStart = originalTitle.length();
+            Font redFont = workbook.createFont();
+            redFont.setColor(IndexedColors.RED.getIndex());
+            redFont.setBold(true);
+            redFont.setFontHeightInPoints((short) 12);
+            richText.applyFont(appendStart, richText.length(), redFont);
+
+            titleCell.setCellValue(richText);
+
+            // 6. 设置列宽适应文字
+            sheet.setColumnWidth(0, 8000);
+
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            workbook.write(bos);
+            return bos.toByteArray();
+
+        } catch (Exception e) {
+            log.error("生成模板错误文件失败", e);
+            throw new UtilException("生成模板错误文件失败：" + e.getMessage());
+        }
+    }
+
+    /**
+     * 校验导入文件（包含表头检查）- 使用 byte[]
+     *
+     * @param fileBytes 文件字节数组
+     * @param clazz 数据实体类
+     * @param headerRowIndex 表头行索引
+     * @param dataStartRowIndex 数据开始行索引
+     * @param <T> 数据类型
+     * @return 校验结果
+     */
+    public static <T> ImportValidationResult<T> validateImportFile(byte[] fileBytes,
+                                                                   Class<T> clazz,
+                                                                   int headerRowIndex,
+                                                                   int dataStartRowIndex) {
+        ImportValidationResult<T> result = new ImportValidationResult<>();
+
+        if (fileBytes == null || fileBytes.length == 0) {
+            result.setPassed(false);
+            return result;
+        }
+
+        try {
+            // 1. 检查表头 - 使用独立的流
+            Workbook workbook;
+            try (ByteArrayInputStream headerStream = new ByteArrayInputStream(fileBytes)) {
+                workbook = WorkbookFactory.create(headerStream);
+            }
+
+            // 从注解获取期望表头
+            List<String> expectedHeaders = getExpectedHeaders(clazz);
+
+            // 检查表头
+            Boolean headerCheckPassed = checkHeaders(workbook, expectedHeaders, headerRowIndex);
+
+            if (!headerCheckPassed) {
+                // 表头错误，生成错误文件
+                byte[] errorBytes = generateTemplateErrorExcelWithDetail(workbook);
+                // 获取数据行数
+                Sheet sheet = workbook.getSheetAt(0);
+                int dataRowCount = Math.max(0, sheet.getLastRowNum() - dataStartRowIndex);
+
+                result.setPassed(false);
+                result.setTotalRowCount(dataRowCount);
+                result.setErrorFileBytes(errorBytes);
+                return result;
+            }
+
+            // 2. 表头正确，读取数据 - 使用新的独立流
+            try (ByteArrayInputStream dataStream = new ByteArrayInputStream(fileBytes)) {
+                ExcelUtil<T> util = new ExcelUtil<>(clazz);
+                List<T> dataList = util.importExcel(dataStream, headerRowIndex);
+                result.setPassed(true);
+                result.setDataList(dataList);
+            }
+
+        } catch (Exception e) {
+            result.setPassed(false);
+            log.error("导入文件校验失败", e);
+        }
+
+        return result;
+    }
+
+    /**
+     * 从实体类的Excel注解中获取期望的表头列表
+     *
+     * @param clazz 实体类
+     * @return 期望的表头列表
+     */
+    public static List<String> getExpectedHeaders(Class<?> clazz) {
+        List<String> headers = new ArrayList<>();
+        List<Field> fields = new ArrayList<>();
+        fields.addAll(Arrays.asList(clazz.getSuperclass().getDeclaredFields()));
+        fields.addAll(Arrays.asList(clazz.getDeclaredFields()));
+
+        for (Field field : fields) {
+            if (field.isAnnotationPresent(Excel.class)) {
+                Excel excel = field.getAnnotation(Excel.class);
+                if (StringUtils.isNotEmpty(excel.name())) {
+                    headers.add(excel.name());
+                }
+            }
+            if (field.isAnnotationPresent(Excels.class)) {
+                Excels excels = field.getAnnotation(Excels.class);
+                for (Excel excel : excels.value()) {
+                    if (StringUtils.isNotEmpty(excel.name())) {
+                        headers.add(excel.name());
+                    }
+                }
+            }
+        }
+
+        return headers;
+    }
+
+
 }

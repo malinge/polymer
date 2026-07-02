@@ -1,5 +1,6 @@
 package com.polymer.system.service;
 
+import com.polymer.api.system.vo.ImportResultVO;
 import com.polymer.framework.common.pojo.PageResult;
 import com.polymer.system.entity.SysUserEntity;
 import com.polymer.system.query.SysRoleUserQuery;
@@ -86,7 +87,7 @@ public interface SysUserService {
      * @param password 密码
      * @return String
      */
-    String importByExcel(MultipartFile file, String password) throws Exception;
+    ImportResultVO importByExcel(MultipartFile file, String password, String strategy) throws Exception;
 
     /**
      * 导出用户信息表格
@@ -146,4 +147,28 @@ public interface SysUserService {
      * @return SysUserVO
      */
     List<SysUserVO> list();
+
+    /**
+     * 批量新增系统用户
+     *
+     * @param list 系统用户集合
+     * @return 结果
+     */
+    int batchInsertSysUser(List<SysUserVO> list);
+
+    /**
+     * 批量修改系统用户
+     *
+     * @param list 系统用户集合
+     * @return 结果
+     */
+    int batchUpdateSysUser(List<SysUserVO> list);
+
+    /**
+     * 批量覆盖系统用户
+     *
+     * @param list 系统用户集合
+     * @return 结果
+     */
+    int batchUpdateSysUserFull(List<SysUserVO> list);
 }

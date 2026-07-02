@@ -35,4 +35,16 @@ public class SecurityUser {
         return user.getId();
     }
 
+    /**
+     * 获取用户昵称
+     */
+    public static String getRealName() {
+        UserDetail user = getUser();
+        if (user == null) {
+            return "";
+        }
+
+        return user.getRealName();
+    }
+
 }

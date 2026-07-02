@@ -18,13 +18,13 @@ public class MySqlQuery implements AbstractQuery {
     @Override
     public String tableSql(String tableName) {
         StringBuilder sql = new StringBuilder();
-        sql.append("select table_name, table_comment from information_schema.tables ");
+        sql.append("select table_name, table_comment, create_time from information_schema.tables ");
         sql.append("where table_schema = (select database()) ");
         // 表名查询
         if (StringUtils.isNotBlank(tableName)) {
             sql.append("and table_name = '").append(tableName).append("' ");
         }
-        sql.append("order by table_name asc");
+        sql.append("order by create_time desc");
 
         return sql.toString();
     }

@@ -2,6 +2,10 @@ package com.polymer.system.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.polymer.api.storage.StorageApi;
+import com.polymer.api.system.SysCheckImportApi;
+import com.polymer.api.system.dto.ImportResultDTO;
+import com.polymer.api.system.vo.ImportResultVO;
 import com.polymer.framework.common.exception.ServiceException;
 import com.polymer.framework.common.pojo.PageResult;
 import com.polymer.framework.common.utils.CollectionUtils;
@@ -20,18 +24,20 @@ import com.polymer.system.mapper.SysUserMapper;
 import com.polymer.system.query.SysRoleUserQuery;
 import com.polymer.system.query.SysUserQuery;
 import com.polymer.system.service.SysDeptService;
+import com.polymer.system.service.SysImportExportRecordService;
 import com.polymer.system.service.SysPostService;
 import com.polymer.system.service.SysRoleService;
 import com.polymer.system.service.SysUserPostService;
 import com.polymer.system.service.SysUserRoleService;
 import com.polymer.system.service.SysUserService;
 import com.polymer.system.service.SysUserTokenService;
+import com.polymer.system.vo.SysDeptVO;
+import com.polymer.system.vo.SysImportExportRecordVO;
 import com.polymer.system.vo.SysUserBaseVO;
+import com.polymer.system.vo.SysUserErrorExcelVO;
 import com.polymer.system.vo.SysUserExcelVO;
 import com.polymer.system.vo.SysUserSelectVO;
 import com.polymer.system.vo.SysUserVO;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,9 +46,12 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * 用户管理
@@ -51,7 +60,6 @@ import java.util.Set;
  */
 @Service
 public class SysUserServiceImpl implements SysUserService {
-    private static final Logger log = LoggerFactory.getLogger(SysUserServiceImpl.class);
     @Resource
     private SysUserMapper sysUserMapper;
     @Resource
@@ -70,6 +78,12 @@ public class SysUserServiceImpl implements SysUserService {
     private TokenStoreCache tokenStoreCache;
     @Resource
     private MyBatisBatchUtils batchUtils;
+    @Resource
+    private SysCheckImportApi sysCheckImportApi;
+    @Resource
+    private StorageApi storageApi;
+    @Resource
+    private SysImportExportRecordService sysImportExportRecordService;
 
     /**
      * 根据用户查询获取分页用户列表
@@ -308,49 +322,260 @@ public class SysUserServiceImpl implements SysUserService {
      * @return String
      */
     @Override
-    public String importByExcel(MultipartFile file, String password) throws Exception {
+    @Transactional(rollbackFor = Exception.class)
+    public ImportResultVO importByExcel(MultipartFile file, String password, String strategy) throws Exception {
+        ImportResultVO resVO = new ImportResultVO();
+        byte[] fileBytes = file.getBytes();
+        String fileName = file.getOriginalFilename();
 
-        ExcelUtil<SysUserExcelVO> util = new ExcelUtil<>(SysUserExcelVO.class);
-        List<SysUserExcelVO> userList = util.importExcel(file.getInputStream());
-        if (StringUtils.isNull(userList) || userList.size() == 0) {
-            throw new ServiceException("导入用户数据不能为空！");
+        // 1.保存原始文件
+        String path = storageApi.getPath(fileName);
+        String resultFileUrl = storageApi.upload(fileBytes, path);
+
+        // 2. 校验导入文件
+        ImportResultDTO<SysUserExcelVO> validationResult =
+                sysCheckImportApi.validateImportFile(fileBytes, fileName, SysUserExcelVO.class);
+
+        // 表头错误，直接返回
+        if (!validationResult.getPassed()) {
+            // 保存导入记录
+            saveSysImportExportRecord(validationResult.getTotalRowCount(), 0, validationResult.getTotalRowCount(), 0,
+                    strategy, validationResult.getErrorFileUrl(), validationResult.getMessage(), resultFileUrl);
+            return ConvertUtils.convertTo(validationResult, ImportResultVO::new);
         }
+
+        List<SysUserExcelVO> userList = validationResult.getDataList();
+
+        if (userList == null || userList.isEmpty()) {
+            String message = sysCheckImportApi.buildResultMessage(0, 0, 0, 0, 0);
+            resVO.setPassed(true);
+            resVO.setMessage(message);
+            // 保存导入记录
+            saveSysImportExportRecord(0, 0, 0, 0,
+                    strategy, "", message, resultFileUrl);
+            return resVO;
+        }
+
+        // 3. 数据校验和导入
+        int totalCount = userList.size();
         int successNum = 0;
-        int failureNum = 0;
-        StringBuilder successMsg = new StringBuilder();
-        StringBuilder failureMsg = new StringBuilder();
-        for (SysUserExcelVO user : userList) {
-            try {
-                // 验证是否存在这个用户
-                // 判断用户名是否存在
-                SysUserEntity u = sysUserMapper.getByUsername(user.getUsername());
-                if (StringUtils.isNull(u)) {
-                    SysUserEntity entity = ConvertUtils.convertTo(user, SysUserEntity::new);
-                    sysDeptService.checkDeptDataScope(entity.getDeptId());
-                    entity.setPassword(password);
-                    entity.setSuperAdmin(SuperAdminEnum.NO.getValue());
-                    sysUserMapper.insertSysUser(entity);
-                    successNum++;
-                    successMsg.append("<br/>").append(successNum).append("、账号 ").append(user.getUsername()).append(" 导入成功");
-                } else {
-                    failureNum++;
-                    failureMsg.append("<br/>").append(failureNum).append("、账号 ").append(user.getUsername()).append(" 已存在");
-                }
-            } catch (Exception e) {
-                failureNum++;
-                String msg = "<br/>" + failureNum + "、账号 " + user.getUsername() + " 导入失败：";
-                failureMsg.append(msg).append(e.getMessage());
-                log.error(msg, e);
-            }
-        }
-        if (failureNum > 0) {
-            failureMsg.insert(0, "很抱歉，导入失败！共 " + failureNum + " 条数据格式不正确，错误如下：");
-            throw new ServiceException(failureMsg.toString());
-        } else {
-            successMsg.insert(0, "恭喜您，数据已全部导入成功！共 " + successNum + " 条，数据如下：");
-        }
-        return successMsg.toString();
+        int errorNum = 0;
+        int skipNum = 0;
+        int overrideNum = 0;
+        int conflictHandleCount = 0;
 
+        // 待插入数据列表
+        List<SysUserVO> insertDataList = new ArrayList<>();
+        // 待更新数据列表（非空字段更新）
+        List<SysUserVO> updateDataList = new ArrayList<>();
+        // 待覆盖数据列表（包含null和空串）
+        List<SysUserVO> overrideDataList = new ArrayList<>();
+        // 错误数据集合
+        List<SysUserErrorExcelVO> errorDataList = new ArrayList<>();
+
+        // 预查询所有已存在的用户名和手机号，用于批量判断
+        Set<String> existingUsernames = new HashSet<>();
+        Set<String> existingMobiles = new HashSet<>();
+        Map<String, SysUserEntity> usernameToUserMap = new HashMap<>();
+        Map<String, SysUserEntity> mobileToUserMap = new HashMap<>();
+
+        // 获取所有已存在的用户信息
+        List<SysUserEntity> allExistingUsers = sysUserMapper.selectSysUserList(null);
+        for (SysUserEntity user : allExistingUsers) {
+            existingUsernames.add(user.getUsername());
+            existingMobiles.add(user.getMobile());
+            usernameToUserMap.put(user.getUsername(), user);
+            mobileToUserMap.put(user.getMobile(), user);
+        }
+
+        for (SysUserExcelVO user : userList) {
+            StringBuilder errorMsg = new StringBuilder();
+            // 3.1 必填项校验
+            validateRequiredFields(user, errorMsg);
+
+            // 3.2 如果有错误，记录
+            if (errorMsg.length() > 0) {
+                errorDataList.add(buildErrorData(user, errorMsg.toString()));
+                errorNum++;
+                continue;
+            }
+
+            SysDeptVO deptVO = sysDeptService.getById(user.getDeptId());
+            if(deptVO == null){
+                errorNum++;
+                errorDataList.add(buildErrorData(user, "部门id错误"));
+                continue;
+            }
+
+            String username = user.getUsername();
+            String mobile = user.getMobile();
+            boolean usernameExists = existingUsernames.contains(username);
+            boolean mobileExists = existingMobiles.contains(mobile);
+
+            // 3.3 处理用户名存在的情况
+            if (usernameExists) {
+                SysUserEntity existingUser = usernameToUserMap.get(username);
+                // 如果用户名存在但手机号不同，检查手机号是否被其他用户占用
+                if (mobileExists && !existingUser.getMobile().equals(mobile)) {
+                    // 手机号被其他用户占用
+                    errorDataList.add(buildErrorData(user, "手机号已被其他用户占用"));
+                    errorNum++;
+                    continue;
+                }
+
+                if ("skip".equals(strategy)) {
+                    skipNum++;
+                    conflictHandleCount++;
+                    errorDataList.add(buildErrorData(user, "用户名已存在，执行跳过操作"));
+                    errorNum++;
+                    continue;
+                } else if ("override".equals(strategy)) {
+                    overrideNum++;
+                    conflictHandleCount++;
+                    // 覆盖用户信息（包含null和空串也更新）
+                    overrideDataList.add(buildVoDataForUpdate(user,  existingUser.getId()));
+                    successNum++;
+                    continue;
+                } else {
+                    // "update" 策略：更新（仅非空字段）
+                    updateDataList.add(buildVoDataForUpdate(user,  existingUser.getId()));
+                    successNum++;
+                    conflictHandleCount++;
+                    continue;
+                }
+            }
+
+            // 3.4 处理手机号存在的情况（用户名不存在）
+            if (mobileExists) {
+                SysUserEntity existingUser = mobileToUserMap.get(mobile);
+                // 检查用户名是否被其他用户占用（理论上用户名已检查不存在）
+                if ("skip".equals(strategy)) {
+                    skipNum++;
+                    conflictHandleCount++;
+                    errorDataList.add(buildErrorData(user, "手机号已存在，执行跳过操作"));
+                    errorNum++;
+                    continue;
+                } else if ("override".equals(strategy)) {
+                    overrideNum++;
+                    conflictHandleCount++;
+                    // 覆盖用户（包含null和空串也更新）
+                    overrideDataList.add(buildVoDataForUpdate(user, existingUser.getId()));
+                    successNum++;
+                    continue;
+                } else {
+                    // "update" 策略：更新（仅非空字段）
+                    updateDataList.add(buildVoDataForUpdate(user, existingUser.getId()));
+                    successNum++;
+                    conflictHandleCount++;
+                    continue;
+                }
+            }
+
+            // 3.5 新增用户
+            insertDataList.add(buildVoData(user, password));
+            successNum++;
+        }
+
+        // 批量插入
+        if (!insertDataList.isEmpty()) {
+            batchInsertSysUser(insertDataList);
+        }
+        // 批量更新
+        if(!updateDataList.isEmpty()){
+            batchUpdateSysUser(updateDataList);
+        }
+        // 批量覆盖
+        if(!overrideDataList.isEmpty()){
+            batchUpdateSysUserFull(overrideDataList);
+        }
+
+        // 4. 导出错误文件
+        if (!errorDataList.isEmpty()) {
+            String errorFileUrl = sysCheckImportApi.exportErrorFile(
+                    SysUserErrorExcelVO.class,
+                    errorDataList, "data", "sheet1", "用户数据导入");
+            resVO.setPassed(false);
+            resVO.setErrorFileUrl(errorFileUrl);
+        }
+        String message = sysCheckImportApi.buildResultMessage(totalCount, successNum, errorNum, overrideNum, skipNum);
+        resVO.setMessage(message);
+
+        // 保存导入记录
+        saveSysImportExportRecord(totalCount, successNum, errorNum, conflictHandleCount,
+                strategy, resVO.getErrorFileUrl(), resVO.getMessage(), resultFileUrl);
+
+        return resVO;
+    }
+
+    private void saveSysImportExportRecord(int totalCount, int successNum, int errorNum,
+                                           int conflictHandleCount, String strategy,
+                                           String errorFileUrl, String message, String resultFileUrl){
+        SysImportExportRecordVO record = new SysImportExportRecordVO();
+        record.setBusinessType("user");
+        record.setOperationType("import");
+        record.setOperatorName(SecurityUser.getRealName());
+        record.setTotalCount(totalCount);
+        record.setSuccessCount(successNum);
+        record.setErrorCount(errorNum);
+        record.setConflictHandleCount(conflictHandleCount);
+        record.setImportStrategy(strategy);
+        record.setErrorFileUrl(errorFileUrl);
+        record.setRemark(message);
+        record.setResultFileUrl(resultFileUrl);
+        sysImportExportRecordService.insertSysImportExportRecord(record);
+    }
+
+
+    /**
+     * 构建VO数据（用于覆盖，包含null和空串也更新）
+     */
+    private SysUserVO buildVoDataForUpdate(SysUserExcelVO user, Long existingUserId) {
+        SysUserVO vo = ConvertUtils.convertTo(user, SysUserVO::new);
+        vo.setId(existingUserId);
+        return vo;
+    }
+
+    /**
+     * 构建错误数据对象
+     */
+    private SysUserVO buildVoData(SysUserExcelVO user, String password) {
+        SysUserVO vo = ConvertUtils.convertTo(user, SysUserVO::new);
+        vo.setPassword(password);
+        vo.setSuperAdmin(SuperAdminEnum.NO.getValue());
+        return vo;
+    }
+
+    /**
+     * 构建错误数据对象
+     */
+    private SysUserErrorExcelVO buildErrorData(SysUserExcelVO user, String errorReason) {
+        SysUserErrorExcelVO errorVO = ConvertUtils.convertTo(user, SysUserErrorExcelVO::new);
+        errorVO.setErrorReason(errorReason);
+        return errorVO;
+    }
+
+    /**
+     * 校验必填字段
+     */
+    private void validateRequiredFields(SysUserExcelVO user, StringBuilder errorMsg) {
+        if (StringUtils.isBlank(user.getUsername())) {
+            errorMsg.append("用户账号不能为空；");
+        }
+        if (StringUtils.isBlank(user.getRealName())) {
+            errorMsg.append("用户姓名不能为空；");
+        }
+        if (user.getGender() == null) {
+            errorMsg.append("用户性别不能为空；");
+        }
+        if (StringUtils.isBlank(user.getMobile())) {
+            errorMsg.append("手机号码不能为空；");
+        }
+        if (user.getStatus() == null) {
+            errorMsg.append("用户状态不能为空；");
+        }
+        if (user.getDeptId() == null) {
+            errorMsg.append("部门编号不能为空；");
+        }
     }
 
     /**
@@ -363,7 +588,7 @@ public class SysUserServiceImpl implements SysUserService {
         List<SysUserEntity> list = sysUserMapper.selectSysUserList(query);
         List<SysUserExcelVO> sysUserExcelVOS = ConvertUtils.convertListTo(list, SysUserExcelVO::new);
         ExcelUtil<SysUserExcelVO> util = new ExcelUtil<>(SysUserExcelVO.class);
-        return util.exportExcel(sysUserExcelVOS, "用户数据");
+        return util.exportExcel(sysUserExcelVOS, "用户数据", "用户数据");
     }
 
     /**
@@ -491,6 +716,36 @@ public class SysUserServiceImpl implements SysUserService {
     public List<SysUserVO> list() {
         List<SysUserEntity> userEntities = sysUserMapper.selectSysUserList(null);
         return ConvertUtils.convertListTo(userEntities, SysUserVO::new);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int batchInsertSysUser(List<SysUserVO> list) {
+        List<SysUserEntity> entityList = ConvertUtils.convertListTo(list, SysUserEntity::new);
+        return batchUtils.executeBatch(SysUserMapper.class, entityList, SysUserMapper::insertSysUser);
+    }
+
+    @Override
+    public int batchUpdateSysUser(List<SysUserVO> list) {
+        List<SysUserEntity> entityList = validEntities(list);
+        return batchUtils.executeBatch(SysUserMapper.class, entityList, SysUserMapper::updateSysUser);
+    }
+
+    @Override
+    public int batchUpdateSysUserFull(List<SysUserVO> list) {
+        List<SysUserEntity> entityList = validEntities(list);
+        return batchUtils.executeBatch(SysUserMapper.class, entityList, SysUserMapper::updateSysUserFull);
+    }
+
+    private List<SysUserEntity> validEntities(List<SysUserVO> list){
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
+        List<SysUserEntity> entityList = ConvertUtils.convertListTo(list, SysUserEntity::new);
+        // 过滤出有ID的实体
+        return entityList.stream()
+                .filter(e -> e.getId() != null)
+                .collect(Collectors.toList());
     }
 
 }

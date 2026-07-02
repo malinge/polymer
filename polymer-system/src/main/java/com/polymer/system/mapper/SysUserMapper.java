@@ -105,4 +105,19 @@ public interface SysUserMapper {
      * @return 用户对象信息集合
      */
     List<SysUserEntity> selectSysUserIds(Collection<Long> list);
+
+    /**
+     * 根据用户名列表查询用户
+     */
+    List<SysUserEntity> selectSysUserByUsernames(@Param("usernames") List<String> usernames);
+
+    /**
+     * 根据手机号列表查询用户
+     */
+    List<SysUserEntity> selectSysUserByMobiles(@Param("mobiles") List<String> mobiles);
+
+    /**
+     * 全量更新用户（包括null值，用于覆盖模式）
+     */
+    int updateSysUserFull(SysUserEntity sysUser);
 }

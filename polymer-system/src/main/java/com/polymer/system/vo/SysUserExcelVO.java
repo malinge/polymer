@@ -18,25 +18,25 @@ public class SysUserExcelVO implements Serializable {
      */
     private Long id;
 
-    @Excel(name = "用户账号")
+    @Excel(name = "用户账号", required = true, unique = true)
     private String username;
 
-    @Excel(name = "用户姓名")
+    @Excel(name = "用户姓名", required = true)
     private String realName;
 
-    @Excel(name = "用户性别", dictType = "user_gender")
+    @Excel(name = "用户性别", dictType = "user_gender", comboReadDict = true, required = true)
     private Integer gender;
 
-    @Excel(name = "用户邮箱")
+    @Excel(name = "用户邮箱", required = true)
     private String email;
 
-    @Excel(name = "手机号码")
+    @Excel(name = "手机号码", required = true, unique = true)
     private String mobile;
 
-    @Excel(name = "用户状态", dictType = "user_status")
+    @Excel(name = "用户状态", dictType = "user_status", comboReadDict = true, required = true)
     private Integer status;
 
-    @Excel(name = "部门编号", type = Type.IMPORT)
+    @Excel(name = "部门编号", type = Type.IMPORT, required = true)
     private Long deptId;
 
     public Long getId() {
