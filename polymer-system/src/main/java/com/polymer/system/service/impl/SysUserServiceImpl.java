@@ -2,7 +2,6 @@ package com.polymer.system.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.polymer.api.storage.StorageApi;
 import com.polymer.api.system.SysCheckImportApi;
 import com.polymer.api.system.dto.ImportResultDTO;
 import com.polymer.api.system.vo.ImportResultVO;
@@ -24,7 +23,6 @@ import com.polymer.system.mapper.SysUserMapper;
 import com.polymer.system.query.SysRoleUserQuery;
 import com.polymer.system.query.SysUserQuery;
 import com.polymer.system.service.SysDeptService;
-import com.polymer.system.service.SysImportExportRecordService;
 import com.polymer.system.service.SysPostService;
 import com.polymer.system.service.SysRoleService;
 import com.polymer.system.service.SysUserPostService;
@@ -32,7 +30,6 @@ import com.polymer.system.service.SysUserRoleService;
 import com.polymer.system.service.SysUserService;
 import com.polymer.system.service.SysUserTokenService;
 import com.polymer.system.vo.SysDeptVO;
-import com.polymer.system.vo.SysImportExportRecordVO;
 import com.polymer.system.vo.SysUserBaseVO;
 import com.polymer.system.vo.SysUserErrorExcelVO;
 import com.polymer.system.vo.SysUserExcelVO;
@@ -80,10 +77,6 @@ public class SysUserServiceImpl implements SysUserService {
     private MyBatisBatchUtils batchUtils;
     @Resource
     private SysCheckImportApi sysCheckImportApi;
-    @Resource
-    private StorageApi storageApi;
-    @Resource
-    private SysImportExportRecordService sysImportExportRecordService;
 
     /**
      * 根据用户查询获取分页用户列表
@@ -324,45 +317,26 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ImportResultVO importByExcel(MultipartFile file, String password, String strategy) throws Exception {
-        ImportResultVO resVO = new ImportResultVO();
         byte[] fileBytes = file.getBytes();
         String fileName = file.getOriginalFilename();
 
-        // 1.保存原始文件
-        String path = storageApi.getPath(fileName);
-        String resultFileUrl = storageApi.upload(fileBytes, path);
-
-        // 2. 校验导入文件
-        ImportResultDTO<SysUserExcelVO> validationResult =
-                sysCheckImportApi.validateImportFile(fileBytes, fileName, SysUserExcelVO.class);
+        // 1. 校验导入文件
+        ImportResultDTO<SysUserExcelVO> validationResult = sysCheckImportApi.validateImportFile(fileBytes, fileName,
+                SysUserExcelVO.class, strategy, "user");
 
         // 表头错误，直接返回
         if (!validationResult.getPassed()) {
-            // 保存导入记录
-            saveSysImportExportRecord(validationResult.getTotalRowCount(), 0, validationResult.getTotalRowCount(), 0,
-                    strategy, validationResult.getErrorFileUrl(), validationResult.getMessage(), resultFileUrl);
             return ConvertUtils.convertTo(validationResult, ImportResultVO::new);
         }
 
         List<SysUserExcelVO> userList = validationResult.getDataList();
-
         if (userList == null || userList.isEmpty()) {
-            String message = sysCheckImportApi.buildResultMessage(0, 0, 0, 0, 0);
-            resVO.setPassed(true);
-            resVO.setMessage(message);
-            // 保存导入记录
-            saveSysImportExportRecord(0, 0, 0, 0,
-                    strategy, "", message, resultFileUrl);
-            return resVO;
+            return ConvertUtils.convertTo(validationResult, ImportResultVO::new);
         }
 
-        // 3. 数据校验和导入
-        int totalCount = userList.size();
-        int successNum = 0;
-        int errorNum = 0;
-        int skipNum = 0;
-        int overrideNum = 0;
-        int conflictHandleCount = 0;
+        // 2. 数据校验和导入
+        int totalCount = userList.size(), successNum = 0, errorNum = 0;
+        int skipNum = 0, overrideNum = 0, conflictHandleCount = 0;
 
         // 待插入数据列表
         List<SysUserVO> insertDataList = new ArrayList<>();
@@ -390,10 +364,10 @@ public class SysUserServiceImpl implements SysUserService {
 
         for (SysUserExcelVO user : userList) {
             StringBuilder errorMsg = new StringBuilder();
-            // 3.1 必填项校验
+            // 2.1 必填项校验
             validateRequiredFields(user, errorMsg);
 
-            // 3.2 如果有错误，记录
+            // 2.2 如果有错误，记录
             if (errorMsg.length() > 0) {
                 errorDataList.add(buildErrorData(user, errorMsg.toString()));
                 errorNum++;
@@ -412,7 +386,7 @@ public class SysUserServiceImpl implements SysUserService {
             boolean usernameExists = existingUsernames.contains(username);
             boolean mobileExists = existingMobiles.contains(mobile);
 
-            // 3.3 处理用户名存在的情况
+            // 2.3 处理用户名存在的情况
             if (usernameExists) {
                 SysUserEntity existingUser = usernameToUserMap.get(username);
                 // 如果用户名存在但手机号不同，检查手机号是否被其他用户占用
@@ -445,7 +419,7 @@ public class SysUserServiceImpl implements SysUserService {
                 }
             }
 
-            // 3.4 处理手机号存在的情况（用户名不存在）
+            // 2.4 处理手机号存在的情况（用户名不存在）
             if (mobileExists) {
                 SysUserEntity existingUser = mobileToUserMap.get(mobile);
                 // 检查用户名是否被其他用户占用（理论上用户名已检查不存在）
@@ -471,7 +445,7 @@ public class SysUserServiceImpl implements SysUserService {
                 }
             }
 
-            // 3.5 新增用户
+            // 2.5 新增用户
             insertDataList.add(buildVoData(user, password));
             successNum++;
         }
@@ -489,42 +463,12 @@ public class SysUserServiceImpl implements SysUserService {
             batchUpdateSysUserFull(overrideDataList);
         }
 
-        // 4. 导出错误文件
-        if (!errorDataList.isEmpty()) {
-            String errorFileUrl = sysCheckImportApi.exportErrorFile(
-                    SysUserErrorExcelVO.class,
-                    errorDataList, "data", "sheet1", "用户数据导入");
-            resVO.setPassed(false);
-            resVO.setErrorFileUrl(errorFileUrl);
-        }
-        String message = sysCheckImportApi.buildResultMessage(totalCount, successNum, errorNum, overrideNum, skipNum);
-        resVO.setMessage(message);
-
-        // 保存导入记录
-        saveSysImportExportRecord(totalCount, successNum, errorNum, conflictHandleCount,
-                strategy, resVO.getErrorFileUrl(), resVO.getMessage(), resultFileUrl);
-
-        return resVO;
+        // 3. 导入结果处理
+        return sysCheckImportApi.importResultProcessing(
+                SysUserErrorExcelVO.class,
+                errorDataList, totalCount, successNum, errorNum, overrideNum, skipNum, conflictHandleCount,
+                strategy, validationResult.getResultFileUrl(), "user");
     }
-
-    private void saveSysImportExportRecord(int totalCount, int successNum, int errorNum,
-                                           int conflictHandleCount, String strategy,
-                                           String errorFileUrl, String message, String resultFileUrl){
-        SysImportExportRecordVO record = new SysImportExportRecordVO();
-        record.setBusinessType("user");
-        record.setOperationType("import");
-        record.setOperatorName(SecurityUser.getRealName());
-        record.setTotalCount(totalCount);
-        record.setSuccessCount(successNum);
-        record.setErrorCount(errorNum);
-        record.setConflictHandleCount(conflictHandleCount);
-        record.setImportStrategy(strategy);
-        record.setErrorFileUrl(errorFileUrl);
-        record.setRemark(message);
-        record.setResultFileUrl(resultFileUrl);
-        sysImportExportRecordService.insertSysImportExportRecord(record);
-    }
-
 
     /**
      * 构建VO数据（用于覆盖，包含null和空串也更新）
@@ -588,7 +532,14 @@ public class SysUserServiceImpl implements SysUserService {
         List<SysUserEntity> list = sysUserMapper.selectSysUserList(query);
         List<SysUserExcelVO> sysUserExcelVOS = ConvertUtils.convertListTo(list, SysUserExcelVO::new);
         ExcelUtil<SysUserExcelVO> util = new ExcelUtil<>(SysUserExcelVO.class);
-        return util.exportExcel(sysUserExcelVOS, "用户数据", "用户数据");
+        byte[] bytes = util.exportExcel(sysUserExcelVOS, "用户数据", "用户数据");
+        // 保存导出记录
+        int totalCount = 0;
+        if(list != null){
+            totalCount = list.size();
+        }
+        sysCheckImportApi.saveExportResult(bytes, totalCount, "user");
+        return bytes;
     }
 
     /**

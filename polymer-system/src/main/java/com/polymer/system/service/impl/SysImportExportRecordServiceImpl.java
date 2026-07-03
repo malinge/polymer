@@ -156,4 +156,31 @@ public class SysImportExportRecordServiceImpl implements SysImportExportRecordSe
         List<SysImportExportRecordEntity> entityList = sysImportExportRecordMapper.selectSysImportExportRecordList(query);
         return ConvertUtils.convertListTo(entityList, SysImportExportRecordVO::new);
     }
+
+    @Override
+    public SysImportExportRecordVO insertSysImportExportRecord(String businessType, String operationTypeint, int totalCount,
+                                                               int successNum, int errorNum,  int conflictHandleCount,
+                                                               String strategy, String errorFileUrl, String message,
+                                                               String resultFileUrl) {
+        SysImportExportRecordVO record = new SysImportExportRecordVO();
+        record.setBusinessType(businessType);
+        record.setOperationType(operationTypeint);
+        record.setOperatorName(SecurityUser.getRealName());
+        record.setTotalCount(totalCount);
+        record.setSuccessCount(successNum);
+        record.setErrorCount(errorNum);
+        record.setConflictHandleCount(conflictHandleCount);
+        record.setImportStrategy(strategy);
+        record.setErrorFileUrl(errorFileUrl);
+        record.setRemark(message);
+        record.setResultFileUrl(resultFileUrl);
+        return insertSysImportExportRecord(record);
+    }
+
+    @Override
+    public SysImportExportRecordVO insertSysImportExportRecord(String businessType, String operationTypeint, int totalCount,
+                                                               String resultFileUrl) {
+        return insertSysImportExportRecord(businessType, operationTypeint, totalCount, totalCount, 0,
+                0 ,"", "", "", resultFileUrl);
+    }
 }

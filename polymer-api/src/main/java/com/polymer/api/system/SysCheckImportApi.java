@@ -1,6 +1,7 @@
 package com.polymer.api.system;
 
 import com.polymer.api.system.dto.ImportResultDTO;
+import com.polymer.api.system.vo.ImportResultVO;
 
 import java.util.List;
 
@@ -26,7 +27,8 @@ public interface SysCheckImportApi {
      */
     <T> ImportResultDTO<T> validateImportFile(byte[] fileBytes,
                                               String fileName,
-                                              Class<T> clazz,
+                                              Class<T> clazz, String strategy,
+                                              String businessType,
                                               int headerRowIndex,
                                               int dataStartRowIndex);
 
@@ -39,21 +41,14 @@ public interface SysCheckImportApi {
      * @param <T> 数据类型
      * @return 校验结果
      */
-    <T> ImportResultDTO<T> validateImportFile(byte[] fileBytes, String fileName, Class<T> clazz);
+    <T> ImportResultDTO<T> validateImportFile(byte[] fileBytes, String fileName, Class<T> clazz, String strategy, String businessType);
 
     /**
-     * 导出错误数据并上传
-     * @param errorDataList 错误数据列表
-     * @param clazz 错误数据实体类
-     * @param fileNamePrefix 文件名前缀
-     * @param sheetName Sheet名称
-     * @param title 标题
-     * @param <E> 错误数据类型
-     * @return 错误文件URL
+     * 导入结果处理
      */
-    <E> String exportErrorFile(Class<E> clazz, List<E> errorDataList, String fileNamePrefix, String sheetName, String title);
+    <E> ImportResultVO importResultProcessing(Class<E> clazz, List<E> errorDataList, int totalCount, int successNum, int errorNum, int overrideNum, int skipNum, int conflictHandleCount,
+                                              String strategy, String resultFileUrl, String businessType);
 
+     void saveExportResult(byte[] fileBytes, int totalCount, String businessType);
 
-    String buildResultMessage(int totalCount, int successNum, int errorNum,
-                              int overrideNum, int skipNum);
 }

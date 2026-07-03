@@ -79,4 +79,12 @@ public interface SysImportExportRecordService {
     int deleteSysImportExportRecordByIdList(List<Long> idList);
 
     List<SysImportExportRecordVO> list();
+
+    SysImportExportRecordVO insertSysImportExportRecord(String businessType, String operationTypeint, int totalCount,
+                                                        int successNum, int errorNum, int conflictHandleCount,
+                                                        String strategy, String errorFileUrl, String message,
+                                                        String resultFileUrl);
+
+    SysImportExportRecordVO insertSysImportExportRecord(String businessType, String operationTypeint, int totalCount,
+                                                        String resultFileUrl);
 }

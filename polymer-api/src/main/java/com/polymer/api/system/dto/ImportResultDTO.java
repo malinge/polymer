@@ -23,8 +23,8 @@ public class ImportResultDTO<T> implements Serializable {
     /** 错误信息 */
     private String message;
 
-    /** 总数据行数 */
-    private int totalRowCount;
+    /** 结果文件 */
+    private String resultFileUrl;
 
     public Boolean getPassed() {
         return passed;
@@ -58,11 +58,11 @@ public class ImportResultDTO<T> implements Serializable {
         this.message = message;
     }
 
-    public int getTotalRowCount() {
-        return totalRowCount;
+    public String getResultFileUrl() {
+        return resultFileUrl;
     }
 
-    public void setTotalRowCount(int totalRowCount) {
-        this.totalRowCount = totalRowCount;
+    public void setResultFileUrl(String resultFileUrl) {
+        this.resultFileUrl = resultFileUrl;
     }
 }

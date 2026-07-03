@@ -52,4 +52,5 @@ public class ImportValidationResult<T> {
     public void setTotalRowCount(int totalRowCount) {
         this.totalRowCount = totalRowCount;
     }
+
 }

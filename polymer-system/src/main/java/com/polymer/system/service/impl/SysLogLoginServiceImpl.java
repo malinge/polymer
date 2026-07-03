@@ -2,6 +2,7 @@ package com.polymer.system.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.polymer.api.system.SysCheckImportApi;
 import com.polymer.framework.common.pojo.PageResult;
 import com.polymer.framework.common.utils.ConvertUtils;
 import com.polymer.framework.common.utils.ExcelUtil;
@@ -28,6 +29,8 @@ import java.util.List;
 public class SysLogLoginServiceImpl implements SysLogLoginService {
     @Resource
     private SysLogLoginMapper sysLogLoginMapper;
+    @Resource
+    private SysCheckImportApi sysCheckImportApi;
 
     /**
      * 根据登录日志查询获取分页登录日志列表
@@ -79,7 +82,14 @@ public class SysLogLoginServiceImpl implements SysLogLoginService {
         List<SysLogLoginEntity> list = sysLogLoginMapper.selectSysLogLoginList(null);
         List<SysLogLoginVO> sysLogLoginVOS = ConvertUtils.convertListTo(list, SysLogLoginVO::new);
         ExcelUtil<SysLogLoginVO> util = new ExcelUtil<>(SysLogLoginVO.class);
-        return util.exportExcel(sysLogLoginVOS, "登录日志");
+        byte[] bytes = util.exportExcel(sysLogLoginVOS, "登录日志","登录日志数据");
+        // 保存导出记录
+        int totalCount = 0;
+        if(list != null){
+            totalCount = list.size();
+        }
+        sysCheckImportApi.saveExportResult(bytes, totalCount, "logLogin");
+        return bytes;
     }
 
 }
