@@ -1,22 +1,21 @@
 package com.polymer.system.service.impl;
 
-import com.polymer.framework.mybatis.core.utils.MyBatisBatchUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.polymer.framework.common.exception.ServiceException;
 import com.polymer.framework.common.pojo.PageResult;
 import com.polymer.framework.common.utils.ConvertUtils;
+import com.polymer.framework.mybatis.core.utils.MyBatisBatchUtils;
 import com.polymer.framework.security.core.user.SecurityUser;
 import com.polymer.system.entity.SysImportExportRecordEntity;
-import com.polymer.system.vo.SysImportExportRecordVO;
-import com.polymer.system.query.SysImportExportRecordQuery;
 import com.polymer.system.mapper.SysImportExportRecordMapper;
+import com.polymer.system.query.SysImportExportRecordQuery;
 import com.polymer.system.service.SysImportExportRecordService;
+import com.polymer.system.vo.SysImportExportRecordVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -153,6 +152,7 @@ public class SysImportExportRecordServiceImpl implements SysImportExportRecordSe
     public List<SysImportExportRecordVO> list() {
         SysImportExportRecordQuery query = new SysImportExportRecordQuery();
         query.setCreator(SecurityUser.getUserId());
+        query.setOperationType("import");
         List<SysImportExportRecordEntity> entityList = sysImportExportRecordMapper.selectSysImportExportRecordList(query);
         return ConvertUtils.convertListTo(entityList, SysImportExportRecordVO::new);
     }

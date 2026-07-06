@@ -45,7 +45,7 @@ public class SysImportExportRecordController {
     }
 
     @GetMapping("/list")
-    @Operation(summary = "查询导入导出记录表分页")
+    @Operation(summary = "查询导入记录表分页")
     public Result<List<SysImportExportRecordVO>> list(){
         List<SysImportExportRecordVO> list = sysImportExportRecordService.list();
         return Result.ok(list);
