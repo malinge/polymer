@@ -37,6 +37,7 @@ import java.util.List;
  */
 @Service
 public class DemoMultipleFilesServiceImpl implements DemoMultipleFilesService {
+
     public static final String BUSINESS_TYPE = "multipleFiles";
     @Resource
     private DemoMultipleFilesMapper demoMultipleFilesMapper;
