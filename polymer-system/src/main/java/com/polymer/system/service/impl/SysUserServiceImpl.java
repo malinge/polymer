@@ -57,6 +57,7 @@ import java.util.stream.Collectors;
  */
 @Service
 public class SysUserServiceImpl implements SysUserService {
+    public static final String BUSINESS_TYPE = "user";
     @Resource
     private SysUserMapper sysUserMapper;
     @Resource
@@ -322,20 +323,20 @@ public class SysUserServiceImpl implements SysUserService {
 
         // 1. 校验导入文件
         ImportResultDTO<SysUserExcelVO> validationResult = sysCheckImportApi.validateImportFile(fileBytes, fileName,
-                SysUserExcelVO.class, strategy, "user");
+                SysUserExcelVO.class, strategy, BUSINESS_TYPE);
 
         // 表头错误，直接返回
         if (!validationResult.getPassed()) {
             return ConvertUtils.convertTo(validationResult, ImportResultVO::new);
         }
 
-        List<SysUserExcelVO> userList = validationResult.getDataList();
-        if (userList == null || userList.isEmpty()) {
+        List<SysUserExcelVO> dataList = validationResult.getDataList();
+        if (dataList == null || dataList.isEmpty()) {
             return ConvertUtils.convertTo(validationResult, ImportResultVO::new);
         }
 
         // 2. 数据校验和导入
-        int totalCount = userList.size(), successNum = 0, errorNum = 0;
+        int totalCount = dataList.size(), successNum = 0, errorNum = 0;
         int skipNum = 0, overrideNum = 0, conflictHandleCount = 0;
 
         // 待插入数据列表
@@ -362,27 +363,27 @@ public class SysUserServiceImpl implements SysUserService {
             mobileToUserMap.put(user.getMobile(), user);
         }
 
-        for (SysUserExcelVO user : userList) {
+        for (SysUserExcelVO excelVO : dataList) {
             StringBuilder errorMsg = new StringBuilder();
             // 2.1 必填项校验
-            validateRequiredFields(user, errorMsg);
+            validateRequiredFields(excelVO, errorMsg);
 
             // 2.2 如果有错误，记录
             if (errorMsg.length() > 0) {
-                errorDataList.add(buildErrorData(user, errorMsg.toString()));
+                errorDataList.add(buildErrorData(excelVO, errorMsg.toString()));
                 errorNum++;
                 continue;
             }
 
-            SysDeptVO deptVO = sysDeptService.getById(user.getDeptId());
+            SysDeptVO deptVO = sysDeptService.getById(excelVO.getDeptId());
             if(deptVO == null){
                 errorNum++;
-                errorDataList.add(buildErrorData(user, "部门id错误"));
+                errorDataList.add(buildErrorData(excelVO, "部门id错误"));
                 continue;
             }
 
-            String username = user.getUsername();
-            String mobile = user.getMobile();
+            String username = excelVO.getUsername();
+            String mobile = excelVO.getMobile();
             boolean usernameExists = existingUsernames.contains(username);
             boolean mobileExists = existingMobiles.contains(mobile);
 
@@ -392,7 +393,7 @@ public class SysUserServiceImpl implements SysUserService {
                 // 如果用户名存在但手机号不同，检查手机号是否被其他用户占用
                 if (mobileExists && !existingUser.getMobile().equals(mobile)) {
                     // 手机号被其他用户占用
-                    errorDataList.add(buildErrorData(user, "手机号已被其他用户占用"));
+                    errorDataList.add(buildErrorData(excelVO, "手机号已被其他用户占用"));
                     errorNum++;
                     continue;
                 }
@@ -400,19 +401,19 @@ public class SysUserServiceImpl implements SysUserService {
                 if ("skip".equals(strategy)) {
                     skipNum++;
                     conflictHandleCount++;
-                    errorDataList.add(buildErrorData(user, "用户名已存在，执行跳过操作"));
+                    errorDataList.add(buildErrorData(excelVO, "用户名已存在，执行跳过操作"));
                     errorNum++;
                     continue;
                 } else if ("override".equals(strategy)) {
                     overrideNum++;
                     conflictHandleCount++;
                     // 覆盖用户信息（包含null和空串也更新）
-                    overrideDataList.add(buildVoDataForUpdate(user,  existingUser.getId()));
+                    overrideDataList.add(buildVoDataForUpdate(excelVO,  existingUser.getId()));
                     successNum++;
                     continue;
                 } else {
                     // "update" 策略：更新（仅非空字段）
-                    updateDataList.add(buildVoDataForUpdate(user,  existingUser.getId()));
+                    updateDataList.add(buildVoDataForUpdate(excelVO,  existingUser.getId()));
                     successNum++;
                     conflictHandleCount++;
                     continue;
@@ -426,19 +427,19 @@ public class SysUserServiceImpl implements SysUserService {
                 if ("skip".equals(strategy)) {
                     skipNum++;
                     conflictHandleCount++;
-                    errorDataList.add(buildErrorData(user, "手机号已存在，执行跳过操作"));
+                    errorDataList.add(buildErrorData(excelVO, "手机号已存在，执行跳过操作"));
                     errorNum++;
                     continue;
                 } else if ("override".equals(strategy)) {
                     overrideNum++;
                     conflictHandleCount++;
                     // 覆盖用户（包含null和空串也更新）
-                    overrideDataList.add(buildVoDataForUpdate(user, existingUser.getId()));
+                    overrideDataList.add(buildVoDataForUpdate(excelVO, existingUser.getId()));
                     successNum++;
                     continue;
                 } else {
                     // "update" 策略：更新（仅非空字段）
-                    updateDataList.add(buildVoDataForUpdate(user, existingUser.getId()));
+                    updateDataList.add(buildVoDataForUpdate(excelVO, existingUser.getId()));
                     successNum++;
                     conflictHandleCount++;
                     continue;
@@ -446,7 +447,7 @@ public class SysUserServiceImpl implements SysUserService {
             }
 
             // 2.5 新增用户
-            insertDataList.add(buildVoData(user, password));
+            insertDataList.add(buildVoData(excelVO, password));
             successNum++;
         }
 
@@ -467,23 +468,23 @@ public class SysUserServiceImpl implements SysUserService {
         return sysCheckImportApi.importResultProcessing(
                 SysUserErrorExcelVO.class,
                 errorDataList, totalCount, successNum, errorNum, overrideNum, skipNum, conflictHandleCount,
-                strategy, validationResult.getResultFileUrl(), "user");
+                strategy, validationResult.getResultFileUrl(), BUSINESS_TYPE);
     }
 
     /**
      * 构建VO数据（用于覆盖，包含null和空串也更新）
      */
-    private SysUserVO buildVoDataForUpdate(SysUserExcelVO user, Long existingUserId) {
-        SysUserVO vo = ConvertUtils.convertTo(user, SysUserVO::new);
+    private SysUserVO buildVoDataForUpdate(SysUserExcelVO excelVO, Long existingUserId) {
+        SysUserVO vo = ConvertUtils.convertTo(excelVO, SysUserVO::new);
         vo.setId(existingUserId);
         return vo;
     }
 
     /**
-     * 构建错误数据对象
+     * 构建保存数据对象
      */
-    private SysUserVO buildVoData(SysUserExcelVO user, String password) {
-        SysUserVO vo = ConvertUtils.convertTo(user, SysUserVO::new);
+    private SysUserVO buildVoData(SysUserExcelVO excelVO, String password) {
+        SysUserVO vo = ConvertUtils.convertTo(excelVO, SysUserVO::new);
         vo.setPassword(password);
         vo.setSuperAdmin(SuperAdminEnum.NO.getValue());
         return vo;
@@ -492,8 +493,8 @@ public class SysUserServiceImpl implements SysUserService {
     /**
      * 构建错误数据对象
      */
-    private SysUserErrorExcelVO buildErrorData(SysUserExcelVO user, String errorReason) {
-        SysUserErrorExcelVO errorVO = ConvertUtils.convertTo(user, SysUserErrorExcelVO::new);
+    private SysUserErrorExcelVO buildErrorData(SysUserExcelVO excelVO, String errorReason) {
+        SysUserErrorExcelVO errorVO = ConvertUtils.convertTo(excelVO, SysUserErrorExcelVO::new);
         errorVO.setErrorReason(errorReason);
         return errorVO;
     }
@@ -501,23 +502,23 @@ public class SysUserServiceImpl implements SysUserService {
     /**
      * 校验必填字段
      */
-    private void validateRequiredFields(SysUserExcelVO user, StringBuilder errorMsg) {
-        if (StringUtils.isBlank(user.getUsername())) {
+    private void validateRequiredFields(SysUserExcelVO excelVO, StringBuilder errorMsg) {
+        if (StringUtils.isBlank(excelVO.getUsername())) {
             errorMsg.append("用户账号不能为空；");
         }
-        if (StringUtils.isBlank(user.getRealName())) {
+        if (StringUtils.isBlank(excelVO.getRealName())) {
             errorMsg.append("用户姓名不能为空；");
         }
-        if (user.getGender() == null) {
+        if (excelVO.getGender() == null) {
             errorMsg.append("用户性别不能为空；");
         }
-        if (StringUtils.isBlank(user.getMobile())) {
+        if (StringUtils.isBlank(excelVO.getMobile())) {
             errorMsg.append("手机号码不能为空；");
         }
-        if (user.getStatus() == null) {
+        if (excelVO.getStatus() == null) {
             errorMsg.append("用户状态不能为空；");
         }
-        if (user.getDeptId() == null) {
+        if (excelVO.getDeptId() == null) {
             errorMsg.append("部门编号不能为空；");
         }
     }
@@ -530,15 +531,15 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public byte[] export(SysUserQuery query) {
         List<SysUserEntity> list = sysUserMapper.selectSysUserList(query);
-        List<SysUserExcelVO> sysUserExcelVOS = ConvertUtils.convertListTo(list, SysUserExcelVO::new);
+        List<SysUserExcelVO> exportVOS = ConvertUtils.convertListTo(list, SysUserExcelVO::new);
         ExcelUtil<SysUserExcelVO> util = new ExcelUtil<>(SysUserExcelVO.class);
-        byte[] bytes = util.exportExcel(sysUserExcelVOS, "用户数据", "用户数据");
+        byte[] bytes = util.exportExcel(exportVOS, "用户数据", "用户数据");
         // 保存导出记录
         int totalCount = 0;
         if(list != null){
             totalCount = list.size();
         }
-        sysCheckImportApi.saveExportResult(bytes, totalCount, "user");
+        sysCheckImportApi.saveExportResult(bytes, totalCount, BUSINESS_TYPE);
         return bytes;
     }
 

@@ -4,20 +4,29 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.polymer.api.storage.StorageApi;
 import com.polymer.api.system.SysAttachmentApi;
+import com.polymer.api.system.SysCheckImportApi;
+import com.polymer.api.system.dto.ImportResultDTO;
 import com.polymer.api.system.dto.SysAttachmentDTO;
+import com.polymer.api.system.vo.ImportResultVO;
 import com.polymer.demo.entity.DemoMultipleFilesEntity;
 import com.polymer.demo.mapper.DemoMultipleFilesMapper;
 import com.polymer.demo.query.DemoMultipleFilesQuery;
 import com.polymer.demo.service.DemoMultipleFilesService;
+import com.polymer.demo.vo.DemoMultipleFilesErrorExcelVO;
+import com.polymer.demo.vo.DemoMultipleFilesExcelVO;
 import com.polymer.demo.vo.DemoMultipleFilesVO;
 import com.polymer.framework.common.exception.ServiceException;
 import com.polymer.framework.common.pojo.PageResult;
 import com.polymer.framework.common.utils.ConvertUtils;
+import com.polymer.framework.common.utils.ExcelUtil;
+import com.polymer.framework.common.utils.StringUtils;
 import com.polymer.framework.mybatis.core.utils.MyBatisBatchUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,6 +37,7 @@ import java.util.List;
  */
 @Service
 public class DemoMultipleFilesServiceImpl implements DemoMultipleFilesService {
+    public static final String BUSINESS_TYPE = "multipleFiles";
     @Resource
     private DemoMultipleFilesMapper demoMultipleFilesMapper;
     @Resource
@@ -36,6 +46,8 @@ public class DemoMultipleFilesServiceImpl implements DemoMultipleFilesService {
     private SysAttachmentApi sysAttachmentApi;
     @Resource
     private StorageApi storageApi;
+    @Resource
+    private SysCheckImportApi sysCheckImportApi;
 
     /**
      * 查询多文件上传样例分页列表
@@ -169,5 +181,122 @@ public class DemoMultipleFilesServiceImpl implements DemoMultipleFilesService {
     @Override
     public int deleteDemoMultipleFilesByIdList(List<Long> idList){
         return batchUtils.executeBatch(DemoMultipleFilesMapper.class, idList, DemoMultipleFilesMapper::deleteDemoMultipleFilesById);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public ImportResultVO importByExcel(MultipartFile file, String strategy) throws Exception{
+        byte[] fileBytes = file.getBytes();
+        String fileName = file.getOriginalFilename();
+
+        // 1. 校验导入文件
+        ImportResultDTO<DemoMultipleFilesExcelVO> validationResult = sysCheckImportApi.validateImportFile(fileBytes, fileName,
+                DemoMultipleFilesExcelVO.class, strategy, BUSINESS_TYPE);
+
+        // 表头错误，直接返回
+        if (!validationResult.getPassed()) {
+            return ConvertUtils.convertTo(validationResult, ImportResultVO::new);
+        }
+
+        List<DemoMultipleFilesExcelVO> dataList = validationResult.getDataList();
+        if (dataList == null || dataList.isEmpty()) {
+            return ConvertUtils.convertTo(validationResult, ImportResultVO::new);
+        }
+
+        // 2. 数据校验和导入
+        int totalCount = dataList.size(), successNum = 0, errorNum = 0;
+        int skipNum = 0, overrideNum = 0, conflictHandleCount = 0;
+
+        // 待插入数据列表
+        List<DemoMultipleFilesVO> insertDataList = new ArrayList<>();
+
+        // 没有就不需要
+        /*// 待更新数据列表（非空字段更新）
+        List<DemoMultipleFilesVO> updateDataList = new ArrayList<>();
+        // 待覆盖数据列表（包含null和空串）
+        List<DemoMultipleFilesVO> overrideDataList = new ArrayList<>();*/
+        // 错误数据集合
+        List<DemoMultipleFilesErrorExcelVO> errorDataList = new ArrayList<>();
+
+
+
+        for (DemoMultipleFilesExcelVO excelVO : dataList) {
+            StringBuilder errorMsg = new StringBuilder();
+            // 2.1 必填项校验
+            validateRequiredFields(excelVO, errorMsg);
+
+            // 2.2 如果有错误，记录
+            if (errorMsg.length() > 0) {
+                errorDataList.add(buildErrorData(excelVO, errorMsg.toString()));
+                errorNum++;
+                continue;
+            }
+
+            // 2.5 新增用户
+            insertDataList.add(buildVoData(excelVO));
+            successNum++;
+        }
+
+        // 批量插入
+        if (!insertDataList.isEmpty()) {
+            batchInsertDemoMultipleFiles(insertDataList);
+        }
+        /*// 批量更新
+        if(!updateDataList.isEmpty()){
+            batchUpdateSysUser(updateDataList);
+        }
+        // 批量覆盖
+        if(!overrideDataList.isEmpty()){
+            batchUpdateSysUserFull(overrideDataList);
+        }*/
+
+        // 3. 导入结果处理
+        return sysCheckImportApi.importResultProcessing(
+                DemoMultipleFilesErrorExcelVO.class,
+                errorDataList, totalCount, successNum, errorNum, overrideNum, skipNum, conflictHandleCount,
+                strategy, validationResult.getResultFileUrl(), BUSINESS_TYPE);
+    }
+
+    @Override
+    public byte[] export(DemoMultipleFilesQuery query) {
+        List<DemoMultipleFilesEntity> list = demoMultipleFilesMapper.selectDemoMultipleFilesList(query);
+        List<DemoMultipleFilesExcelVO> exportVOS = ConvertUtils.convertListTo(list, DemoMultipleFilesExcelVO::new);
+        ExcelUtil<DemoMultipleFilesExcelVO> util = new ExcelUtil<>(DemoMultipleFilesExcelVO.class);
+        byte[] bytes = util.exportExcel(exportVOS, "多文件上传样例数据", "多文件上传样例数据");
+        // 保存导出记录
+        int totalCount = 0;
+        if(list != null){
+            totalCount = list.size();
+        }
+        sysCheckImportApi.saveExportResult(bytes, totalCount, BUSINESS_TYPE);
+        return bytes;
+    }
+
+    /**
+     * 校验必填字段
+     */
+    private void validateRequiredFields(DemoMultipleFilesExcelVO excelVO, StringBuilder errorMsg) {
+        if (StringUtils.isBlank(excelVO.getName())) {
+            errorMsg.append("姓名不能为空；");
+        }
+        if (StringUtils.isBlank(excelVO.getDescription())) {
+            errorMsg.append("备注不能为空；");
+        }
+    }
+
+    /**
+     * 构建保存数据对象
+     */
+    private DemoMultipleFilesVO buildVoData(DemoMultipleFilesExcelVO excelVO) {
+        return ConvertUtils.convertTo(excelVO, DemoMultipleFilesVO::new);
+    }
+
+    /**
+     * 构建错误数据对象
+     */
+    private DemoMultipleFilesErrorExcelVO buildErrorData(DemoMultipleFilesExcelVO excelVO, String errorReason) {
+        DemoMultipleFilesErrorExcelVO errorVO = ConvertUtils.convertTo(excelVO, DemoMultipleFilesErrorExcelVO::new);
+        errorVO.setErrorReason(errorReason);
+        return errorVO;
     }
 }

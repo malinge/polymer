@@ -189,7 +189,7 @@ public class SysUserController {
     /**
      * 导出模板
      */
-    @GetMapping("exportTemplate")
+    @GetMapping("/exportTemplate")
     @Operation(summary = "导出模板")
     @PreAuthorize("hasAuthority('sys:user:import')")
     public void exportTemplate(HttpServletResponse response) throws IOException {
@@ -230,9 +230,8 @@ public class SysUserController {
         return Result.ok(uniqueFieldNames);
     }
 
-    @PostMapping("import")
+    @PostMapping("/import")
     @Operation(summary = "导入用户")
-    @OperateLog(type = OperateTypeEnum.IMPORT)
     @PreAuthorize("hasAuthority('sys:user:import')")
     public Result<ImportResultVO> importExcel(@RequestParam("file") MultipartFile file, @RequestParam(value = "strategy", defaultValue = "skip") String strategy) throws Exception {
         if (file.isEmpty()) {
@@ -242,9 +241,8 @@ public class SysUserController {
         return Result.ok(res);
     }
 
-    @GetMapping("export")
+    @GetMapping("/export")
     @Operation(summary = "导出用户")
-    @OperateLog(type = OperateTypeEnum.EXPORT)
     @PreAuthorize("hasAuthority('sys:user:export')")
     public void export(@ParameterObject SysUserQuery query, HttpServletResponse response) throws IOException {
         byte[] b = sysUserService.export(query);

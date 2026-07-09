@@ -44,10 +44,10 @@ public class SysImportExportRecordController {
         return Result.ok(page);
     }
 
-    @GetMapping("/list")
+    @GetMapping("/list/{businessType}")
     @Operation(summary = "查询导入记录表分页")
-    public Result<List<SysImportExportRecordVO>> list(){
-        List<SysImportExportRecordVO> list = sysImportExportRecordService.list();
+    public Result<List<SysImportExportRecordVO>> list(@PathVariable("businessType") String businessType){
+        List<SysImportExportRecordVO> list = sysImportExportRecordService.list(businessType);
         return Result.ok(list);
     }
 }

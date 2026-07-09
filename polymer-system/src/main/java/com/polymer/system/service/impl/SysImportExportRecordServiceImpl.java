@@ -149,10 +149,11 @@ public class SysImportExportRecordServiceImpl implements SysImportExportRecordSe
     }
 
     @Override
-    public List<SysImportExportRecordVO> list() {
+    public List<SysImportExportRecordVO> list(String businessType) {
         SysImportExportRecordQuery query = new SysImportExportRecordQuery();
         query.setCreator(SecurityUser.getUserId());
         query.setOperationType("import");
+        query.setBusinessType(businessType);
         List<SysImportExportRecordEntity> entityList = sysImportExportRecordMapper.selectSysImportExportRecordList(query);
         return ConvertUtils.convertListTo(entityList, SysImportExportRecordVO::new);
     }

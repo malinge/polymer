@@ -36,7 +36,7 @@
                 AND creator = #{creator}
             </if>
             <if test="operatorName != null  and operatorName != ''"> and operator_name like concat('%', #{operatorName}, '%')</if>
-            <if test="businessType != null  and businessType != ''"> and business_type like concat('%', #{businessType}, '%')</if>
+            <if test="businessType != null  and businessType != ''"> and business_type = #{businessType}</if>
             <if test="operationType != null  and operationType != ''"> and operation_type = #{operationType}</if>
             <if test="beginCreateTime != null and endCreateTime != null"> and create_time between #{beginCreateTime} and #{endCreateTime}</if>
         </where>

@@ -1,8 +1,10 @@
 package com.polymer.demo.service;
 
-import com.polymer.framework.common.pojo.PageResult;
-import com.polymer.demo.vo.DemoMultipleFilesVO;
+import com.polymer.api.system.vo.ImportResultVO;
 import com.polymer.demo.query.DemoMultipleFilesQuery;
+import com.polymer.demo.vo.DemoMultipleFilesVO;
+import com.polymer.framework.common.pojo.PageResult;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -78,4 +80,7 @@ public interface DemoMultipleFilesService {
      */
     int deleteDemoMultipleFilesByIdList(List<Long> idList);
 
+    ImportResultVO importByExcel(MultipartFile file, String strategy) throws Exception;
+
+    byte[] export(DemoMultipleFilesQuery query);
 }

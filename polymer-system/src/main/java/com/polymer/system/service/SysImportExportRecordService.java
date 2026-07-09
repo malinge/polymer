@@ -78,7 +78,7 @@ public interface SysImportExportRecordService {
      */
     int deleteSysImportExportRecordByIdList(List<Long> idList);
 
-    List<SysImportExportRecordVO> list();
+    List<SysImportExportRecordVO> list(String businessType);
 
     SysImportExportRecordVO insertSysImportExportRecord(String businessType, String operationTypeint, int totalCount,
                                                         int successNum, int errorNum, int conflictHandleCount,
