@@ -27,6 +27,12 @@
         where id = #{id}
     </select>
 
+    <!--根据 appId 查询 app 信息表-->
+    <select id="selectSysAppDetailsByAppId" parameterType="String" resultMap="SysAppDetailsResult">
+        <include refid="selectSysAppDetailsVo"/>
+        where app_id = #{appId}
+    </select>
+
     <!--新增app信息表-->
     <insert id="insertSysAppDetails" parameterType="SysAppDetailsEntity" useGeneratedKeys="true" keyProperty="id">
         insert into sys_app_details

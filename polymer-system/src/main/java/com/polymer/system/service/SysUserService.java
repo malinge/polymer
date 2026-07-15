@@ -171,4 +171,6 @@ public interface SysUserService {
      * @return 结果
      */
     int batchUpdateSysUserFull(List<SysUserVO> list);
+
+    SysUserVO getByUsername(String username);
 }

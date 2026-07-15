@@ -13,6 +13,8 @@ import com.qcloud.cos.model.ObjectMetadata;
 import com.qcloud.cos.model.PutObjectRequest;
 import com.qcloud.cos.model.PutObjectResult;
 import com.qcloud.cos.region.Region;
+import com.qcloud.cos.model.COSObject;
+import com.qcloud.cos.model.GetObjectRequest;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -76,6 +78,26 @@ public class TencentStorageServiceImpl extends AbstractStorageService {
         // 生成预签名 URL
         URL url = cosClient.generatePresignedUrl(properties.getTencent().getBucketName(), path, expiration, method);
         return url.toString();
+    }
+
+    @Override
+    public InputStream getInputStream(String path) {
+        COSClient cosClient = new COSClient(cred, clientConfig);
+        try {
+            // 构建GetObject请求
+            GetObjectRequest getObjectRequest = new GetObjectRequest(properties.getTencent().getBucketName(), path);
+
+            // 获取对象
+            COSObject cosObject = cosClient.getObject(getObjectRequest);
+
+            // 获取对象输入流
+
+            // 注意：调用方使用完后需要关闭流，COSClient会通过流关闭自动释放连接
+            return cosObject.getObjectContent();
+        } catch (Exception e) {
+            cosClient.shutdown();
+            throw new ServiceException("获取文件流失败: " + e.getMessage(), e);
+        }
     }
 
 }

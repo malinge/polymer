@@ -47,4 +47,6 @@ public interface SysAppDetailsMapper {
      */
     int updateSysAppDetails(SysAppDetailsEntity sysAppDetails);
 
+    SysAppDetailsEntity selectSysAppDetailsByAppId(String appId);
+
 }

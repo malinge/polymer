@@ -3,7 +3,7 @@ package com.polymer.framework.security.core.cache;
 import com.polymer.framework.common.cache.RedisCache;
 import com.polymer.framework.common.constant.CacheConstants;
 import com.polymer.framework.security.core.properties.SecurityProperties;
-import com.polymer.framework.security.core.user.UserDetail;
+import com.polymer.api.system.user.UserDetail;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;

@@ -1,4 +1,4 @@
-package com.polymer.system.security.config;
+package com.polymer.framework.security.config;
 
 import com.polymer.framework.security.core.mobile.MobileAuthenticationProvider;
 import com.polymer.framework.security.core.mobile.MobileUserDetailsService;

@@ -2,8 +2,6 @@ package com.polymer.system.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.polymer.framework.common.cache.RedisCache;
-import com.polymer.framework.common.constant.CacheConstants;
 import com.polymer.framework.common.exception.ServiceException;
 import com.polymer.framework.common.pojo.PageResult;
 import com.polymer.framework.common.utils.ConvertUtils;
@@ -16,7 +14,6 @@ import com.polymer.system.vo.SysAppDetailsVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -31,14 +28,7 @@ public class SysAppDetailsServiceImpl implements SysAppDetailsService {
     @Resource
     private SysAppDetailsMapper sysAppDetailsMapper;
     @Resource
-    private RedisCache redisCache;
-    @Resource
     private MyBatisBatchUtils batchUtils;
-
-    @PostConstruct
-    public void init() {
-        reloadSysAppDetails();
-    }
 
     /**
      * 查询app信息表分页列表
@@ -136,13 +126,9 @@ public class SysAppDetailsServiceImpl implements SysAppDetailsService {
     }
 
     @Override
-    public void reloadSysAppDetails() {
-        redisCache.deleteKeysByPatternScan(CacheConstants.SYS_APPID_KEY + "*");
-        List<SysAppDetailsEntity> entityList = sysAppDetailsMapper.selectSysAppDetailsList(null);
-        for (SysAppDetailsEntity entity : entityList) {
-            String key = CacheConstants.SYS_APPID_KEY +entity.getAppId();
-            redisCache.set(key, entity.getAppSecret());
-        }
+    public SysAppDetailsVO getAppSecretByAppId(String appId) {
+        SysAppDetailsEntity entity = sysAppDetailsMapper.selectSysAppDetailsByAppId(appId);
+        return ConvertUtils.convertTo(entity, SysAppDetailsVO::new);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.polymer.system.security.config;
+package com.polymer.framework.security.config;
 
 import com.polymer.api.message.SmsApi;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

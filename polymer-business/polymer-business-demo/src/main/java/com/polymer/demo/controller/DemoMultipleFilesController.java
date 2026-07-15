@@ -1,16 +1,15 @@
 package com.polymer.demo.controller;
 
+import com.polymer.api.system.SysCheckImportApi;
 import com.polymer.api.system.vo.ImportResultVO;
 import com.polymer.demo.query.DemoMultipleFilesQuery;
 import com.polymer.demo.service.DemoMultipleFilesService;
 import com.polymer.demo.vo.DemoMultipleFilesExcelVO;
 import com.polymer.demo.vo.DemoMultipleFilesVO;
-import com.polymer.framework.common.annotation.Excel;
 import com.polymer.framework.common.pojo.PageResult;
 import com.polymer.framework.common.pojo.Result;
 import com.polymer.framework.common.utils.ExcelUtil;
 import com.polymer.framework.common.utils.FileUtils;
-import com.polymer.framework.common.utils.StringUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springdoc.api.annotations.ParameterObject;
@@ -32,8 +31,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,6 +45,8 @@ import java.util.List;
 public class DemoMultipleFilesController {
     @Resource
     private DemoMultipleFilesService demoMultipleFilesService;
+    @Resource
+    private SysCheckImportApi sysCheckImportApi;
 
     @GetMapping("/page")
     @Operation(summary = "查询多文件上传样例分页")
@@ -118,24 +117,8 @@ public class DemoMultipleFilesController {
     @Operation(summary = "获取Excel导入唯一字段列表")
     @PreAuthorize("hasAuthority('demo:multipleFiles:import')")
     public Result<List<String>> getUniqueFields() {
-        // 使用反射获取SysUserExcelVO类中所有带有@Excel注解的字段
-        Field[] fields = DemoMultipleFilesExcelVO.class.getDeclaredFields();
-        List<String> uniqueFieldNames = new ArrayList<>();
-        for (Field field : fields) {
-            Excel excelAnnotation = field.getAnnotation(Excel.class);
-            if (excelAnnotation != null && excelAnnotation.unique()) {
-                // 获取Excel注解中的name属性
-                String name = excelAnnotation.name();
-                if (StringUtils.isNotBlank(name)) {
-                    uniqueFieldNames.add(name);
-                }
-            }
-        }
-        // 如果没有任何唯一字段，添加一个"无"的占位值
-        if (uniqueFieldNames.isEmpty()) {
-            uniqueFieldNames.add("无");
-        }
-        return Result.ok(uniqueFieldNames);
+        List<String> uniqueFields = sysCheckImportApi.getUniqueFields(DemoMultipleFilesExcelVO.class);
+        return Result.ok(uniqueFields);
     }
 
     @PostMapping("/import")

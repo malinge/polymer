@@ -23,11 +23,6 @@
             <version>${revision}</version>
         </dependency>
         <dependency>
-            <groupId>com.polymer</groupId>
-            <artifactId>polymer-api</artifactId>
-            <version>${revision}</version>
-        </dependency>
-        <dependency>
             <groupId>com.aliyun</groupId>
             <artifactId>dysmsapi20170525</artifactId>
         </dependency>

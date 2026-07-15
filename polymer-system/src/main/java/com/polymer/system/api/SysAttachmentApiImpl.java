@@ -6,6 +6,7 @@ import com.polymer.framework.common.utils.ConvertUtils;
 import com.polymer.system.entity.SysAttachmentEntity;
 import com.polymer.system.service.SysAttachmentService;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;

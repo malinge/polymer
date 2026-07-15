@@ -5,7 +5,7 @@ import com.polymer.framework.common.pojo.Result;
 import com.polymer.framework.logger.annotations.OperateLog;
 import com.polymer.framework.logger.enums.OperateTypeEnum;
 import com.polymer.framework.security.core.user.SecurityUser;
-import com.polymer.framework.security.core.user.UserDetail;
+import com.polymer.api.system.user.UserDetail;
 import com.polymer.system.query.SysRoleQuery;
 import com.polymer.system.query.SysRoleUserQuery;
 import com.polymer.system.service.SysMenuService;

@@ -59,4 +59,6 @@ public interface StorageApi {
     String getFilePresignedDownloadUrl(String path);
 
     String processImages(String htmlBody);
+
+    InputStream getInputStream(String path);
 }

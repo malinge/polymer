@@ -1,4 +1,4 @@
-package com.polymer.system.enums;
+package com.polymer.framework.common.enums;
 
 import java.util.Objects;
 

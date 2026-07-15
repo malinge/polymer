@@ -1,7 +1,7 @@
 package com.polymer.framework.security.core.filter;
 
 import com.polymer.framework.security.core.cache.TokenStoreCache;
-import com.polymer.framework.security.core.user.UserDetail;
+import com.polymer.api.system.user.UserDetail;
 import com.polymer.framework.security.core.utils.TokenUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

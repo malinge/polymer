@@ -1,7 +1,6 @@
 package com.polymer.framework.logger.event;
 
 import org.springframework.context.ApplicationEvent;
-
 import java.time.Clock;
 
 /**

@@ -62,9 +62,6 @@ public interface SysAppDetailsService {
      */
     int batchUpdateSysAppDetails(List<SysAppDetailsVO> list);
 
-    /**
-     * 重新加载app信息到缓存
-     */
-    void reloadSysAppDetails();
+    SysAppDetailsVO getAppSecretByAppId(String appId);
 
 }

@@ -111,4 +111,9 @@ public class StorageApiImpl implements StorageApi {
         }
         return document.body().html();
     }
+
+    @Override
+    public InputStream getInputStream(String path) {
+        return abstractStorageService.getInputStream(path);
+    }
 }

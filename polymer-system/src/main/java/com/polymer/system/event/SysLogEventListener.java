@@ -1,4 +1,4 @@
-package com.polymer.system.security.event;
+package com.polymer.system.event;
 
 import com.polymer.framework.logger.event.ErrorLogEvent;
 import com.polymer.framework.logger.event.OperateLogEvent;

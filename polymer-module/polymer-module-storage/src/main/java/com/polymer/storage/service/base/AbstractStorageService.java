@@ -89,4 +89,6 @@ public abstract class AbstractStorageService {
      */
     public abstract String generatePresignedUrl(String path, Boolean isDownload);
 
+    public abstract InputStream getInputStream(String path);
+
 }

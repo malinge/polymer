@@ -51,9 +51,4 @@ public class CacheConstants {
      */
     public static final String SIGN_NONCE_KEY = "sign_nonce:";
 
-    /**
-     * appid管理 cache key
-     */
-    public static final String SYS_APPID_KEY = "sys_appid:";
-
 }

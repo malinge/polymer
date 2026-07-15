@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * 本地存储
@@ -54,5 +56,28 @@ public class LocalStorageServiceImpl extends AbstractStorageService {
             return properties.getConfig().getDomain() + "/" + properties.getLocal().getUrl() + "/" + path;
         }
         return  "";
+    }
+
+    @Override
+    public InputStream getInputStream(String path) {
+        try {
+            // 构建文件路径
+            File file = new File(properties.getLocal().getPath() + File.separator + path);
+
+            // 检查文件是否存在
+            if (!file.exists()) {
+                throw new ServiceException("文件不存在: " + path);
+            }
+
+            // 检查是否为文件（不是目录）
+            if (!file.isFile()) {
+                throw new ServiceException("路径不是文件: " + path);
+            }
+
+            // 返回文件输入流
+            return Files.newInputStream(file.toPath());
+        } catch (Exception e) {
+            throw new ServiceException("获取文件流失败: " + e.getMessage(), e);
+        }
     }
 }

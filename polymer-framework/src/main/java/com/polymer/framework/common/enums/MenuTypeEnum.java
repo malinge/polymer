@@ -1,4 +1,4 @@
-package com.polymer.system.enums;
+package com.polymer.framework.common.enums;
 
 /**
  * 菜单类型枚举

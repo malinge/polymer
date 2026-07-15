@@ -51,4 +51,6 @@ public interface SysCheckImportApi {
 
      void saveExportResult(byte[] fileBytes, int totalCount, String businessType);
 
+    <E> List<String> getUniqueFields(Class<E> clazz);
+
 }

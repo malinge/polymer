@@ -4,7 +4,7 @@ import com.polymer.framework.common.cache.RedisCache;
 import com.polymer.framework.common.constant.CacheConstants;
 import com.polymer.framework.common.utils.StringUtils;
 import com.polymer.framework.security.core.utils.TokenUtils;
-import com.polymer.system.enums.SysParamsEnum;
+import com.polymer.framework.common.enums.SysParamsEnum;
 import com.polymer.system.service.SysCaptchaService;
 import com.polymer.system.service.SysParamsService;
 import com.polymer.system.vo.SysCaptchaVO;

@@ -6,7 +6,7 @@ import com.polymer.framework.common.utils.StringUtils;
 import com.polymer.framework.mybatis.core.annotation.DataScope;
 import com.polymer.framework.mybatis.core.enums.DataScopeEnum;
 import com.polymer.framework.security.core.user.SecurityUser;
-import com.polymer.framework.security.core.user.UserDetail;
+import com.polymer.api.system.user.UserDetail;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Aspect;

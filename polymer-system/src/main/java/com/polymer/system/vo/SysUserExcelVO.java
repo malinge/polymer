@@ -2,6 +2,7 @@ package com.polymer.system.vo;
 
 import com.polymer.framework.common.annotation.Excel;
 import com.polymer.framework.common.annotation.Excel.Type;
+import com.polymer.framework.common.annotation.Excel.ColumnType;
 
 import java.io.Serializable;
 
@@ -23,6 +24,9 @@ public class SysUserExcelVO implements Serializable {
 
     @Excel(name = "用户姓名", required = true)
     private String realName;
+
+    @Excel(name = "用户头像", cellType = ColumnType.IMAGE)
+    private String avatar;
 
     @Excel(name = "用户性别", dictType = "user_gender", comboReadDict = true, required = true)
     private Integer gender;
@@ -103,5 +107,13 @@ public class SysUserExcelVO implements Serializable {
 
     public void setDeptId(Long deptId) {
         this.deptId = deptId;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

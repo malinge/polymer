@@ -1,7 +1,7 @@
 package com.polymer.system.controller;
 
+import com.polymer.api.system.SysCheckImportApi;
 import com.polymer.api.system.vo.ImportResultVO;
-import com.polymer.framework.common.annotation.Excel;
 import com.polymer.framework.common.pojo.PageResult;
 import com.polymer.framework.common.pojo.Result;
 import com.polymer.framework.common.utils.ExcelUtil;
@@ -12,7 +12,7 @@ import com.polymer.framework.idempotent.core.annotation.RepeatSubmit;
 import com.polymer.framework.logger.annotations.OperateLog;
 import com.polymer.framework.logger.enums.OperateTypeEnum;
 import com.polymer.framework.security.core.user.SecurityUser;
-import com.polymer.framework.security.core.user.UserDetail;
+import com.polymer.api.system.user.UserDetail;
 import com.polymer.system.query.SysUserQuery;
 import com.polymer.system.service.SysUserService;
 import com.polymer.system.vo.SysUserBaseVO;
@@ -43,8 +43,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -60,6 +58,8 @@ public class SysUserController {
     private SysUserService sysUserService;
     @Resource
     private PasswordEncoder passwordEncoder;
+    @Resource
+    private SysCheckImportApi sysCheckImportApi;
 
     @GetMapping("page")
     @Operation(summary = "分页")
@@ -210,24 +210,8 @@ public class SysUserController {
     @Operation(summary = "获取Excel导入唯一字段列表")
     @PreAuthorize("hasAuthority('sys:user:import')")
     public Result<List<String>> getUniqueFields() {
-        // 使用反射获取SysUserExcelVO类中所有带有@Excel注解的字段
-        Field[] fields = SysUserExcelVO.class.getDeclaredFields();
-        List<String> uniqueFieldNames = new ArrayList<>();
-        for (Field field : fields) {
-            Excel excelAnnotation = field.getAnnotation(Excel.class);
-            if (excelAnnotation != null && excelAnnotation.unique()) {
-                // 获取Excel注解中的name属性
-                String name = excelAnnotation.name();
-                if (StringUtils.isNotBlank(name)) {
-                    uniqueFieldNames.add(name);
-                }
-            }
-        }
-        // 如果没有任何唯一字段，添加一个"无"的占位值
-        if (uniqueFieldNames.isEmpty()) {
-            uniqueFieldNames.add("无");
-        }
-        return Result.ok(uniqueFieldNames);
+        List<String> uniqueFields = sysCheckImportApi.getUniqueFields(SysUserExcelVO.class);
+        return Result.ok(uniqueFields);
     }
 
     @PostMapping("/import")

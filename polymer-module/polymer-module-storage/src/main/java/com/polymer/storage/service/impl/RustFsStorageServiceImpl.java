@@ -24,6 +24,9 @@ import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignReques
 import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PresignedPutObjectRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PutObjectPresignRequest;
+import software.amazon.awssdk.core.ResponseInputStream;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -203,5 +206,25 @@ public class RustFsStorageServiceImpl extends AbstractStorageService {
 
         PresignedPutObjectRequest presignedRequest = s3Presigner.presignPutObject(presignRequest);
         return presignedRequest.url().toString();
+    }
+
+    @Override
+    public InputStream getInputStream(String path) {
+        try {
+            // 构建GetObject请求
+            GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+                    .bucket(properties.getRustfs().getBucketName())
+                    .key(path)
+                    .build();
+
+            // 获取对象输入流
+            return s3Client.getObject(getObjectRequest);
+        } catch (S3Exception e) {
+            log.error("RustFS S3异常，获取文件流失败，路径: {}", path, e);
+            throw new ServiceException("获取文件流失败: " + e.awsErrorDetails().errorMessage(), e);
+        } catch (Exception e) {
+            log.error("获取文件流失败，路径: {}", path, e);
+            throw new ServiceException("获取文件流失败: " + e.getMessage(), e);
+        }
     }
 }

@@ -1,6 +1,6 @@
 package com.polymer.system.service;
 
-import com.polymer.framework.security.core.user.UserDetail;
+import com.polymer.api.system.user.UserDetail;
 import com.polymer.system.vo.SysMenuVO;
 
 import java.util.List;

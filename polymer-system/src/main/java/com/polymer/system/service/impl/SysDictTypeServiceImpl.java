@@ -11,7 +11,7 @@ import com.polymer.framework.common.utils.ConvertUtils;
 import com.polymer.framework.mybatis.core.utils.MyBatisBatchUtils;
 import com.polymer.system.entity.SysDictDataEntity;
 import com.polymer.system.entity.SysDictTypeEntity;
-import com.polymer.system.enums.DictSourceEnum;
+import com.polymer.framework.common.enums.DictSourceEnum;
 import com.polymer.system.mapper.SysDictDataMapper;
 import com.polymer.system.mapper.SysDictTypeMapper;
 import com.polymer.system.query.SysDictTypeQuery;

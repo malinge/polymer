@@ -4,6 +4,8 @@ import com.polymer.framework.common.exception.ServiceException;
 import com.polymer.storage.properties.StorageProperties;
 import com.polymer.storage.service.base.AbstractStorageService;
 import io.minio.BucketExistsArgs;
+import io.minio.GetObjectArgs;
+import io.minio.GetPresignedObjectUrlArgs;
 import io.minio.MakeBucketArgs;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
@@ -77,7 +79,7 @@ public class MinioStorageServiceImpl extends AbstractStorageService {
 
             // 生成预签名URL
             presignedUrl = minioClient.getPresignedObjectUrl(
-                    io.minio.GetPresignedObjectUrlArgs.builder()
+                    GetPresignedObjectUrlArgs.builder()
                             .method(method)
                             .bucket(properties.getMinio().getBucketName())
                             .object(path)
@@ -89,6 +91,21 @@ public class MinioStorageServiceImpl extends AbstractStorageService {
         }
         // 生成预签名URL
         return presignedUrl;
+    }
+
+    @Override
+    public InputStream getInputStream(String path) {
+        try {
+            return minioClient.getObject(
+                    GetObjectArgs.builder()
+                            .bucket(properties.getMinio().getBucketName())
+                            .object(path)
+                            .build()
+            );
+        } catch (Exception e) {
+            log.error("获取文件流失败，路径: {}", path, e);
+            throw new ServiceException("获取文件流失败: " + e.getMessage(), e);
+        }
     }
 
     /**

@@ -6,6 +6,7 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.OSSException;
 import com.aliyun.oss.model.GeneratePresignedUrlRequest;
+import com.aliyun.oss.model.OSSObject;
 import com.polymer.framework.common.exception.ServiceException;
 import com.polymer.storage.properties.StorageProperties;
 import com.polymer.storage.service.base.AbstractStorageService;
@@ -84,6 +85,28 @@ public class AliyunStorageServiceImpl extends AbstractStorageService {
             throw new ServiceException("生成预签名URL失败："+ce.getMessage());
         }
         return signedUrl.toString();
+    }
+
+    @Override
+    public InputStream getInputStream(String path) {
+        OSS client = new OSSClientBuilder().build(properties.getAliyun().getEndPoint(),
+                properties.getAliyun().getAccessKeyId(), properties.getAliyun().getAccessKeySecret());
+        try {
+            OSSObject ossObject = client.getObject(properties.getAliyun().getBucketName(), path);
+            return ossObject.getObjectContent();
+        } catch (OSSException oe) {
+
+            throw new ServiceException("获取文件流失败: " + oe.getMessage(), oe);
+        } catch (ClientException ce) {
+            throw new ServiceException("获取文件流失败: " + ce.getMessage(), ce);
+        } catch (Exception e) {
+            log.error("获取文件流失败，路径: {}", path, e);
+            throw new ServiceException("获取文件流失败: " + e.getMessage(), e);
+        } finally {
+            // 注意：不能在这里关闭client，因为OSSObject.getObjectContent()返回的流需要在调用方使用完后才关闭
+            // 如果在这里关闭client，会导致返回的流无法使用
+            // 推荐使用try-with-resources或在调用方关闭流
+        }
     }
 
 }

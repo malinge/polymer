@@ -3,7 +3,7 @@ package com.polymer.message.controller;
 import com.polymer.framework.common.pojo.PageResult;
 import com.polymer.framework.common.pojo.Result;
 import com.polymer.framework.security.core.user.SecurityUser;
-import com.polymer.framework.security.core.user.UserDetail;
+import com.polymer.api.system.user.UserDetail;
 import com.polymer.message.mail.service.MailSendService;
 import com.polymer.message.query.MessageMailTemplateQuery;
 import com.polymer.message.service.MessageMailTemplateService;

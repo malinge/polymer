@@ -1,7 +1,7 @@
 package com.polymer.framework.web.websocket.core.interceptor;
 
 import com.polymer.framework.security.core.cache.TokenStoreCache;
-import com.polymer.framework.security.core.user.UserDetail;
+import com.polymer.api.system.user.UserDetail;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;

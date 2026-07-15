@@ -8,7 +8,7 @@ import com.polymer.framework.common.utils.StringUtils;
 import com.polymer.framework.logger.annotations.OperateLog;
 import com.polymer.framework.logger.event.OperateLogEvent;
 import com.polymer.framework.security.core.user.SecurityUser;
-import com.polymer.framework.security.core.user.UserDetail;
+import com.polymer.api.system.user.UserDetail;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.aspectj.lang.ProceedingJoinPoint;

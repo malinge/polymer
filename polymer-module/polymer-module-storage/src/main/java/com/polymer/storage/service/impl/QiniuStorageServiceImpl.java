@@ -9,6 +9,8 @@ import com.qiniu.storage.Region;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
 import com.qiniu.util.IOUtils;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -80,6 +82,30 @@ public class QiniuStorageServiceImpl extends AbstractStorageService {
         }
 
         return signedUrl;
+    }
+
+    @Override
+    public InputStream getInputStream(String path) {
+        try {
+            // 获取文件的预签名下载URL（带有效期的私有链接）
+            String signedUrl = generatePresignedUrl(path, true);
+
+            // 通过URL连接获取输入流
+            URL url = new URL(signedUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setConnectTimeout(5000);
+            connection.setReadTimeout(10000);
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                return connection.getInputStream();
+            } else {
+                throw new ServiceException("获取文件流失败，HTTP响应码: " + responseCode);
+            }
+        } catch (Exception e) {
+            throw new ServiceException("获取文件流失败: " + e.getMessage(), e);
+        }
     }
 
 }

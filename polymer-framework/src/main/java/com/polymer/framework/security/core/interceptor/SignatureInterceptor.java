@@ -1,5 +1,6 @@
 package com.polymer.framework.security.core.interceptor;
 
+import com.polymer.api.system.SysAppDetailsApi;
 import com.polymer.framework.common.annotation.SignatureCheck;
 import com.polymer.framework.common.cache.RedisCache;
 import com.polymer.framework.common.constant.CacheConstants;
@@ -31,6 +32,8 @@ import java.util.Map;
 public class SignatureInterceptor implements HandlerInterceptor {
     @Resource
     private RedisCache redisCache;
+    @Resource
+    private SysAppDetailsApi sysAppDetailsApi;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -59,7 +62,7 @@ public class SignatureInterceptor implements HandlerInterceptor {
         }
 
         // 根据appId获取对应的appSecret（例如从数据库或配置中心）
-        String appSecret = getAppSecretByAppId(appId);
+        String appSecret = sysAppDetailsApi.getAppSecretByAppId(appId);
 
         // 生成服务端签名
         String serverSignature = generateSignature(request, timestamp, nonce, appSecret);
@@ -126,13 +129,6 @@ public class SignatureInterceptor implements HandlerInterceptor {
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.getWriter().write("{\"code\":401, \"message\":\"" + message + "\"}");
-    }
-
-    // 需根据实际情况实现
-    private String getAppSecretByAppId(String appId) {
-        String key = CacheConstants.SYS_APPID_KEY + appId;
-        Object value = redisCache.get(key);
-        return (String) value;
     }
 
     private boolean isNonceUsed(String nonce, String timestamp) {

@@ -4,15 +4,20 @@ import com.polymer.api.storage.StorageApi;
 import com.polymer.api.system.SysCheckImportApi;
 import com.polymer.api.system.dto.ImportResultDTO;
 import com.polymer.api.system.vo.ImportResultVO;
+import com.polymer.framework.common.annotation.Excel;
 import com.polymer.framework.common.exception.ServiceException;
 import com.polymer.framework.common.pojo.ImportValidationResult;
 import com.polymer.framework.common.utils.ExcelUtil;
+import com.polymer.framework.common.utils.StringUtils;
 import com.polymer.system.service.SysImportExportRecordService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,7 +25,7 @@ import java.util.List;
  *
  * @author polymer
  */
-@Service
+@Component
 public class SysCheckImportApiImpl implements SysCheckImportApi {
 
     private static final Logger log = LoggerFactory.getLogger(SysCheckImportApiImpl.class);
@@ -129,6 +134,29 @@ public class SysCheckImportApiImpl implements SysCheckImportApi {
         String path = storageApi.getPath(fileName + ".xlsx");
         String resultFileUrl = storageApi.upload(fileBytes, path);
         sysImportExportRecordService.insertSysImportExportRecord(businessType, "export", totalCount, resultFileUrl);
+    }
+
+    @Override
+    public <E> List<String> getUniqueFields(Class<E> clazz) {
+        List<String> uniqueFieldNames = new ArrayList<>();
+
+        // 使用反射获取SysUserExcelVO类中所有带有@Excel注解的字段
+        Field[] fields = clazz.getDeclaredFields();
+        for (Field field : fields) {
+            Excel excelAnnotation = field.getAnnotation(Excel.class);
+            if (excelAnnotation != null && excelAnnotation.unique()) {
+                // 获取Excel注解中的name属性
+                String name = excelAnnotation.name();
+                if (StringUtils.isNotBlank(name)) {
+                    uniqueFieldNames.add(name);
+                }
+            }
+        }
+        // 如果没有任何唯一字段，添加一个"无"的占位值
+        if (uniqueFieldNames.isEmpty()) {
+            uniqueFieldNames.add("无");
+        }
+        return uniqueFieldNames;
     }
 
     /**

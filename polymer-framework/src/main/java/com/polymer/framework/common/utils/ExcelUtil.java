@@ -422,7 +422,8 @@ public class ExcelUtil<T> {
                             val = "";
                         } else {
                             byte[] data = image.getData();
-                            val = FileUtils.writeImportBytes(data);
+                            String fileName = "import."+image.suggestFileExtension();
+                            val = FileUtils.writeImportBytes(data, fileName);
                         }
                     }
                     ReflectUtils.invokeSetter(entity, propertyName, val);
@@ -960,8 +961,10 @@ public class ExcelUtil<T> {
             String imagePath = Convert.toStr(value);
             if (StringUtils.isNotEmpty(imagePath)) {
                 byte[] data = ImageUtils.getImage(imagePath);
-                getDrawingPatriarch(cell.getSheet()).createPicture(anchor,
-                        cell.getSheet().getWorkbook().addPicture(data, getImageType(data)));
+                if(data != null){
+                    getDrawingPatriarch(cell.getSheet()).createPicture(anchor,
+                            cell.getSheet().getWorkbook().addPicture(data, getImageType(data)));
+                }
             }
         }
     }

@@ -3,9 +3,13 @@ package com.polymer.storage.service.impl;
 import com.obs.services.ObsClient;
 import com.obs.services.model.HttpMethodEnum;
 import com.obs.services.model.TemporarySignatureRequest;
+import com.obs.services.model.GetObjectRequest;
+import com.obs.services.model.ObsObject;
 import com.polymer.framework.common.exception.ServiceException;
 import com.polymer.storage.properties.StorageProperties;
 import com.polymer.storage.service.base.AbstractStorageService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -16,7 +20,7 @@ import java.io.InputStream;
  * @author polymer
  */
 public class HuaweiStorageServiceImpl extends AbstractStorageService {
-
+    private static final Logger log = LoggerFactory.getLogger(HuaweiStorageServiceImpl.class);
     public HuaweiStorageServiceImpl(StorageProperties properties) {
         this.properties = properties;
     }
@@ -55,6 +59,31 @@ public class HuaweiStorageServiceImpl extends AbstractStorageService {
         request.setBucketName("bucketname");
         request.setObjectKey("objectname");
         return obsClient.createTemporarySignature(request).getSignedUrl();
+    }
+
+    @Override
+    public InputStream getInputStream(String path) {
+        ObsClient client = null;
+        try {
+            client = new ObsClient(properties.getHuawei().getAccessKey(),
+                    properties.getHuawei().getSecretKey(), properties.getHuawei().getEndPoint());
+
+            GetObjectRequest request = new GetObjectRequest(properties.getHuawei().getBucketName(), path);
+            ObsObject obsObject = client.getObject(request);
+            // 获取对象输入流
+            // 注意：调用方使用完后需要关闭流，ObsClient会在流关闭后自动释放连接
+            return obsObject.getObjectContent();
+        } catch (Exception e) {
+            if (client != null) {
+                try {
+                    client.close();
+                } catch (Exception ex) {
+                    log.error("关闭ObsClient失败", ex);
+                }
+            }
+            log.error("获取文件流失败，路径: {}", path, e);
+            throw new ServiceException("获取文件流失败: " + e.getMessage(), e);
+        }
     }
 
 }

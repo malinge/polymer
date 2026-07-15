@@ -1,31 +1,27 @@
-package com.polymer.system.enums;
+package com.polymer.framework.common.enums;
 
 import java.util.Objects;
 
 /**
- * 用户性别状态
+ * 超级管理员枚举
  *
  * @author polymer
  */
-public enum UserGenderEnum {
+public enum SuperAdminEnum {
     /**
-     * 男
+     * 是
      */
-    MAN(0, "男"),
+    YES(1, "是"),
     /**
-     * 女
+     * 否
      */
-    WOMEN(1, "女"),
-    /**
-     * 未知
-     */
-    UNKNOWN(2, "未知");
+    NO(0, "否");
 
-    private final int value;
+    private final Integer value;
     private final String name;
 
     public static String getNameByValue(int value) {
-        for (UserGenderEnum s : UserGenderEnum.values()) {
+        for (SuperAdminEnum s : SuperAdminEnum.values()) {
             if (s.getValue() == value) {
                 return s.getName();
             }
@@ -34,7 +30,7 @@ public enum UserGenderEnum {
     }
 
     public static Integer getValueByName(String name) {
-        for (UserGenderEnum s : UserGenderEnum.values()) {
+        for (SuperAdminEnum s : SuperAdminEnum.values()) {
             if (Objects.equals(s.getName(), name)) {
                 return s.getValue();
             }
@@ -42,7 +38,7 @@ public enum UserGenderEnum {
         return null;
     }
 
-    public int getValue() {
+    public Integer getValue() {
         return value;
     }
 
@@ -50,7 +46,7 @@ public enum UserGenderEnum {
         return name;
     }
 
-    UserGenderEnum(int value, String name) {
+    SuperAdminEnum(Integer value, String name) {
         this.value = value;
         this.name = name;
     }

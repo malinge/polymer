@@ -14,11 +14,11 @@ import com.polymer.framework.common.utils.StringUtils;
 import com.polymer.framework.mybatis.core.utils.MyBatisBatchUtils;
 import com.polymer.framework.security.core.cache.TokenStoreCache;
 import com.polymer.framework.security.core.user.SecurityUser;
-import com.polymer.framework.security.core.user.UserDetail;
+import com.polymer.api.system.user.UserDetail;
 import com.polymer.framework.security.core.utils.TokenUtils;
 import com.polymer.system.entity.SysUserEntity;
 import com.polymer.system.entity.SysUserRoleEntity;
-import com.polymer.system.enums.SuperAdminEnum;
+import com.polymer.framework.common.enums.SuperAdminEnum;
 import com.polymer.system.mapper.SysUserMapper;
 import com.polymer.system.query.SysRoleUserQuery;
 import com.polymer.system.query.SysUserQuery;
@@ -687,6 +687,12 @@ public class SysUserServiceImpl implements SysUserService {
     public int batchUpdateSysUserFull(List<SysUserVO> list) {
         List<SysUserEntity> entityList = validEntities(list);
         return batchUtils.executeBatch(SysUserMapper.class, entityList, SysUserMapper::updateSysUserFull);
+    }
+
+    @Override
+    public SysUserVO getByUsername(String username) {
+        SysUserEntity entity = sysUserMapper.getByUsername(username);
+        return ConvertUtils.convertTo(entity, SysUserVO::new);
     }
 
     private List<SysUserEntity> validEntities(List<SysUserVO> list){
