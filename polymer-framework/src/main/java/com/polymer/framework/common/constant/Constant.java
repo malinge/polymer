@@ -51,12 +51,6 @@ public interface Constant {
      */
     String HTTPS = "https://";
 
-
-    /**
-     * 默认表别名设置
-     */
-    String DEFAULT_ALIAS = ".";
-
     /**
      * 默认数据权限表字段名
      */

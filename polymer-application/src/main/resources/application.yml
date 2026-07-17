@@ -17,7 +17,7 @@ spring:
   application:
     name: polymer
   profiles:
-    active: test
+    active: dev
   jackson:
     time-zone: GMT+8
   servlet:

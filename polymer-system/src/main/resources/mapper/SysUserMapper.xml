@@ -176,9 +176,9 @@
             <if test="gender != null">#{gender},</if>
             <if test="email != null and email != ''">#{email},</if>
             <if test="mobile != null and mobile != ''">#{mobile},</if>
-            <if test="provinceCode != null and provinceCode != ''">#{province_code},</if>
-            <if test="cityCode != null and cityCode != ''">#{city_code},</if>
-            <if test="districtCode != null and districtCode != ''">#{district_code},</if>
+            <if test="provinceCode != null and provinceCode != ''">#{provinceCode},</if>
+            <if test="cityCode != null and cityCode != ''">#{cityCode},</if>
+            <if test="districtCode != null and districtCode != ''">#{districtCode},</if>
             <if test="address != null and address != ''">#{address},</if>
             <if test="deptId != null">#{deptId},</if>
             <if test="superAdmin != null">#{superAdmin},</if>

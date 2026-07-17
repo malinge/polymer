@@ -13,6 +13,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
@@ -28,6 +30,7 @@ import java.util.stream.Collectors;
 @Aspect
 @Component
 public class DataScopeAspect {
+    protected Logger logger = LoggerFactory.getLogger(getClass());
 
     @Pointcut("@annotation(com.polymer.framework.mybatis.core.annotation.DataScope)")
     public void dataScopePointCut() {
@@ -91,23 +94,40 @@ public class DataScopeAspect {
         String dataId = annotation.dataId();
         // 获取表的别名
         String alias = annotation.alias();
+        // 构建字段前缀（别名 + "."），如果别名为空则使用空字符串
+        String fieldPrefix = StringUtils.isNotBlank(alias) ? alias + "." : "";
 
         StringBuilder sqlFilter = new StringBuilder();
         sqlFilter.append(" (");
-        if(Objects.equals(dataScope, DataScopeEnum.SELF.getValue())){ // 查询本人数据
-            sqlFilter.append(alias).append(Constant.CREATOR_FIELD).append("=").append(user.getId());
-        }else if(Objects.equals(dataScope, DataScopeEnum.DEPT_ONLY.getValue())){ // 查询部门数据
-            sqlFilter.append(alias).append(dataId).append("=").append(dataScopeList.get(0));
+        if(Objects.equals(dataScope, DataScopeEnum.SELF.getValue())){
+            // 查询本人数据
+            sqlFilter.append(fieldPrefix).append(Constant.CREATOR_FIELD).append("=").append(user.getId());
+        }else if(Objects.equals(dataScope, DataScopeEnum.DEPT_ONLY.getValue())){
+            // 查询部门数据 - 使用用户所属部门ID
+            Long deptId = user.getDeptId();
+            if (deptId != null && deptId > 0) {
+                sqlFilter.append(fieldPrefix).append(dataId).append("=").append(deptId);
+            } else {
+                // 用户没有有效的部门ID，返回空数据（安全降级）
+                logger.warn("用户 {} 的部门ID无效: {}, 将返回空数据", user.getId(), deptId);
+                sqlFilter.append("1=0");
+            }
         }else if(Objects.equals(dataScope, DataScopeEnum.DEPT_AND_CHILD.getValue())
-                || Objects.equals(dataScope, DataScopeEnum.CUSTOM.getValue())){ // 查询本部门及子部门数据数据和自定义数据
-            sqlFilter.append(alias).append(dataId);
-            String inSql = dataScopeList.stream()
-                    .map(String::valueOf)
-                    .collect(Collectors.joining(",", "IN (", ")"));
-
-            sqlFilter.append(" ").append(inSql);
+                || Objects.equals(dataScope, DataScopeEnum.CUSTOM.getValue())){
+            // 查询本部门及子部门数据和自定义数据
+            if (dataScopeList != null && !dataScopeList.isEmpty()) {
+                sqlFilter.append(fieldPrefix).append(dataId);
+                String inSql = dataScopeList.stream()
+                        .map(String::valueOf)
+                        .collect(Collectors.joining(",", " IN (", ")"));
+                sqlFilter.append(inSql);
+            } else {
+                // 数据权限列表为空时，返回 1=0，确保查询不到任何数据
+                sqlFilter.append("1=0");
+            }
         }else {
-            sqlFilter.append(alias).append(Constant.CREATOR_FIELD).append("=").append(user.getId());
+            // 默认情况：查询本人数据
+            sqlFilter.append(fieldPrefix).append(Constant.CREATOR_FIELD).append("=").append(user.getId());
 
         }
         return sqlFilter.append(")").toString();

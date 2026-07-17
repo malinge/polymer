@@ -5,7 +5,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import static com.polymer.framework.common.constant.Constant.DEFAULT_ALIAS;
 import static com.polymer.framework.common.constant.Constant.DEFAULT_DATA_FIELD;
 
 /**
@@ -23,7 +22,7 @@ public @interface DataScope {
     /**
      * 表别名设置
      */
-    String alias() default DEFAULT_ALIAS;
+    String alias() default "";
 
     /**
      * 数据权限表字段名

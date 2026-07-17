@@ -131,6 +131,9 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void dataScope(SysRoleDataScopeVO vo) {
+        if (vo.getDataScope().equals(DataScopeEnum.CUSTOM.getValue()) && vo.getDeptIdList().isEmpty()) {
+            throw new ServiceException("请选择自定义数据权限！");
+        }
         SysRoleEntity entity = sysRoleMapper.selectSysRoleById(vo.getId());
         entity.setDataScope(vo.getDataScope());
         // 更新角色
