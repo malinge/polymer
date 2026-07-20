@@ -11,7 +11,7 @@
  Target Server Version : 50728 (5.7.28)
  File Encoding         : 65001
 
- Date: 15/07/2026 15:56:37
+ Date: 20/07/2026 15:50:02
 */
 
 SET NAMES utf8mb4;
@@ -594,7 +594,7 @@ CREATE TABLE `qrtz_scheduler_state`  (
 -- ----------------------------
 -- Records of qrtz_scheduler_state
 -- ----------------------------
-INSERT INTO `qrtz_scheduler_state` VALUES ('PolymerScheduler', 'DESKTOP-F2SPVI51784102114952', 1784102173152, 15000);
+INSERT INTO `qrtz_scheduler_state` VALUES ('PolymerScheduler', 'DESKTOP-F2SPVI51784513357588', 1784533498407, 15000);
 
 -- ----------------------------
 -- Table structure for qrtz_simple_triggers
@@ -671,7 +671,7 @@ CREATE TABLE `qrtz_triggers`  (
 -- ----------------------------
 -- Records of qrtz_triggers
 -- ----------------------------
-INSERT INTO `qrtz_triggers` VALUES ('PolymerScheduler', 'TASK_NAME_6', 'system', 'TASK_NAME_6', 'system', NULL, 1784127600000, -1, 5, 'PAUSED', 'CRON', 1784102115000, 0, NULL, 2, '');
+INSERT INTO `qrtz_triggers` VALUES ('PolymerScheduler', 'TASK_NAME_6', 'system', 'TASK_NAME_6', 'system', NULL, 1784559600000, -1, 5, 'PAUSED', 'CRON', 1784513357000, 0, NULL, 2, '');
 
 -- ----------------------------
 -- Table structure for schedule_job
@@ -693,7 +693,7 @@ CREATE TABLE `schedule_job`  (
   `updater` bigint(20) NULL DEFAULT NULL COMMENT '更新者',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '定时任务' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '定时任务' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of schedule_job
@@ -723,13 +723,6 @@ CREATE TABLE `schedule_job_log`  (
 -- ----------------------------
 -- Records of schedule_job_log
 -- ----------------------------
-INSERT INTO `schedule_job_log` VALUES (1, 6, '物理删除14天前的错误日志', 'system', 'errorLogCleanTask', 'run', '', 1, NULL, 12, '2024-10-11 15:02:57');
-INSERT INTO `schedule_job_log` VALUES (2, 6, '物理删除14天前的错误日志', 'system', 'errorLogCleanTask', 'run', '', 1, NULL, 5, '2024-10-11 15:04:39');
-INSERT INTO `schedule_job_log` VALUES (3, 6, '物理删除14天前的错误日志', 'system', 'errorLogCleanTask', 'run', NULL, 1, NULL, 13, '2025-05-08 09:22:13');
-INSERT INTO `schedule_job_log` VALUES (4, 7, '重新加载appid和appSecret', 'system', 'appIdCleanTask', 'run', NULL, 1, NULL, 17, '2025-05-09 13:26:31');
-INSERT INTO `schedule_job_log` VALUES (5, 6, '物理删除14天前的错误日志', 'system', 'errorLogCleanTask', 'run', NULL, 1, NULL, 37, '2025-10-11 10:09:47');
-INSERT INTO `schedule_job_log` VALUES (6, 6, '物理删除14天前的错误日志', 'system', 'errorLogCleanTask', 'run', NULL, 1, NULL, 4, '2025-10-11 10:10:46');
-INSERT INTO `schedule_job_log` VALUES (7, 6, '物理删除14天前的错误日志', 'system', 'errorLogCleanTask', 'run', NULL, 1, NULL, 31, '2025-11-18 10:44:50');
 
 -- ----------------------------
 -- Table structure for sys_app_details
@@ -774,13 +767,6 @@ CREATE TABLE `sys_attachment`  (
 -- ----------------------------
 -- Records of sys_attachment
 -- ----------------------------
-INSERT INTO `sys_attachment` VALUES (1, NULL, NULL, '0e587e04316db09f3ce4a604846acfc6.jpeg', '20251010/0e587e04316db09f3ce4a604846acfc6_1760085299.jpeg', 50890, NULL, 'LOCAL', 10000, '2025-10-10 16:34:59', NULL, NULL);
-INSERT INTO `sys_attachment` VALUES (3, NULL, NULL, '20250701-关于河北省公共资源交易推进“一张网”工作的建议-V2.0.pdf', '20251119/20250701-关于河北省公共资源交易推进“一张网”工作的建议-V2.0_1763514545.pdf', 9117050, NULL, 'LOCAL', 10000, '2025-11-19 09:09:05', NULL, NULL);
-INSERT INTO `sys_attachment` VALUES (23, NULL, NULL, 'ddd.jpg', '20260622/ddd_1782116506.jpg', 28908, NULL, 'MINIO', 10000, '2026-06-22 16:21:46', NULL, NULL);
-INSERT INTO `sys_attachment` VALUES (30, '2', 'imgcom.polymer.demo.vo.DemoMultipleFilesVO', '0e587e04316db09f3ce4a604846acfc6.jpeg', '20260623/0e587e04316db09f3ce4a604846acfc6_1782183863.jpeg', 50890, NULL, 'MINIO', 10000, '2026-06-23 11:04:32', NULL, NULL);
-INSERT INTO `sys_attachment` VALUES (31, '2', 'filecom.polymer.demo.vo.DemoMultipleFilesVO', '1- 1-2.jpg', '20260623/1- 1-2_1782183870.jpg', 83017, NULL, 'MINIO', 10000, '2026-06-23 11:04:32', NULL, NULL);
-INSERT INTO `sys_attachment` VALUES (100, '1', 'imgcom.polymer.demo.vo.DemoMultipleFilesVO', 'ddd.jpg', '20260623/ddd_1782181601.jpg', 28908, NULL, 'MINIO', 10000, '2026-06-25 09:54:08', NULL, NULL);
-INSERT INTO `sys_attachment` VALUES (101, '1', 'filecom.polymer.demo.vo.DemoMultipleFilesVO', 'a07d952853b5486790cf67b642f262c5!180X180.jpeg', '20260623/a07d952853b5486790cf67b642f262c5!180X180_1782181617.jpeg', 53566, NULL, 'MINIO', 10000, '2026-06-25 09:54:08', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sys_city
@@ -4973,22 +4959,29 @@ CREATE TABLE `sys_dept`  (
   `type` int(11) NULL DEFAULT NULL COMMENT '类型（1：公司；2：子公司；3：部门；4：小组）',
   `leader_id` bigint(20) NULL DEFAULT NULL COMMENT '负责人ID',
   `sort` int(11) NULL DEFAULT NULL COMMENT '排序',
-  `dept_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '部门路径（用于查询子类）',
+  `dept_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '部门路径（用于查询子类）',
   `creator` bigint(20) NULL DEFAULT NULL COMMENT '创建者',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `updater` bigint(20) NULL DEFAULT NULL COMMENT '更新者',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_pid`(`pid`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '部门管理' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 30 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '部门管理' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_dept
 -- ----------------------------
-INSERT INTO `sys_dept` VALUES (1, NULL, '公司', 1, 10003, 0, '/1/', 10000, '2023-10-09 08:57:09', 10000, '2026-06-10 10:38:43');
-INSERT INTO `sys_dept` VALUES (2, 1, '研发部门', 3, NULL, 0, '/1/2/', 10000, '2025-07-24 15:28:08', 10000, '2025-08-12 15:58:59');
-INSERT INTO `sys_dept` VALUES (3, 2, '部门小组测试长度12123长长长长长长长长长长长长长长', 4, NULL, 1, '/1/2/3/', 10000, '2025-07-25 08:57:03', 10000, '2025-08-12 15:08:03');
-INSERT INTO `sys_dept` VALUES (4, 2, '部门小组2', 4, NULL, 0, '/1/2/4/', 10000, '2025-08-12 15:07:52', 10000, '2025-08-12 15:59:49');
+INSERT INTO `sys_dept` VALUES (1, NULL, '聚合科技', 1, 10003, 0, '/1/', 10000, '2023-10-09 08:57:09', 10000, '2026-07-20 09:37:30');
+INSERT INTO `sys_dept` VALUES (2, 6, '研发部门', 3, NULL, 0, '/1/6/2/', 10000, '2025-07-24 15:28:08', 10000, '2026-07-20 09:38:52');
+INSERT INTO `sys_dept` VALUES (6, 1, '石家庄总公司', 1, NULL, 0, '/1/6/', 10000, '2026-07-20 09:38:29', 10000, '2026-07-20 09:38:29');
+INSERT INTO `sys_dept` VALUES (7, 1, '郑州分公司', 1, NULL, 1, '/1/7/', 10000, '2026-07-20 09:39:09', 10000, '2026-07-20 09:39:18');
+INSERT INTO `sys_dept` VALUES (8, 6, '市场部门', 3, NULL, 1, '/1/6/8/', 10000, '2026-07-20 09:52:56', 10000, '2026-07-20 09:53:04');
+INSERT INTO `sys_dept` VALUES (9, 6, '测试部门', 3, NULL, 2, '/1/6/9/', 10000, '2026-07-20 09:53:29', 10000, '2026-07-20 09:53:36');
+INSERT INTO `sys_dept` VALUES (10, 6, '财务部门', 3, NULL, 3, '/1/6/10/', 10000, '2026-07-20 09:54:13', 10000, '2026-07-20 09:54:25');
+INSERT INTO `sys_dept` VALUES (11, 6, '运维部门', 3, NULL, 4, '/1/6/11/', 10000, '2026-07-20 09:54:39', 10000, '2026-07-20 09:54:39');
+INSERT INTO `sys_dept` VALUES (12, 7, '市场部门', 3, NULL, 2, '/1/7/12/', 10000, '2026-07-20 09:54:52', 10000, '2026-07-20 10:23:28');
+INSERT INTO `sys_dept` VALUES (13, 7, '财务部门', 3, NULL, 1, '/1/7/13/', 10000, '2026-07-20 09:55:06', 10000, '2026-07-20 09:55:06');
+INSERT INTO `sys_dept` VALUES (14, 7, '研发部门', 3, NULL, 0, '/1/7/14/', 10000, '2026-07-20 10:23:17', 10000, '2026-07-20 10:23:17');
 
 -- ----------------------------
 -- Table structure for sys_dict_data
@@ -5020,10 +5013,10 @@ INSERT INTO `sys_dict_data` VALUES (5, 2, '未知', '2', 'warning', '', 2, 10000
 INSERT INTO `sys_dict_data` VALUES (6, 3, '正常', '1', 'primary', '', 0, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
 INSERT INTO `sys_dict_data` VALUES (7, 3, '停用', '0', 'danger', '', 1, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
 INSERT INTO `sys_dict_data` VALUES (8, 4, '全部数据', '0', '', '', 0, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
-INSERT INTO `sys_dict_data` VALUES (9, 4, '本部门及子部门数据', '1', '', '', 0, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
-INSERT INTO `sys_dict_data` VALUES (10, 4, '本部门数据', '2', '', '', 0, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
-INSERT INTO `sys_dict_data` VALUES (11, 4, '本人数据', '3', '', '', 0, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
-INSERT INTO `sys_dict_data` VALUES (12, 4, '自定义数据', '4', '', '', 0, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
+INSERT INTO `sys_dict_data` VALUES (9, 4, '自定义数据', '1', '', '', 1, 10000, '2023-07-11 11:05:38', 10000, '2026-07-17 08:47:57');
+INSERT INTO `sys_dict_data` VALUES (10, 4, '本部门及子部门数据', '2', '', '', 2, 10000, '2023-07-11 11:05:38', 10000, '2026-07-17 08:48:01');
+INSERT INTO `sys_dict_data` VALUES (11, 4, '本部门数据', '3', '', '', 3, 10000, '2023-07-11 11:05:38', 10000, '2026-07-17 08:48:06');
+INSERT INTO `sys_dict_data` VALUES (12, 4, '本人数据', '4', '', '', 4, 10000, '2023-07-11 11:05:38', 10000, '2026-07-17 08:48:11');
 INSERT INTO `sys_dict_data` VALUES (13, 5, '禁用', '0', 'danger', '', 1, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
 INSERT INTO `sys_dict_data` VALUES (14, 5, '启用', '1', 'primary', '', 0, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
 INSERT INTO `sys_dict_data` VALUES (15, 6, '失败', '0', 'danger', '', 1, 10000, '2023-07-11 11:05:38', 10000, '2023-07-11 11:05:38');
@@ -5055,7 +5048,7 @@ INSERT INTO `sys_dict_data` VALUES (40, 14, '开启', '1', 'primary', '开启', 
 INSERT INTO `sys_dict_data` VALUES (41, 14, '关闭', '0', 'info', '关闭', 1, 10000, '2024-04-10 14:24:55', 10000, '2024-04-10 14:24:55');
 INSERT INTO `sys_dict_data` VALUES (42, 15, '系统消息', '0', 'primary', '系统消息', 0, 10000, '2024-04-10 15:57:25', 10000, '2024-04-10 15:57:25');
 INSERT INTO `sys_dict_data` VALUES (43, 15, '通知公告', '1', 'success', '通知公告', 1, 10000, '2024-04-10 15:57:42', 10000, '2024-04-10 15:57:42');
-INSERT INTO `sys_dict_data` VALUES (44, 16, '公司', '1', 'primary', NULL, 0, 10000, '2025-07-04 15:14:09', NULL, NULL);
+INSERT INTO `sys_dict_data` VALUES (44, 16, '公司', '1', 'primary', NULL, 0, 10000, '2025-07-04 15:14:09', 10000, '2026-07-20 14:14:25');
 INSERT INTO `sys_dict_data` VALUES (45, 16, '子公司', '2', 'success', NULL, 1, 10000, '2025-07-04 15:14:28', NULL, NULL);
 INSERT INTO `sys_dict_data` VALUES (46, 16, '部门', '3', 'info', NULL, 2, 10000, '2025-07-04 15:14:51', NULL, NULL);
 INSERT INTO `sys_dict_data` VALUES (47, 16, '小组', '4', 'warning', NULL, 3, 10000, '2025-07-04 15:15:03', 10000, '2025-07-04 16:09:14');
@@ -5150,51 +5143,6 @@ CREATE TABLE `sys_import_export_record`  (
 -- ----------------------------
 -- Records of sys_import_export_record
 -- ----------------------------
-INSERT INTO `sys_import_export_record` VALUES (36, 'admin', 'user', 'import', 1, 1, 0, 0, 'skip', NULL, '20260702/用户导入模板_1782979685.xlsx', '导入总数据1条，导入成功1条，失败0条', NULL, 10000, '2026-07-02 16:08:06', NULL, '2026-07-02 16:08:06');
-INSERT INTO `sys_import_export_record` VALUES (37, 'admin', 'user', 'import', 1, 0, 1, 1, 'skip', '20260702/data_1782979731466_1782979731.xlsx', '20260702/用户导入模板_1782979731.xlsx', '导入总数据1条，导入成功0条，失败1条（其中跳过1条）', NULL, 10000, '2026-07-02 16:08:52', NULL, '2026-07-02 16:08:51');
-INSERT INTO `sys_import_export_record` VALUES (38, 'admin', 'user', 'import', 1, 1, 0, 1, 'update', NULL, '20260702/用户导入模板_1782979850.xlsx', '导入总数据1条，导入成功1条，失败0条', NULL, 10000, '2026-07-02 16:10:51', NULL, '2026-07-02 16:10:50');
-INSERT INTO `sys_import_export_record` VALUES (39, 'admin', 'user', 'import', 1, 0, 1, 1, 'skip', '20260702/data_1782980414705_1782980414.xlsx', '20260702/用户导入模板_1782980414.xlsx', '导入总数据1条，导入成功0条，失败1条（其中跳过1条）', NULL, 10000, '2026-07-02 16:20:15', NULL, '2026-07-02 16:20:14');
-INSERT INTO `sys_import_export_record` VALUES (40, 'admin', 'user', 'import', 1, 0, 1, 1, 'skip', '20260702/data_1782980446856_1782980446.xlsx', '20260702/用户导入模板_1782980446.xlsx', '导入总数据1条，导入成功0条，失败1条（其中跳过1条）', NULL, 10000, '2026-07-02 16:20:47', NULL, '2026-07-02 16:20:47');
-INSERT INTO `sys_import_export_record` VALUES (41, 'admin', 'user', 'import', 1, 0, 1, 1, 'skip', '20260702/data_1782980513495_1782980513.xlsx', '20260702/用户导入模板_1782980513.xlsx', '导入总数据1条，导入成功0条，失败1条（其中跳过1条）', NULL, 10000, '2026-07-02 16:21:54', NULL, '2026-07-02 16:21:53');
-INSERT INTO `sys_import_export_record` VALUES (42, 'admin', 'user', 'import', 1, 0, 1, 1, 'skip', '20260702/data_1782980574052_1782980574.xlsx', '20260702/用户导入模板_1782980573.xlsx', '导入总数据1条，导入成功0条，失败1条（其中跳过1条）', NULL, 10000, '2026-07-02 16:22:54', NULL, '2026-07-02 16:22:54');
-INSERT INTO `sys_import_export_record` VALUES (43, 'admin', 'user', 'import', 0, 0, 0, 0, 'skip', '20260702/error_用户数据_1782981296.xlsx', '20260702/用户数据_1782981294.xlsx', '导入总数据0条，导入成功0条，失败0条', NULL, 10000, '2026-07-02 16:34:57', NULL, '2026-07-02 16:34:56');
-INSERT INTO `sys_import_export_record` VALUES (44, 'admin', 'user', 'import', 0, 0, 0, 0, 'skip', '20260702/error_文件_1782981304656_1782981909.xlsx', '20260702/文件_1782981304656_1782981909.xlsx', '导入总数据0条，导入成功0条，失败0条', NULL, 10000, '2026-07-02 16:45:09', NULL, '2026-07-02 16:45:09');
-INSERT INTO `sys_import_export_record` VALUES (45, 'admin', 'user', 'import', 0, 0, 0, 0, 'skip', '20260702/error_文件_1782981304656_1782981977.xlsx', '20260702/文件_1782981304656_1782981977.xlsx', '导入总数据0条，导入成功0条，失败0条', NULL, 10000, '2026-07-02 16:46:17', NULL, '2026-07-02 16:46:17');
-INSERT INTO `sys_import_export_record` VALUES (46, 'admin', 'user', 'import', 0, 0, 0, 0, 'skip', '20260702/error_文件_1782981304656_1782982196.xlsx', '20260702/文件_1782981304656_1782982093.xlsx', '导入总数据0条，导入成功0条，失败0条', NULL, 10000, '2026-07-02 16:49:57', NULL, '2026-07-02 16:49:57');
-INSERT INTO `sys_import_export_record` VALUES (47, 'admin', 'user', 'import', 0, 0, 0, 0, 'skip', '20260702/error_用户导入模板 _1782982469.xlsx', '20260702/用户导入模板 _1782982469.xlsx', '导入总数据0条，导入成功0条，失败0条', NULL, 10000, '2026-07-02 16:54:30', NULL, '2026-07-02 16:54:29');
-INSERT INTO `sys_import_export_record` VALUES (48, 'admin', 'user', 'import', 0, 0, 0, 0, 'skip', '20260702/error_用户导入模板 _1782982638.xlsx', '20260702/用户导入模板 _1782982621.xlsx', '导入总数据0条，导入成功0条，失败0条', NULL, 10000, '2026-07-02 16:57:19', NULL, '2026-07-02 16:57:18');
-INSERT INTO `sys_import_export_record` VALUES (49, 'admin', 'user', 'import', 1, 0, 1, 0, 'skip', '20260702/error_用户导入模板 _1782982713.xlsx', '20260702/用户导入模板 _1782982684.xlsx', '导入总数据1条，导入成功0条，失败1条', NULL, 10000, '2026-07-02 16:58:33', NULL, '2026-07-02 16:58:33');
-INSERT INTO `sys_import_export_record` VALUES (50, 'admin', 'user', 'import', 1, 0, 1, 0, 'skip', '20260702/error_用户导入模板 _1782982800.xlsx', '20260702/用户导入模板 _1782982793.xlsx', '导入总数据1条，导入成功0条，失败1条', NULL, 10000, '2026-07-02 17:00:01', NULL, '2026-07-02 17:00:00');
-INSERT INTO `sys_import_export_record` VALUES (51, 'admin', 'user', 'import', 1, 0, 1, 0, 'skip', '20260702/error_文件_1782981304656_1782982830.xlsx', '20260702/文件_1782981304656_1782982825.xlsx', '导入总数据1条，导入成功0条，失败1条', NULL, 10000, '2026-07-02 17:00:31', NULL, '2026-07-02 17:00:30');
-INSERT INTO `sys_import_export_record` VALUES (52, 'admin', 'user', 'import', 1, 0, 1, 0, 'skip', '20260702/error_文件_1782981304656_1782982949.xlsx', '20260702/文件_1782981304656_1782982898.xlsx', '导入总数据1条，导入成功0条，失败1条', NULL, 10000, '2026-07-02 17:02:29', NULL, '2026-07-02 17:02:29');
-INSERT INTO `sys_import_export_record` VALUES (53, 'admin', 'user', 'import', 1, 0, 1, 0, 'skip', '20260702/error_文件_1782981304656_1782983711.xlsx', '20260702/文件_1782981304656_1782983710.xlsx', '导入总数据1条，导入成功0条，失败1条', NULL, 10000, '2026-07-02 17:15:11', NULL, '2026-07-02 17:15:11');
-INSERT INTO `sys_import_export_record` VALUES (54, 'admin', 'user', 'import', 1, 0, 1, 0, 'skip', '20260702/error_错误_1782984204.xlsx', '20260702/错误_1782984202.xlsx', '导入总数据1条，导入成功0条，失败1条', NULL, 10000, '2026-07-02 17:23:25', NULL, '2026-07-02 17:23:24');
-INSERT INTO `sys_import_export_record` VALUES (55, 'admin', 'user', 'import', 1, 0, 1, 0, 'skip', '20260702/error_文件_1782981304656_1782984239.xlsx', '20260702/文件_1782981304656_1782984239.xlsx', '导入总数据1条，导入成功0条，失败1条', NULL, 10000, '2026-07-02 17:24:00', NULL, '2026-07-02 17:23:59');
-INSERT INTO `sys_import_export_record` VALUES (56, 'admin', 'user', 'import', 1, 0, 1, 0, 'skip', '20260702/error_用户导入模板 _1782984262.xlsx', '20260702/用户导入模板 _1782984262.xlsx', '导入总数据1条，导入成功0条，失败1条', NULL, 10000, '2026-07-02 17:24:23', NULL, '2026-07-02 17:24:22');
-INSERT INTO `sys_import_export_record` VALUES (57, 'admin', 'user', 'export', 3, 0, 0, 0, NULL, NULL, '20260703/data_1783044286967_1783044286.xlsx', NULL, NULL, 10000, '2026-07-03 10:04:47', NULL, '2026-07-03 10:04:47');
-INSERT INTO `sys_import_export_record` VALUES (58, 'admin', 'logLogin', 'export', 1, 0, 0, 0, NULL, NULL, '20260703/data_1783044825667_1783044825.xlsx', NULL, NULL, 10000, '2026-07-03 10:13:46', NULL, '2026-07-03 10:13:45');
-INSERT INTO `sys_import_export_record` VALUES (59, 'admin', 'user', 'import', 1, 0, 1, 0, 'skip', '20260703/error_用户导入模板 _1782982793_1783044918.xlsx', '20260703/用户导入模板 _1782982793_1783044917.xlsx', '导入总数据1条，导入成功0条，失败1条', NULL, 10000, '2026-07-03 10:15:18', NULL, '2026-07-03 10:15:18');
-INSERT INTO `sys_import_export_record` VALUES (60, 'admin', 'logLogin', 'export', 1, 1, 0, 0, NULL, NULL, '20260703/data_1783045232761_1783045232.xlsx', NULL, NULL, 10000, '2026-07-03 10:20:33', NULL, '2026-07-03 10:20:32');
-INSERT INTO `sys_import_export_record` VALUES (61, 'admin', 'logLogin', 'export', 1, 1, 0, 0, NULL, NULL, '20260703/data_1783045918779_1783045918.xlsx', NULL, NULL, 10000, '2026-07-03 10:31:59', NULL, '2026-07-03 10:31:58');
-INSERT INTO `sys_import_export_record` VALUES (62, 'admin', 'logLogin', 'export', 1, 1, 0, 0, NULL, NULL, '20260703/data_1783045930506_1783045930.xlsx', NULL, NULL, 10000, '2026-07-03 10:32:11', NULL, '2026-07-03 10:32:10');
-INSERT INTO `sys_import_export_record` VALUES (63, 'admin', 'logLogin', 'export', 1, 1, 0, 0, NULL, NULL, '20260703/data_1783045932236_1783045932.xlsx', NULL, NULL, 10000, '2026-07-03 10:32:12', NULL, '2026-07-03 10:32:12');
-INSERT INTO `sys_import_export_record` VALUES (64, 'admin', 'logLogin', 'export', 1, 1, 0, 0, NULL, NULL, '20260703/data_1783045932832_1783045932.xlsx', NULL, NULL, 10000, '2026-07-03 10:32:13', NULL, '2026-07-03 10:32:12');
-INSERT INTO `sys_import_export_record` VALUES (65, 'admin', 'user', 'export', 3, 3, 0, 0, NULL, NULL, '20260703/data_1783046022937_1783046022.xlsx', NULL, NULL, 10000, '2026-07-03 10:33:43', NULL, '2026-07-03 10:33:42');
-INSERT INTO `sys_import_export_record` VALUES (66, 'admin', 'multipleFiles', 'import', 1, 1, 0, 0, 'skip', NULL, '20260709/多文件上传样例导入模板_1783563677.xlsx', '导入总数据1条，导入成功1条，失败0条', NULL, 10000, '2026-07-09 10:21:18', NULL, '2026-07-09 10:21:18');
-INSERT INTO `sys_import_export_record` VALUES (67, 'admin', 'multipleFiles', 'import', 1, 0, 1, 0, 'skip', '20260709/data_1783563731738_1783563731.xlsx', '20260709/多文件上传样例导入模板_1783563731.xlsx', '导入总数据1条，导入成功0条，失败1条', NULL, 10000, '2026-07-09 10:22:12', NULL, '2026-07-09 10:22:11');
-INSERT INTO `sys_import_export_record` VALUES (68, 'admin', 'multipleFiles', 'export', 3, 3, 0, 0, NULL, NULL, '20260709/data_1783563833220_1783563833.xlsx', NULL, NULL, 10000, '2026-07-09 10:23:53', NULL, '2026-07-09 10:23:53');
-INSERT INTO `sys_import_export_record` VALUES (69, 'admin', 'user', 'import', 1, 1, 0, 0, 'skip', NULL, '20260715/用户导入模板 (11)_1784079392.xlsx', '导入总数据1条，导入成功1条，失败0条', NULL, 10000, '2026-07-15 09:39:48', NULL, '2026-07-15 09:39:48');
-INSERT INTO `sys_import_export_record` VALUES (70, 'admin', 'user', 'import', 1, 1, 0, 0, 'skip', NULL, '20260715/用户导入模板 (11)_1784079868.xlsx', '导入总数据1条，导入成功1条，失败0条', NULL, 10000, '2026-07-15 09:45:11', NULL, '2026-07-15 09:45:11');
-INSERT INTO `sys_import_export_record` VALUES (71, 'admin', 'user', 'import', 1, 1, 0, 0, 'skip', NULL, '20260715/用户导入模板 (11)_1784084647.xlsx', '导入总数据1条，导入成功1条，失败0条', NULL, 10000, '2026-07-15 11:04:47', NULL, '2026-07-15 11:04:47');
-INSERT INTO `sys_import_export_record` VALUES (72, 'admin', 'user', 'export', 4, 4, 0, 0, NULL, NULL, '20260715/data_1784096124000_1784096124.xlsx', NULL, NULL, 10000, '2026-07-15 14:15:24', NULL, '2026-07-15 14:15:24');
-INSERT INTO `sys_import_export_record` VALUES (73, 'admin', 'user', 'export', 3, 3, 0, 0, NULL, NULL, '20260715/data_1784096364017_1784096364.xlsx', NULL, NULL, 10000, '2026-07-15 14:19:24', NULL, '2026-07-15 14:19:24');
-INSERT INTO `sys_import_export_record` VALUES (74, 'admin', 'user', 'export', 3, 3, 0, 0, NULL, NULL, '20260715/data_1784096865357_1784096865.xlsx', NULL, NULL, 10000, '2026-07-15 14:27:45', NULL, '2026-07-15 14:27:45');
-INSERT INTO `sys_import_export_record` VALUES (75, 'admin', 'user', 'export', 3, 3, 0, 0, NULL, NULL, '20260715/data_1784097196650_1784097196.xlsx', NULL, NULL, 10000, '2026-07-15 14:33:17', NULL, '2026-07-15 14:33:16');
-INSERT INTO `sys_import_export_record` VALUES (76, 'admin', 'user', 'export', 3, 3, 0, 0, NULL, NULL, '20260715/data_1784097491939_1784097491.xlsx', NULL, NULL, 10000, '2026-07-15 14:38:12', NULL, '2026-07-15 14:38:11');
-INSERT INTO `sys_import_export_record` VALUES (77, 'admin', 'user', 'export', 3, 3, 0, 0, NULL, NULL, '20260715/data_1784097591849_1784097591.xlsx', NULL, NULL, 10000, '2026-07-15 14:39:52', NULL, '2026-07-15 14:39:51');
-INSERT INTO `sys_import_export_record` VALUES (78, 'admin', 'user', 'export', 3, 3, 0, 0, NULL, NULL, '20260715/data_1784097692827_1784097692.xlsx', NULL, NULL, 10000, '2026-07-15 14:41:33', NULL, '2026-07-15 14:41:32');
-INSERT INTO `sys_import_export_record` VALUES (79, 'admin', 'user', 'import', 1, 1, 0, 0, 'skip', NULL, '20260715/用户导入模板 (11)_1784097751.xlsx', '导入总数据1条，导入成功1条，失败0条', NULL, 10000, '2026-07-15 14:42:32', NULL, '2026-07-15 14:42:32');
-INSERT INTO `sys_import_export_record` VALUES (80, 'admin', 'user', 'export', 3, 3, 0, 0, NULL, NULL, '20260715/data_1784097771934_1784097771.xlsx', NULL, NULL, 10000, '2026-07-15 14:42:52', NULL, '2026-07-15 14:42:51');
 
 -- ----------------------------
 -- Table structure for sys_log_error
@@ -5220,7 +5168,7 @@ CREATE TABLE `sys_log_error`  (
   `exception_message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '异常导致的消息',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '错误日志' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '错误日志' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_log_error
@@ -5240,31 +5188,11 @@ CREATE TABLE `sys_log_login`  (
   `operation` tinyint(3) UNSIGNED NULL DEFAULT NULL COMMENT '操作信息   0：登录成功   1：退出成功  2：验证码错误  3：账号密码错误',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 102 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '登录日志' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 142 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '登录日志' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_log_login
 -- ----------------------------
-INSERT INTO `sys_log_login` VALUES (82, 'admin', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0', 1, 0, '2026-07-02 16:03:28');
-INSERT INTO `sys_log_login` VALUES (83, 'admin', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0', 1, 1, '2026-07-09 10:14:44');
-INSERT INTO `sys_log_login` VALUES (84, 'admin', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0', 1, 0, '2026-07-09 10:14:52');
-INSERT INTO `sys_log_login` VALUES (85, 'admin', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0', 1, 1, '2026-07-09 10:17:20');
-INSERT INTO `sys_log_login` VALUES (86, 'admin', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36 Edg/150.0.0.0', 1, 0, '2026-07-09 10:17:25');
-INSERT INTO `sys_log_login` VALUES (87, 'admin', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', 1, 1, '2026-07-14 14:13:16');
-INSERT INTO `sys_log_login` VALUES (88, 'admin', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', 1, 0, '2026-07-14 14:16:05');
-INSERT INTO `sys_log_login` VALUES (89, 'admin', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', 1, 1, '2026-07-14 15:56:45');
-INSERT INTO `sys_log_login` VALUES (90, 'admin', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', 1, 0, '2026-07-14 15:56:50');
-INSERT INTO `sys_log_login` VALUES (91, 'admin', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', 1, 1, '2026-07-14 15:58:19');
-INSERT INTO `sys_log_login` VALUES (92, 'admin', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', 1, 0, '2026-07-14 15:58:24');
-INSERT INTO `sys_log_login` VALUES (93, 'admin', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', 1, 1, '2026-07-14 16:01:29');
-INSERT INTO `sys_log_login` VALUES (94, 'admin', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', 1, 0, '2026-07-14 16:09:01');
-INSERT INTO `sys_log_login` VALUES (95, 'admin', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', 1, 1, '2026-07-15 15:48:46');
-INSERT INTO `sys_log_login` VALUES (96, 'admin', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', 1, 0, '2026-07-15 15:48:53');
-INSERT INTO `sys_log_login` VALUES (97, 'admin', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', 1, 1, '2026-07-15 15:50:50');
-INSERT INTO `sys_log_login` VALUES (98, 'zhangxf', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', 1, 0, '2026-07-15 15:50:59');
-INSERT INTO `sys_log_login` VALUES (99, 'zhangxf', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', 1, 1, '2026-07-15 15:51:25');
-INSERT INTO `sys_log_login` VALUES (100, 'admin', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', 1, 0, '2026-07-15 15:51:32');
-INSERT INTO `sys_log_login` VALUES (101, 'admin', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', 1, 1, '2026-07-15 15:56:16');
 
 -- ----------------------------
 -- Table structure for sys_log_operate
@@ -5288,13 +5216,11 @@ CREATE TABLE `sys_log_operate`  (
   `result_msg` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '返回消息',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 185 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '操作日志' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 290 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '操作日志' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_log_operate
 -- ----------------------------
-INSERT INTO `sys_log_operate` VALUES (183, '用户管理', '删除', '/polymer/sys/user', 'DELETE', '{\"idList\":[10010]}', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', 4, 84, 1, 10000, 'admin', NULL, '2026-07-15 15:50:10');
-INSERT INTO `sys_log_operate` VALUES (184, '角色管理', '修改', '/polymer/sys/role', 'PUT', '{\"vo\":{\"id\":1,\"name\":\"管理员\",\"roleCode\":\"0001\",\"remark\":\"\",\"dataScope\":0,\"menuIdList\":[12,7,33,1,38,123,28,29,30,31,32,40,41,23,24,25,26,27,2,3,4,5,6,18,19,20,21,22,13,14,15,16,17,8,10,9,11,42,34,35,36,37,59,60,61,62,64,63,65,48,50,51,52,53,54,49,90,85,86,87,88,89,83,84,91,82,67,68,69,70,71,77,78,79,80,81,72,73,74,75,76,58,39,46,56,57],\"deptIdList\":[],\"createTime\":\"2023-10-09 09:01:38\"}}', '127.0.0.1', '内网IP', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', 3, 85, 1, 10000, 'admin', NULL, '2026-07-15 15:55:49');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -5498,12 +5424,13 @@ CREATE TABLE `sys_role`  (
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_dept_id`(`dept_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色管理' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色管理' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO `sys_role` VALUES (1, '管理员', '0001', '', 0, NULL, 10000, '2023-10-09 09:01:38', 10000, '2026-07-15 15:55:49');
+INSERT INTO `sys_role` VALUES (1, '管理员', '0001', '', 2, NULL, 10000, '2023-10-09 09:01:38', 10000, '2026-07-17 09:37:32');
+INSERT INTO `sys_role` VALUES (2, '测试角色', 'CSJS', NULL, 2, 1, 10001, '2026-07-17 09:47:28', 10004, '2026-07-17 10:53:56');
 
 -- ----------------------------
 -- Table structure for sys_role_data_scope
@@ -5540,7 +5467,7 @@ CREATE TABLE `sys_role_menu`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_role_id`(`role_id`) USING BTREE,
   INDEX `idx_menu_id`(`menu_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 92 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色菜单关系' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 116 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色菜单关系' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_role_menu
@@ -5568,69 +5495,31 @@ INSERT INTO `sys_role_menu` VALUES (20, 1, 24, 10000, '2023-10-09 09:01:38', 100
 INSERT INTO `sys_role_menu` VALUES (21, 1, 25, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
 INSERT INTO `sys_role_menu` VALUES (22, 1, 26, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
 INSERT INTO `sys_role_menu` VALUES (23, 1, 27, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (24, 1, 1, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (25, 1, 2, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (26, 1, 3, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (27, 1, 4, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (28, 1, 5, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (29, 1, 6, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (30, 1, 59, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (31, 1, 60, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (32, 1, 61, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (33, 1, 62, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (34, 1, 64, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (35, 1, 63, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (36, 1, 65, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (37, 1, 7, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (38, 1, 8, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (39, 1, 10, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (40, 1, 9, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (41, 1, 11, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (42, 1, 42, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (43, 1, 34, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (44, 1, 35, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (45, 1, 36, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (46, 1, 37, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (48, 1, 33, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (50, 1, 48, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (51, 1, 50, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (52, 1, 51, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (53, 1, 52, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (54, 1, 53, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (55, 1, 54, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (56, 1, 49, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (58, 1, 56, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (59, 1, 57, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (60, 1, 58, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (63, 1, 38, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (64, 1, 39, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (65, 1, 46, 10000, '2023-10-09 09:01:38', 10000, '2023-10-09 09:01:38');
-INSERT INTO `sys_role_menu` VALUES (66, 1, 90, 10000, '2025-07-15 10:57:50', NULL, NULL);
-INSERT INTO `sys_role_menu` VALUES (67, 1, 83, 10000, '2025-07-15 10:57:50', NULL, NULL);
-INSERT INTO `sys_role_menu` VALUES (68, 1, 84, 10000, '2025-07-15 10:57:50', NULL, NULL);
-INSERT INTO `sys_role_menu` VALUES (69, 1, 85, 10000, '2026-06-17 16:05:06', NULL, NULL);
-INSERT INTO `sys_role_menu` VALUES (70, 1, 86, 10000, '2026-06-17 16:05:06', NULL, NULL);
-INSERT INTO `sys_role_menu` VALUES (71, 1, 87, 10000, '2026-06-17 16:05:06', NULL, NULL);
-INSERT INTO `sys_role_menu` VALUES (72, 1, 88, 10000, '2026-06-17 16:05:06', NULL, NULL);
-INSERT INTO `sys_role_menu` VALUES (73, 1, 89, 10000, '2026-06-17 16:05:06', NULL, NULL);
-INSERT INTO `sys_role_menu` VALUES (74, 1, 91, 10000, '2026-06-17 16:05:06', NULL, NULL);
-INSERT INTO `sys_role_menu` VALUES (75, 1, 82, 10000, '2026-06-17 16:05:06', NULL, NULL);
-INSERT INTO `sys_role_menu` VALUES (76, 1, 67, 10000, '2026-06-17 16:05:06', NULL, NULL);
-INSERT INTO `sys_role_menu` VALUES (77, 1, 68, 10000, '2026-06-17 16:05:06', NULL, NULL);
-INSERT INTO `sys_role_menu` VALUES (78, 1, 69, 10000, '2026-06-17 16:05:06', NULL, NULL);
-INSERT INTO `sys_role_menu` VALUES (79, 1, 70, 10000, '2026-06-17 16:05:06', NULL, NULL);
-INSERT INTO `sys_role_menu` VALUES (80, 1, 71, 10000, '2026-06-17 16:05:06', NULL, NULL);
-INSERT INTO `sys_role_menu` VALUES (81, 1, 77, 10000, '2026-06-17 16:05:06', NULL, NULL);
-INSERT INTO `sys_role_menu` VALUES (82, 1, 78, 10000, '2026-06-17 16:05:06', NULL, NULL);
-INSERT INTO `sys_role_menu` VALUES (83, 1, 79, 10000, '2026-06-17 16:05:06', NULL, NULL);
-INSERT INTO `sys_role_menu` VALUES (84, 1, 80, 10000, '2026-06-17 16:05:06', NULL, NULL);
-INSERT INTO `sys_role_menu` VALUES (85, 1, 81, 10000, '2026-06-17 16:05:06', NULL, NULL);
-INSERT INTO `sys_role_menu` VALUES (86, 1, 72, 10000, '2026-06-17 16:05:06', NULL, NULL);
-INSERT INTO `sys_role_menu` VALUES (87, 1, 73, 10000, '2026-06-17 16:05:06', NULL, NULL);
-INSERT INTO `sys_role_menu` VALUES (88, 1, 74, 10000, '2026-06-17 16:05:06', NULL, NULL);
-INSERT INTO `sys_role_menu` VALUES (89, 1, 75, 10000, '2026-06-17 16:05:06', NULL, NULL);
-INSERT INTO `sys_role_menu` VALUES (90, 1, 76, 10000, '2026-06-17 16:05:06', NULL, NULL);
 INSERT INTO `sys_role_menu` VALUES (91, 1, 123, 10000, '2026-07-15 15:55:49', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (92, 2, 123, 10001, '2026-07-17 09:47:28', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (93, 2, 12, 10001, '2026-07-17 09:58:00', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (94, 2, 28, 10001, '2026-07-17 09:58:00', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (95, 2, 29, 10001, '2026-07-17 09:58:00', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (96, 2, 30, 10001, '2026-07-17 09:58:00', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (97, 2, 31, 10001, '2026-07-17 09:58:00', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (98, 2, 32, 10001, '2026-07-17 09:58:00', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (99, 2, 40, 10001, '2026-07-17 09:58:00', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (100, 2, 41, 10001, '2026-07-17 09:58:00', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (101, 2, 23, 10001, '2026-07-17 09:58:00', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (102, 2, 24, 10001, '2026-07-17 09:58:00', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (103, 2, 25, 10001, '2026-07-17 09:58:00', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (104, 2, 26, 10001, '2026-07-17 09:58:00', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (105, 2, 27, 10001, '2026-07-17 09:58:00', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (106, 2, 18, 10001, '2026-07-17 09:58:00', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (107, 2, 19, 10001, '2026-07-17 09:58:00', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (108, 2, 20, 10001, '2026-07-17 09:58:00', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (109, 2, 21, 10001, '2026-07-17 09:58:00', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (110, 2, 22, 10001, '2026-07-17 09:58:00', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (111, 2, 13, 10001, '2026-07-17 09:58:00', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (112, 2, 14, 10001, '2026-07-17 09:58:00', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (113, 2, 15, 10001, '2026-07-17 09:58:00', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (114, 2, 16, 10001, '2026-07-17 09:58:00', NULL, NULL);
+INSERT INTO `sys_role_menu` VALUES (115, 2, 17, 10001, '2026-07-17 09:58:00', NULL, NULL);
 
 -- ----------------------------
 -- Table structure for sys_sequence
@@ -5676,14 +5565,14 @@ CREATE TABLE `sys_user`  (
   `updater` bigint(20) NULL DEFAULT NULL COMMENT '更新者',
   `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 10011 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户管理' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 10016 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户管理' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
 INSERT INTO `sys_user` VALUES (10000, 'admin', '{bcrypt}$2a$10$s4xretIdn0Y9BnCvBXyrw.IDn9MA/3INblLj7huQFgGfAAdUiS83S', 'admin', '20260618/123_1781774473.jpg', 1, 'babamu@126.com', '18831139796', '130000000000', '130100000000', '130105000000', 'xx详细地址', NULL, 1, 1, 10000, '2023-07-11 11:05:38', 10000, '2026-06-23 15:22:57');
 INSERT INTO `sys_user` VALUES (10001, 'zhangxf', '{bcrypt}$2a$10$G.A9gcJF1hnqlavtWA2bg.Crr2OmO6kmIPR8W8XkI1iK89ah3EZBS', '张锋', '20260623/1- 1-2_1782185053.jpg', 0, '616026782@qq.com', '18831139797', '130000000000', '130100000000', '130104000000', '二楼', 1, 0, 1, 10000, '2023-10-09 09:02:30', 10000, '2026-06-23 11:24:16');
-INSERT INTO `sys_user` VALUES (10003, 'zhangxf001', '{bcrypt}$2a$10$URj1HyczjbeX7LGHM04E..PQkrekSlikdiKTzLdJINWbsCXPp0xlq', '张锋', '20260623/0e587e04316db09f3ce4a604846acfc6_1782194743.jpeg', 2, '1600965800@qq.com', '17778210375', '130000000000', '130100000000', '130104000000', 'xxx详细地址', 2, 0, 1, 10000, '2025-04-28 09:36:05', 10000, '2026-06-23 14:15:16');
+INSERT INTO `sys_user` VALUES (10003, 'zhangxf001', '{bcrypt}$2a$10$EMdNTHfGmVP/nurhpE5kVe.P4nd06BxR8tEBmChIOSDWeRA9qC63i', '张锋', '20260623/0e587e04316db09f3ce4a604846acfc6_1782194743.jpeg', 0, '1600965800@qq.com', '17778210375', '130000000000', '130100000000', '130104000000', 'xxx详细地址', 6, 0, 1, 10000, '2025-04-28 09:36:05', 10000, '2026-07-20 09:57:09');
 
 -- ----------------------------
 -- Table structure for sys_user_post
@@ -5700,7 +5589,7 @@ CREATE TABLE `sys_user_post`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_user_id`(`user_id`) USING BTREE,
   INDEX `idx_post_id`(`post_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户岗位关系' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户岗位关系' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_user_post
@@ -5723,7 +5612,7 @@ CREATE TABLE `sys_user_role`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_role_id`(`role_id`) USING BTREE,
   INDEX `idx_user_id`(`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户角色关系' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户角色关系' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_user_role
@@ -5743,12 +5632,13 @@ CREATE TABLE `sys_user_token`  (
   `refresh_token_expire` datetime NULL DEFAULT NULL COMMENT 'refreshToken 过期时间',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户Token' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户Token' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_user_token
 -- ----------------------------
-INSERT INTO `sys_user_token` VALUES (11, 10000, '92e7a218a8ef47b5bfa6d06efb28eb3a', '2026-07-15 15:56:17', '6185561ef30a43d98d4b515c98dd3acc', '2026-07-15 15:56:17', '2026-06-17 17:21:43');
-INSERT INTO `sys_user_token` VALUES (12, 10001, '96e1eb0fdb0645e88abe781fe779ccff', '2026-07-15 15:51:25', '83661235f80c488a89efa2d9b7015af7', '2026-07-15 15:51:25', '2026-07-15 15:50:59');
+INSERT INTO `sys_user_token` VALUES (11, 10000, 'c9f764c43e4e4c0593a4decff408fbc6', '2026-07-20 17:36:13', 'deb0b36fe2584f43aa0aca9281a13920', '2026-08-03 15:36:13', '2026-06-17 17:21:43');
+INSERT INTO `sys_user_token` VALUES (12, 10001, '9d991c1c8cd243898bed58dc7b94bea2', '2026-07-17 15:17:07', '3700a4a86d69441892466b6dde12cc26', '2026-07-17 15:17:07', '2026-07-15 15:50:59');
+INSERT INTO `sys_user_token` VALUES (13, 10004, '035f5c82feb446148652b941c07cb99c', '2026-07-17 10:54:00', '19f30cfedcb94966abc598d9670def9e', '2026-07-17 10:54:00', '2026-07-17 09:56:56');
 
 SET FOREIGN_KEY_CHECKS = 1;
