@@ -141,7 +141,7 @@
     </select>
 
     <!--根据部门id获取用户个数-->
-    <select id="selectCountBydeptId" parameterType="Long">
+    <select id="selectCountByDeptId" parameterType="Long">
         select count(id) from sys_user where dept_id = #{deptId}
     </select>
 
