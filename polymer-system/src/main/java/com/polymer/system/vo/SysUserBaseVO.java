@@ -17,6 +17,9 @@ import java.util.List;
 public class SysUserBaseVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @Schema(description = "头像")
+    private String avatar;
+
     @Schema(description = "性别 0：男   1：女   2：未知", requiredMode = Schema.RequiredMode.REQUIRED)
     @Range(min = 0, max = 2, message = "性别不正确")
     private Integer gender;
@@ -43,6 +46,14 @@ public class SysUserBaseVO implements Serializable {
 
     @Schema(description = "所属城市")
     private List<String> city;
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 
     public Integer getGender() {
         return gender;

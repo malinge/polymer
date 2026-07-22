@@ -1,14 +1,16 @@
 package com.polymer.system.service.impl;
 
 import com.polymer.api.message.SmsApi;
+import com.polymer.api.system.user.UserDetail;
 import com.polymer.framework.common.constant.Constant;
+import com.polymer.framework.common.enums.LoginOperationEnum;
 import com.polymer.framework.common.exception.ServiceException;
 import com.polymer.framework.common.utils.RandomUtils;
+import com.polymer.framework.common.utils.StringUtils;
 import com.polymer.framework.security.core.cache.TokenStoreCache;
 import com.polymer.framework.security.core.mobile.MobileAuthenticationToken;
-import com.polymer.api.system.user.UserDetail;
+import com.polymer.framework.security.core.user.SecurityUser;
 import com.polymer.system.entity.SysUserTokenEntity;
-import com.polymer.framework.common.enums.LoginOperationEnum;
 import com.polymer.system.query.SysAccountLoginQuery;
 import com.polymer.system.service.SysAuthService;
 import com.polymer.system.service.SysCaptchaService;
@@ -22,6 +24,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -35,6 +38,8 @@ import javax.annotation.Resource;
 public class SysAuthServiceImpl implements SysAuthService {
     @Resource
     private SysCaptchaService sysCaptchaService;
+    @Resource
+    private PasswordEncoder passwordEncoder;
     @Resource
     private TokenStoreCache tokenStoreCache;
     @Resource
@@ -171,5 +176,19 @@ public class SysAuthServiceImpl implements SysAuthService {
 
         // 保存登录日志
         sysLogLoginService.saveLogLogin(user.getUsername(), Constant.SUCCESS, LoginOperationEnum.LOGOUT_SUCCESS.getValue());
+    }
+
+    @Override
+    public void unlockScreen(String password) {
+        if (StringUtils.isBlank(password)) {
+            throw new ServiceException("密码不能为空");
+        }
+        UserDetail user = SecurityUser.getUser();
+        if (user == null) {
+            throw new ServiceException("服务器超时，请重新登录");
+        }
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new ServiceException("密码错误，请重新输入");
+        }
     }
 }

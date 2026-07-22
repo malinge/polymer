@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -34,7 +35,7 @@ public class SysAuthController {
     @Resource
     private SysAuthService sysAuthService;
 
-    @GetMapping("captcha")
+    @GetMapping("/captcha")
     @Operation(summary = "验证码")
     public Result<SysCaptchaVO> captcha() {
         SysCaptchaVO captchaVO = sysCaptchaService.generate();
@@ -42,7 +43,7 @@ public class SysAuthController {
         return Result.ok(captchaVO);
     }
 
-    @GetMapping("captcha/enabled")
+    @GetMapping("/captcha/enabled")
     @Operation(summary = "是否开启验证码")
     public Result<Boolean> captchaEnabled() {
         boolean enabled = sysCaptchaService.isCaptchaEnabled();
@@ -50,7 +51,7 @@ public class SysAuthController {
         return Result.ok(enabled);
     }
 
-    @PostMapping("login")
+    @PostMapping("/login")
     @Operation(summary = "账号密码登录")
     public Result<SysUserTokenEntity> login(@RequestBody SysAccountLoginQuery login) {
         SysUserTokenEntity token = sysAuthService.loginByAccount(login);
@@ -58,9 +59,9 @@ public class SysAuthController {
         return Result.ok(token);
     }
 
-    @PostMapping("send/code")
+    @PostMapping("/send/code")
     @Operation(summary = "发送短信验证码")
-    public Result<String> sendCode(String mobile) {
+    public Result<String> sendCode(@RequestParam(value = "mobile") String mobile) {
         boolean flag = sysAuthService.sendCode(mobile);
         if (!flag) {
             return Result.error("短信发送失败！");
@@ -69,7 +70,7 @@ public class SysAuthController {
         return Result.ok();
     }
 
-    @PostMapping("mobile")
+    @PostMapping("/mobile")
     @Operation(summary = "手机号登录")
     public Result<SysUserTokenEntity> mobile(@RequestBody SysMobileLoginVO login) {
         SysUserTokenEntity token = sysAuthService.loginByMobile(login);
@@ -77,7 +78,7 @@ public class SysAuthController {
         return Result.ok(token);
     }
 
-    @PostMapping("token")
+    @PostMapping("/token")
     @Operation(summary = "获取 accessToken")
     public Result<AccessTokenVO> token(String refreshToken) {
         AccessTokenVO token = sysAuthService.getAccessToken(refreshToken);
@@ -85,10 +86,18 @@ public class SysAuthController {
         return Result.ok(token);
     }
 
-    @PostMapping("logout")
+    @PostMapping("/logout")
     @Operation(summary = "退出")
     public Result<String> logout(HttpServletRequest request) {
         sysAuthService.logout(TokenUtils.getAccessToken(request));
+
+        return Result.ok();
+    }
+
+    @PostMapping("/unlockScreen")
+    @Operation(summary = "解锁屏幕")
+    public Result<String> unlockScreen(@RequestParam(value = "password") String password) {
+        sysAuthService.unlockScreen(password);
 
         return Result.ok();
     }

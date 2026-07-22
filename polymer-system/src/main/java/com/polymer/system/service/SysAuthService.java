@@ -46,4 +46,6 @@ public interface SysAuthService {
      * @param accessToken accessToken
      */
     void logout(String accessToken);
+
+    void unlockScreen(String password);
 }
