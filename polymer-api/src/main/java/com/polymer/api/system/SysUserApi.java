@@ -1,8 +1,6 @@
 package com.polymer.api.system;
 
 import com.polymer.api.system.dto.SysUserDTO;
-import com.polymer.api.system.user.UserDetail;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
@@ -33,8 +31,4 @@ public interface SysUserApi {
      * @return 用户对象信息集合
      */
     List<SysUserDTO> findUserByUserIds(Collection<Long> userIds);
-
-    UserDetails loadUserByMobile(String mobile);
-
-    UserDetails loadUserByUsername(String username);
 }

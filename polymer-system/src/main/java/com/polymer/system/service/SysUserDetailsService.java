@@ -1,6 +1,6 @@
 package com.polymer.system.service;
 
-import com.polymer.api.system.user.UserDetail;
+import com.polymer.framework.security.core.user.UserDetail;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public interface SysUserDetailsService {

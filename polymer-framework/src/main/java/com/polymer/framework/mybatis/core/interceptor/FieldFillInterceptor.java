@@ -1,7 +1,7 @@
 package com.polymer.framework.mybatis.core.interceptor;
 
 import com.polymer.framework.security.core.user.SecurityUser;
-import com.polymer.api.system.user.UserDetail;
+import com.polymer.framework.security.core.user.UserDetail;
 import org.apache.ibatis.binding.MapperMethod;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;

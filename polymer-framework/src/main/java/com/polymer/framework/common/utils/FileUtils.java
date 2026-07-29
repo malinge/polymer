@@ -1,6 +1,6 @@
 package com.polymer.framework.common.utils;
 
-import com.polymer.api.storage.StorageApi;
+import com.polymer.framework.common.core.service.StorageService;
 import com.polymer.framework.common.core.text.Convert;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
@@ -43,9 +43,8 @@ public class FileUtils {
      * @return 目标文件
      */
     public static String writeImportBytes(byte[] data, String fileName) {
-        StorageApi storageApi = SpringUtils.getBean(StorageApi.class);
-        String path = storageApi.getPath(fileName);
-        return storageApi.upload(data, path);
+        StorageService storageService = SpringUtils.getBean(StorageService.class);
+        return storageService.upload(data, fileName);
     }
 
     /**

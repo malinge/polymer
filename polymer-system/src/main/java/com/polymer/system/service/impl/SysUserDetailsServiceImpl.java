@@ -1,7 +1,7 @@
 package com.polymer.system.service.impl;
 
 import com.polymer.framework.mybatis.core.enums.DataScopeEnum;
-import com.polymer.api.system.user.UserDetail;
+import com.polymer.framework.security.core.user.UserDetail;
 import com.polymer.system.entity.SysRoleEntity;
 import com.polymer.framework.common.enums.UserStatusEnum;
 import com.polymer.system.mapper.SysRoleDataScopeMapper;

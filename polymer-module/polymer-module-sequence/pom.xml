@@ -22,6 +22,11 @@
             <artifactId>polymer-framework</artifactId>
             <version>${revision}</version>
         </dependency>
+        <dependency>
+            <groupId>com.polymer</groupId>
+            <artifactId>polymer-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
 
     </dependencies>
 

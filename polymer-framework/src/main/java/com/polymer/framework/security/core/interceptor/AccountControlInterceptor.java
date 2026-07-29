@@ -4,7 +4,7 @@ import com.polymer.framework.common.exception.ErrorCode;
 import com.polymer.framework.common.pojo.Result;
 import com.polymer.framework.common.utils.JsonUtils;
 import com.polymer.framework.security.core.cache.TokenStoreCache;
-import com.polymer.api.system.user.UserDetail;
+import com.polymer.framework.security.core.user.UserDetail;
 import com.polymer.framework.security.core.utils.TokenUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;

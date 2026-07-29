@@ -5,7 +5,7 @@ import com.polymer.framework.common.exception.ServiceException;
 import com.polymer.framework.common.utils.ConvertUtils;
 import com.polymer.framework.security.core.cache.TokenStoreCache;
 import com.polymer.framework.security.core.properties.SecurityProperties;
-import com.polymer.api.system.user.UserDetail;
+import com.polymer.framework.security.core.user.UserDetail;
 import com.polymer.framework.security.core.utils.TokenUtils;
 import com.polymer.system.entity.SysUserEntity;
 import com.polymer.system.entity.SysUserTokenEntity;

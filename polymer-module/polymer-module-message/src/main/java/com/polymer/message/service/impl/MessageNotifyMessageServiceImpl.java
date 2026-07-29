@@ -10,7 +10,7 @@ import com.polymer.framework.common.utils.ConvertUtils;
 import com.polymer.framework.common.utils.JsonUtils;
 import com.polymer.framework.mybatis.core.utils.MyBatisBatchUtils;
 import com.polymer.framework.security.core.user.SecurityUser;
-import com.polymer.api.system.user.UserDetail;
+import com.polymer.framework.security.core.user.UserDetail;
 import com.polymer.framework.web.websocket.core.MyWebSocketHandler;
 import com.polymer.framework.web.websocket.core.NotifyMessageDTO;
 import com.polymer.message.entity.MessageNotifyMessageEntity;

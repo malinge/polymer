@@ -1,13 +1,13 @@
-package com.polymer.system.api;
+package com.polymer.system.security;
 
-import com.polymer.api.system.SysLogLoginApi;
+import com.polymer.framework.security.core.service.LogLoginService;
 import com.polymer.system.service.SysLogLoginService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
 @Component
-public class SysLogLoginApiImpl implements SysLogLoginApi {
+public class LogLoginServiceImpl implements LogLoginService {
     @Resource
     private SysLogLoginService sysLogLoginService;
 

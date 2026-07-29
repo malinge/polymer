@@ -1,7 +1,7 @@
-package com.polymer.framework.security.core.service;
+package com.polymer.system.security;
 
 import com.polymer.api.message.SmsApi;
-import com.polymer.framework.security.core.mobile.MobileVerifyCodeService;
+import com.polymer.framework.security.core.service.MobileVerifyCodeService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

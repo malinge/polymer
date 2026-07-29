@@ -1,8 +1,8 @@
 package com.polymer.framework.security.config;
 
 import com.polymer.framework.security.core.mobile.MobileAuthenticationProvider;
-import com.polymer.framework.security.core.mobile.MobileUserDetailsService;
-import com.polymer.framework.security.core.mobile.MobileVerifyCodeService;
+import com.polymer.framework.security.core.service.MobileUserDetailsService;
+import com.polymer.framework.security.core.service.MobileVerifyCodeService;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

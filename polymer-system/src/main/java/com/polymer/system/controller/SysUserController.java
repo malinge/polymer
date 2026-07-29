@@ -12,7 +12,7 @@ import com.polymer.framework.idempotent.core.annotation.RepeatSubmit;
 import com.polymer.framework.logger.annotations.OperateLog;
 import com.polymer.framework.logger.enums.OperateTypeEnum;
 import com.polymer.framework.security.core.user.SecurityUser;
-import com.polymer.api.system.user.UserDetail;
+import com.polymer.framework.security.core.user.UserDetail;
 import com.polymer.system.query.SysUserQuery;
 import com.polymer.system.service.SysUserService;
 import com.polymer.system.vo.SysUserBaseVO;

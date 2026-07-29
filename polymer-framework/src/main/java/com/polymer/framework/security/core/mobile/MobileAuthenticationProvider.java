@@ -1,5 +1,7 @@
 package com.polymer.framework.security.core.mobile;
 
+import com.polymer.framework.security.core.service.MobileUserDetailsService;
+import com.polymer.framework.security.core.service.MobileVerifyCodeService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;

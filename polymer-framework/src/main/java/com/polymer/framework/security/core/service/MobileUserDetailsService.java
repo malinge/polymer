@@ -1,4 +1,4 @@
-package com.polymer.framework.security.core.mobile;
+package com.polymer.framework.security.core.service;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  *
  * @author polymer
  */
+@FunctionalInterface
 public interface MobileUserDetailsService {
 
     /**

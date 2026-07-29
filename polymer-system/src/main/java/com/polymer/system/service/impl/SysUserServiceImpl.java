@@ -14,7 +14,7 @@ import com.polymer.framework.common.utils.StringUtils;
 import com.polymer.framework.mybatis.core.utils.MyBatisBatchUtils;
 import com.polymer.framework.security.core.cache.TokenStoreCache;
 import com.polymer.framework.security.core.user.SecurityUser;
-import com.polymer.api.system.user.UserDetail;
+import com.polymer.framework.security.core.user.UserDetail;
 import com.polymer.framework.security.core.utils.TokenUtils;
 import com.polymer.system.entity.SysUserEntity;
 import com.polymer.system.entity.SysUserRoleEntity;

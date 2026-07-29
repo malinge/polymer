@@ -1,9 +1,9 @@
 package com.polymer.framework.security.core.event;
 
-import com.polymer.api.system.SysLogLoginApi;
 import com.polymer.framework.common.constant.Constant;
 import com.polymer.framework.common.enums.LoginOperationEnum;
-import com.polymer.api.system.user.UserDetail;
+import com.polymer.framework.security.core.service.LogLoginService;
+import com.polymer.framework.security.core.user.UserDetail;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.event.AbstractAuthenticationFailureEvent;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 @Component
 public class AuthenticationEvents {
     @Resource
-    private SysLogLoginApi sysLogLoginApi;
+    private LogLoginService logLoginService;
 
     @EventListener
     public void onSuccess(AuthenticationSuccessEvent event) {
@@ -27,7 +27,7 @@ public class AuthenticationEvents {
         UserDetail user = (UserDetail) event.getAuthentication().getPrincipal();
 
         // 保存登录日志
-        sysLogLoginApi.saveLogLogin(user.getUsername(), Constant.SUCCESS, LoginOperationEnum.LOGIN_SUCCESS.getValue());
+        logLoginService.saveLogLogin(user.getUsername(), Constant.SUCCESS, LoginOperationEnum.LOGIN_SUCCESS.getValue());
     }
 
     @EventListener
@@ -36,7 +36,7 @@ public class AuthenticationEvents {
         String username = (String) event.getAuthentication().getPrincipal();
 
         // 保存登录日志
-        sysLogLoginApi.saveLogLogin(username, Constant.FAIL, LoginOperationEnum.ACCOUNT_FAIL.getValue());
+        logLoginService.saveLogLogin(username, Constant.FAIL, LoginOperationEnum.ACCOUNT_FAIL.getValue());
     }
 
 }

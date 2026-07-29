@@ -9,7 +9,7 @@ import com.polymer.framework.common.utils.HttpContextUtils;
 import com.polymer.framework.common.utils.JsonUtils;
 import com.polymer.framework.logger.event.ErrorLogEvent;
 import com.polymer.framework.security.core.user.SecurityUser;
-import com.polymer.api.system.user.UserDetail;
+import com.polymer.framework.security.core.user.UserDetail;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

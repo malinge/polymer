@@ -7,7 +7,7 @@ import com.polymer.framework.common.pojo.PageResult;
 import com.polymer.framework.common.pojo.Result;
 import com.polymer.framework.common.utils.StringUtils;
 import com.polymer.framework.security.core.cache.TokenStoreCache;
-import com.polymer.api.system.user.UserDetail;
+import com.polymer.framework.security.core.user.UserDetail;
 import com.polymer.monitor.vo.UserOnlineVO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

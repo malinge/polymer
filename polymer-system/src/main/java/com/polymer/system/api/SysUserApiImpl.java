@@ -3,12 +3,8 @@ package com.polymer.system.api;
 import com.polymer.api.system.SysUserApi;
 import com.polymer.api.system.dto.SysUserDTO;
 import com.polymer.framework.common.utils.ConvertUtils;
-import com.polymer.api.system.user.UserDetail;
 import com.polymer.system.entity.SysUserEntity;
-import com.polymer.system.service.SysUserDetailsService;
 import com.polymer.system.service.SysUserService;
-import com.polymer.system.vo.SysUserVO;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -28,8 +24,6 @@ import java.util.List;
 public class SysUserApiImpl implements SysUserApi {
     @Resource
     private SysUserService sysUserService;
-    @Resource
-    private SysUserDetailsService sysUserDetailsService;
 
     /**
      * 根据用户id查询邮箱
@@ -53,23 +47,5 @@ public class SysUserApiImpl implements SysUserApi {
     public List<SysUserDTO> findUserByUserIds(Collection<Long> userIds) {
         List<SysUserEntity> userEntities = sysUserService.selectSysUserIds(userIds);
         return ConvertUtils.convertListTo(userEntities, SysUserDTO::new);
-    }
-
-    @Override
-    public UserDetails loadUserByMobile(String mobile) {
-        SysUserVO vo = sysUserService.getByMobile(mobile);
-        if(vo == null){
-            return null;
-        }
-        return sysUserDetailsService.getUserDetails(ConvertUtils.convertTo(vo, UserDetail::new));
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) {
-        SysUserVO vo = sysUserService.getByUsername(username);
-        if(vo == null){
-            return null;
-        }
-        return sysUserDetailsService.getUserDetails(ConvertUtils.convertTo(vo, UserDetail::new));
     }
 }

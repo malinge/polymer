@@ -32,6 +32,11 @@
             <artifactId>spring-boot-starter-freemarker</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.polymer</groupId>
+            <artifactId>polymer-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
             <groupId>com.github.whvcse</groupId>
             <artifactId>easy-captcha</artifactId>
         </dependency>

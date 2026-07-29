@@ -4,7 +4,7 @@ import com.polymer.framework.common.exception.ServiceException;
 import com.polymer.framework.common.utils.ConvertUtils;
 import com.polymer.framework.common.utils.StringUtils;
 import com.polymer.framework.common.utils.TreeUtils;
-import com.polymer.api.system.user.UserDetail;
+import com.polymer.framework.security.core.user.UserDetail;
 import com.polymer.system.entity.SysMenuEntity;
 import com.polymer.framework.common.enums.SuperAdminEnum;
 import com.polymer.system.mapper.SysMenuMapper;

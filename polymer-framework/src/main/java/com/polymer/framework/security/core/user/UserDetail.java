@@ -1,4 +1,4 @@
-package com.polymer.api.system.user;
+package com.polymer.framework.security.core.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;

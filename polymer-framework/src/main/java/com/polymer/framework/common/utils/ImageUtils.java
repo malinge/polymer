@@ -1,6 +1,6 @@
 package com.polymer.framework.common.utils;
 
-import com.polymer.api.storage.StorageApi;
+import com.polymer.framework.common.core.service.StorageService;
 import org.apache.poi.util.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +30,7 @@ public class ImageUtils {
     /**
      * 获取图片字节数组
      *
-     * @param imagePath 图片路径（支持HTTP/HTTPS网络地址或StorageApi存储路径）
+     * @param imagePath 图片路径（支持HTTP/HTTPS网络地址或StorageService存储路径）
      * @return 图片字节数组，加载失败返回null
      */
     public static byte[] getImage(String imagePath) {
@@ -54,7 +54,7 @@ public class ImageUtils {
     /**
      * 获取图片输入流
      *
-     * @param imagePath 图片路径（支持HTTP/HTTPS网络地址或StorageApi存储路径）
+     * @param imagePath 图片路径（支持HTTP/HTTPS网络地址或StorageService存储路径）
      * @return 图片输入流，获取失败返回null
      */
     public static InputStream getFile(String imagePath) {
@@ -79,7 +79,7 @@ public class ImageUtils {
     /**
      * 读取文件为字节数据
      *
-     * @param path 文件路径（支持HTTP/HTTPS网络地址或StorageApi存储路径）
+     * @param path 文件路径（支持HTTP/HTTPS网络地址或StorageService存储路径）
      * @return 字节数据，读取失败返回null
      */
     public static byte[] readFile(String path) {
@@ -119,9 +119,9 @@ public class ImageUtils {
      * 从存储服务读取文件
      */
     private static byte[] readFromStorage(String path) {
-        StorageApi storageApi = SpringUtils.getBean(StorageApi.class);
+        StorageService storageService = SpringUtils.getBean(StorageService.class);
         try {
-            InputStream in = storageApi.getInputStream(path);
+            InputStream in = storageService.getInputStream(path);
             if (in == null) {
                 log.warn("存储服务返回空输入流, path: {}", path);
                 return null;

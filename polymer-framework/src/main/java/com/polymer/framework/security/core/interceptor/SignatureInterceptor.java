@@ -1,10 +1,10 @@
 package com.polymer.framework.security.core.interceptor;
 
-import com.polymer.api.system.SysAppDetailsApi;
 import com.polymer.framework.common.annotation.SignatureCheck;
 import com.polymer.framework.common.cache.RedisCache;
 import com.polymer.framework.common.constant.CacheConstants;
 import com.polymer.framework.common.utils.StringUtils;
+import com.polymer.framework.security.core.service.AppDetailsService;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -33,7 +33,7 @@ public class SignatureInterceptor implements HandlerInterceptor {
     @Resource
     private RedisCache redisCache;
     @Resource
-    private SysAppDetailsApi sysAppDetailsApi;
+    private AppDetailsService appDetailsService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -62,7 +62,7 @@ public class SignatureInterceptor implements HandlerInterceptor {
         }
 
         // 根据appId获取对应的appSecret（例如从数据库或配置中心）
-        String appSecret = sysAppDetailsApi.getAppSecretByAppId(appId);
+        String appSecret = appDetailsService.getAppSecretByAppId(appId);
 
         // 生成服务端签名
         String serverSignature = generateSignature(request, timestamp, nonce, appSecret);

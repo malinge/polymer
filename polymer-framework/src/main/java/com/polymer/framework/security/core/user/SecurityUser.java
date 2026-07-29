@@ -1,6 +1,5 @@
 package com.polymer.framework.security.core.user;
 
-import com.polymer.api.system.user.UserDetail;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**

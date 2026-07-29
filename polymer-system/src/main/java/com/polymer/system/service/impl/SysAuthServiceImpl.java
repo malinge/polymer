@@ -1,7 +1,7 @@
 package com.polymer.system.service.impl;
 
 import com.polymer.api.message.SmsApi;
-import com.polymer.api.system.user.UserDetail;
+import com.polymer.framework.security.core.user.UserDetail;
 import com.polymer.framework.common.constant.Constant;
 import com.polymer.framework.common.enums.LoginOperationEnum;
 import com.polymer.framework.common.exception.ServiceException;

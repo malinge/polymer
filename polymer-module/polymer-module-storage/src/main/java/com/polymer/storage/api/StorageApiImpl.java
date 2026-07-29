@@ -59,7 +59,7 @@ public class StorageApiImpl implements StorageApi {
      *
      * @param data 文件字节数组
      * @param path 文件路径，包含文件名
-     * @return 返回http地址
+     * @return 返回相对路径
      */
     @Override
     public String upload(byte[] data, String path) {
@@ -71,7 +71,7 @@ public class StorageApiImpl implements StorageApi {
      *
      * @param inputStream 字节流
      * @param path        文件路径，包含文件名
-     * @return 返回http地址
+     * @return 返回相对路径
      */
     @Override
     public String upload(InputStream inputStream, String path) {
