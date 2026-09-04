@@ -3,6 +3,7 @@ package com.polymer.sequence.api;
 import com.polymer.api.sequence.SequenceApi;
 import com.polymer.api.sequence.dto.DbSeqDTO;
 import com.polymer.framework.common.utils.DateUtils;
+import com.polymer.sequence.range.SnowflakeIdGenerator;
 import com.polymer.sequence.service.SequenceService;
 import org.springframework.stereotype.Component;
 
@@ -13,8 +14,15 @@ import java.time.LocalDateTime;
 public class SequenceApiImpl implements SequenceApi {
     @Resource
     private SequenceService sequenceService;
+    @Resource
+    private SnowflakeIdGenerator idGenerator;
     @Override
     public String nextNo(DbSeqDTO dto) {
         return String.format("%s%" + dto.getRepair(), DateUtils.format(LocalDateTime.now(), dto.getPureDatetimeFormat()),
                 sequenceService.nextValue(dto.getBizName(), dto.getStep(), dto.getStepStart()));    }
+
+    @Override
+    public Long nextId() {
+        return idGenerator.nextId();
+    }
 }
